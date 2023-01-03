@@ -1,20 +1,24 @@
-import { StyleSheet, Text, View, Button } from 'react-native';
+import { StyleSheet, Text, View, Button, TextInput } from 'react-native';
 
 export default function App() {
   return (
     <View style={styles.container}>
-      <Text style={styles.text}>This is Yannicks app wow insane</Text>
-      <Button title='Tap me!'/>
+      <View>
+        <TextInput placeholder='Course goal'/>
+        <Button title='Add goal'/>
+      </View>
+      <View>
+        <Text>List of goals...</Text>
+      </View>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    backgroundColor: '#fff',
+    padding: 50,
     alignItems: 'center',
-    justifyContent: 'center',
+    justifyContent: 'top',
   },
   // Text styling can be defined outside stylesheet object,
   // but within object VScode will autocomplete
