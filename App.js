@@ -23,8 +23,14 @@ export default function App() {
   ]
 
   return (
-    <View>
+    <View style={styles.cardListContainer}>
       <CardList animals={animals}/>
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+  cardListContainer: {
+      flex: 1,
+  }
+})
