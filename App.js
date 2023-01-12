@@ -1,33 +1,39 @@
-import { StyleSheet, Text, View, Button, TextInput } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
 import CardList from './components/CardList';
+import * as React from 'react';
+import { NavigationContainer } from '@react-navigation/native';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
-export default function App() {
 
-  // Get animals
-  const animals = [
-    {
-      'key': 0,
-      'binomial': 'Mustela Putorius',
-      'commonName': 'European Polecat',
-      'summary': 'Best animal ever.',
-      'image': 'https://upload.wikimedia.org/wikipedia/commons/1/17/Storm_the_polecat.jpg'
-    },
-    {
-      'key': 1,
-      'binomial': 'Alcedo atthis',
-      'commonName': 'Common Kingfisher',
-      'summary': 'The flight of the kingfisher is fast, direct and usually low over water.',
-      'image': 'https://upload.wikimedia.org/wikipedia/commons/9/92/%E2%99%82_Common_Kingfisher_%28Alcedo_atthis%29_Photograph_By_Shantanu_Kuveskar%2C_Mangaon%2C_Maharashtra%2C_India.jpg'
-    },
-
-  ]
-
+function HomeScreen() {
   return (
     <View style={styles.cardListContainer}>
-      <CardList animals={animals}/>
+      <CardList/>
     </View>
   );
 }
+
+function SettingsScreen() {
+  return (
+    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+      <Text>Settings!</Text>
+    </View>
+  );
+}
+
+const Tab = createBottomTabNavigator();
+
+export default function App() {
+  return (
+    <NavigationContainer>
+      <Tab.Navigator>
+        <Tab.Screen name="Home" component={HomeScreen} />
+        <Tab.Screen name="Settings" component={SettingsScreen} />
+      </Tab.Navigator>
+    </NavigationContainer>
+  );
+}
+
 
 const styles = StyleSheet.create({
   cardListContainer: {
