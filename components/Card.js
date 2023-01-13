@@ -52,10 +52,12 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     padding: 10,
     height: 100,
+    marginTop: 10,
   },
   textContainer: {
     flexDirection: 'column',
     justifyContent: 'space-between',
+    marginLeft: 3,
     height: 80,
     flex: 3,
   },

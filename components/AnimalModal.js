@@ -3,7 +3,7 @@ import { Alert, Modal, StyleSheet, Text, Pressable, View, Image } from "react-na
 function AnimalModal(props) {
   const [modalVisible, setModalVisible] = [props.showModal, props.onCloseModal];
   return (
-    <View style={styles.centeredView}>
+    <View style={styles.container}>
       <Modal
         animationType="none"
         transparent={true}
@@ -33,17 +33,22 @@ function AnimalModal(props) {
 };
 
 const styles = StyleSheet.create({
-  centeredView: {
+  container: {
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    marginTop: 22
+  },
+  centeredView: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: "center",
+    alignItems: "center",
   },
   modalView: {
-    margin: 20,
+    margin: 10,
     backgroundColor: "white",
     borderRadius: 20,
-    padding: 35,
+    padding: 20,
     alignItems: "center",
     shadowColor: "#000",
     shadowOffset: {
@@ -59,11 +64,8 @@ const styles = StyleSheet.create({
     padding: 10,
     elevation: 2
   },
-  buttonOpen: {
-    backgroundColor: "#F194FF",
-  },
   buttonClose: {
-    backgroundColor: "#2196F3",
+    backgroundColor: "teal",
   },
   textStyle: {
     color: "white",
