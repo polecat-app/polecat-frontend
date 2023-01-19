@@ -1,9 +1,10 @@
 import { Alert, Modal, StyleSheet, Text, Pressable, View, Image } from "react-native";
+import cardStyle from "../styles/CardStyle";
 
 function AnimalModal(props) {
   const [modalVisible, setModalVisible] = [props.showModal, props.onCloseModal];
   return (
-    <View style={styles.container}>
+    <View style={containerStyle.container}>
       <Modal
         animationType="none"
         transparent={true}
@@ -13,17 +14,19 @@ function AnimalModal(props) {
           setModalVisible(!modalVisible);
         }}
       >
-        <View style={styles.centeredView}>
-          <View style={styles.modalView}>
-            <Text style={styles.modalText}>{props.commonName}</Text>
-            <Text style={styles.modalText}>{props.binomial}</Text>
-            <Text style={styles.modalText}>{props.summary}</Text>
-            <Image style={styles.image} source={{uri: props.image}}/>
+        <View style={modalStyle.centeredView}>
+          <View style={modalStyle.modalView}>
+            <View style={{...cardStyle.textContainer, height: undefined}}>
+              <Text style={cardStyle.commonName}>{props.commonName}</Text>
+              <Text style={cardStyle.binomial}>{props.binomial}</Text>
+              <Text style={cardStyle.summary}>{props.summary}</Text>
+            </View>
+            <Image style={cardStyle.image} source={{uri: props.image}}/>
             <Pressable
-              style={[styles.button, styles.buttonClose]}
+              style={[modalStyle.button, modalStyle.buttonClose]}
               onPress={() => setModalVisible(!modalVisible)}
             >
-              <Text style={styles.textStyle}>Hide Modal</Text>
+              <Text style={modalStyle.textStyle}>Hide Modal</Text>
             </Pressable>
           </View>
         </View>
@@ -32,33 +35,14 @@ function AnimalModal(props) {
   );
 };
 
-const styles = StyleSheet.create({
+const containerStyle = StyleSheet.create({
   container: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  centeredView: {
-    flex: 1,
-    flexDirection: 'row',
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  modalView: {
-    margin: 10,
-    backgroundColor: "white",
-    borderRadius: 20,
-    padding: 20,
-    alignItems: "center",
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 2
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 4,
-    elevation: 5
-  },
+      marginHorizontal: 10,
+      flex: 1,
+  }
+})
+
+const modalStyle = StyleSheet.create({
   button: {
     borderRadius: 20,
     padding: 10,
@@ -72,15 +56,31 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     textAlign: "center"
   },
-  modalText: {
-    marginBottom: 15,
-    textAlign: "center"
+  modalView: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    margin: 10,
+    backgroundColor: "white",
+    borderRadius: 20,
+    padding: 20,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    elevation: 5
   },
-  image: {
-    width: 50,
-    height: 50,
-    borderRadius: 25,
-  }
-});
+  centeredView: {
+    paddingVertical: 45,
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: "center",
+    alignItems: "stretch",
+  },
+})
 
 export default AnimalModal
