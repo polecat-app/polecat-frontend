@@ -4,12 +4,22 @@ import * as React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Ionicons } from '@expo/vector-icons'
+import { useState } from 'react';
+import Animal from './components/Animal';
 
 
 function HomeScreen() {
+
+  // Animal detail page states
+  const [showAnimal, setShowAnimal] = useState(false)
+  const [animalProps, setAnimalProps] = useState({})
+
   return (
     <View style={styles.cardListContainer}>
-      <CardList/>
+      {
+        showAnimal ? <Animal {...animalProps} setShowAnimal={setShowAnimal}/> :
+        <CardList setAnimalProps={setAnimalProps} setShowAnimal={setShowAnimal}/>
+      }
     </View>
   );
 }

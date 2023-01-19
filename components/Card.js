@@ -1,24 +1,11 @@
-import { useState } from "react";
-import { StyleSheet, TouchableOpacity, View, Text, Image } from "react-native";
-import AnimalModal from "./AnimalModal";
+import { TouchableOpacity, View, Text, Image } from "react-native";
 import cardStyle from "../styles/CardStyle"
 
 
 function AnimalCard(props) {
-
-  // Show modal
-  const [showModal, setShowModal] = useState(false);
-  function onClickAnimal() {
-    setShowModal(true)
-  }
-  function onCloseModal() {
-    setShowModal(false)
-  }
-
   return (
     <View>
-      <AnimalModal showModal={showModal} onCloseModal={onCloseModal} {...props}/>
-    <TouchableOpacity onPress={() => setShowModal(true)}>
+    <TouchableOpacity onPress={() => {props.setShowAnimal(true); props.setAnimalProps(props)} }>
     <View style={cardStyle.cardContainer}>
       <View style={cardStyle.textContainer}>
         <Text style={cardStyle.commonName}>

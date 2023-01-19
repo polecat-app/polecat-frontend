@@ -21,7 +21,7 @@ const animals = [
 ]
 
 
-function CardList() {
+function CardList(props) {
     return (
     <ScrollView style={styles.scrollViewContainer}>
         {animals.map((animal) => (
@@ -31,6 +31,8 @@ function CardList() {
             commonName={animal.commonName}
             summary={animal.summary}
             image={animal.image}
+            setAnimalProps={props.setAnimalProps}
+            setShowAnimal={props.setShowAnimal}
             />
         ))}
     </ScrollView>

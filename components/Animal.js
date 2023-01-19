@@ -1,36 +1,25 @@
-import { Alert, Modal, StyleSheet, Text, Pressable, View, Image } from "react-native";
+import { StyleSheet, Text, Pressable, View, Image } from "react-native";
 import cardStyle from "../styles/CardStyle";
 
-function AnimalModal(props) {
-  const [modalVisible, setModalVisible] = [props.showModal, props.onCloseModal];
+function Animal(props) {
   return (
     <View style={containerStyle.container}>
-      <Modal
-        animationType="none"
-        transparent={true}
-        visible={modalVisible}
-        onRequestClose={() => {
-          Alert.alert("Modal has been closed.");
-          setModalVisible(!modalVisible);
-        }}
-      >
         <View style={modalStyle.centeredView}>
-          <View style={modalStyle.modalView}>
+            <View style={modalStyle.modalView}>
             <View style={{...cardStyle.textContainer, height: undefined}}>
-              <Text style={cardStyle.commonName}>{props.commonName}</Text>
-              <Text style={cardStyle.binomial}>{props.binomial}</Text>
-              <Text style={cardStyle.summary}>{props.summary}</Text>
+                <Text style={cardStyle.commonName}>{props.commonName}</Text>
+                <Text style={cardStyle.binomial}>{props.binomial}</Text>
+                <Text style={cardStyle.summary}>{props.summary}</Text>
+								<Pressable
+									style={[modalStyle.button, modalStyle.buttonClose]}
+									onPress={() => props.setShowAnimal(false)}
+								>
+									<Text style={modalStyle.textStyle}>Hide Modal</Text>
+								</Pressable>
             </View>
             <Image style={cardStyle.image} source={{uri: props.image}}/>
-            <Pressable
-              style={[modalStyle.button, modalStyle.buttonClose]}
-              onPress={() => setModalVisible(!modalVisible)}
-            >
-              <Text style={modalStyle.textStyle}>Hide Modal</Text>
-            </Pressable>
-          </View>
+            </View>
         </View>
-      </Modal>
     </View>
   );
 };
@@ -75,7 +64,7 @@ const modalStyle = StyleSheet.create({
     elevation: 5
   },
   centeredView: {
-    paddingVertical: 45,
+    paddingVertical: 10,
     flex: 1,
     flexDirection: 'row',
     justifyContent: "center",
@@ -83,4 +72,4 @@ const modalStyle = StyleSheet.create({
   },
 })
 
-export default AnimalModal
+export default Animal
