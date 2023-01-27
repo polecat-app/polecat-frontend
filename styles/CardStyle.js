@@ -29,7 +29,6 @@ const cardStyle = StyleSheet.create({
     // Text
     commonName: {
       fontWeight: 'bold',
-      ellipsizeMode: 'tail'
     },
     binomial: {
       fontStyle: 'italic',

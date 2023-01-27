@@ -14,9 +14,6 @@ function Animal(props) {
     setlove(!love)
   }
 
-  console.log(props.navigate)
-
-
   return (
   <View style={{backgroundColor: 'white', flex:1, width:'100%'}}>
 
