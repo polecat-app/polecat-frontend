@@ -23,7 +23,6 @@ const Tags = {...SpeciesTags, ...OccuranceTags}
 function Tag(props) {
 
   const [color, icon] = Tags[props.tag]
-  console.log(color, icon)
 
   return (
     <View style={{
