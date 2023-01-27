@@ -37,6 +37,7 @@ const cardStyle = StyleSheet.create({
     summary: {
       flex: 0,
       fontWeight: "300",
+      lineHeight: 20,
     },
   
     // Image

@@ -2,6 +2,7 @@ import { StyleSheet, Text, Pressable, View, Image, Button, ImageBackground, Scro
 import cardStyle from "../styles/CardStyle";
 import { Ionicons } from '@expo/vector-icons'
 import { useState } from "react";
+import Tag from "./Tag";
 
 function Animal(props) {
 
@@ -30,33 +31,16 @@ function Animal(props) {
             size={50} 
             style={modalStyle.close} />
         </Pressable>
-        <Text 
-          style={modalStyle.commonName} 
-          numberOfLines={3}> 
-          {props.commonName}
-        </Text>
-      </View>
 
-      {/* Description Text */}
-      <ScrollView>
-        <View style={modalStyle.titleText}>
+        <View style={{flexDirection: 'row', justifyContent: 'space-between', alignItems: 'flex-end'}}>
           <Text 
-            style={{...cardStyle.binomial, marginVertical: gap / 2}}
-            numberOfLines={3} >
-            {props.binomial}
+            style={modalStyle.commonName} 
+            numberOfLines={3}> 
+            {props.commonName}
           </Text>
-          <ScrollView style={{flexDirection:'row', marginVertical: gap / 2, paddingHorizontal: (gap / -2)}} horizontal={true}>
-              {props.tags.map((tag) => (
-                <Text
-                  key={tag}
-                  style={modalStyle.tagStyle}>
-                  {tag}
-                </Text>
-            ))}
-          </ScrollView>
 
           {/* Buttons */}
-          <View style={modalStyle.topBar}>
+          <View style={modalStyle.buttonSet}>
             <Pressable onPress={() => toggleSeen()}>
               <Ionicons 
                 name={seen? "eye" : "eye-outline"} 
@@ -71,7 +55,29 @@ function Animal(props) {
             </Pressable>
           </View>
 
-          <Text style={{...cardStyle.summary, marginVertical: gap / 2}}>{props.summary}</Text>
+        </View>
+
+
+      </View>
+
+      {/* Description Text */}
+      <ScrollView>
+        <View style={modalStyle.scrollView}>
+          <Text 
+            style={{...cardStyle.binomial, marginVertical: gap / 2}}
+            numberOfLines={3} >
+            {props.binomial}
+          </Text>
+          <ScrollView style={{flexDirection:'row', paddingHorizontal: (gap / -2)}} horizontal={true}>
+              {props.tags.map((tag) => (
+                <Tag key={tag} tag={tag}/>
+            ))}
+          </ScrollView>
+          <Text 
+            style={{...cardStyle.summary, marginVertical: gap / 2, textAlign:'justify'}}
+            >
+              {props.summary}
+          </Text>
         </View>
       </ScrollView>
 
@@ -81,19 +87,14 @@ function Animal(props) {
   );
 };
 
-const gap = 10;
+const gap = 20;
 
 const modalStyle = StyleSheet.create({
-  tagStyle: {
-    borderRadius: 20,
-    color: "white",
-    backgroundColor: 'teal',
-    marginHorizontal: gap / 2
-  },
   commonName: {
     fontWeight: 'bold', 
     color:'white',
     fontSize: 25,
+    flex:3
   },
   onImage: {
     height: 320,
@@ -107,25 +108,12 @@ const modalStyle = StyleSheet.create({
     width: '100%',
     justifyContent: 'center',
   },
-  titleText: {
+  scrollView: {
     marginVertical: 5,
-    padding: 10,
+    padding: 20,
     flexDirection: 'column',
     flex: 1,
     paddingVertical: (gap / -2),
-  },
-  button: {
-    borderRadius: 20,
-    padding: 10,
-    elevation: 2
-  },
-  buttonClose: {
-    backgroundColor: "teal",
-  },
-  textStyle: {
-    color: "white",
-    fontWeight: "bold",
-    textAlign: "center"
   },
   container: {
     flexDirection: 'column',
@@ -134,20 +122,21 @@ const modalStyle = StyleSheet.create({
     height: '100%'
 
   },
-  topBar: {
+  buttonSet: {
+    width: 50,
     flexDirection: 'row',
-    justifyContent: 'flex-end',
+    justifyContent: 'space-evenly',
     flex:1,
   },
   seenUnselected: {
-    color: 'grey',
+    color: 'white',
     opacity: 0.8,
   },
   seenSelected: {
     color: 'teal',
   },
   loveUnselected: {
-    color: 'grey',
+    color: 'white',
     opacity: 0.8,
   },
   loveSelected: {
