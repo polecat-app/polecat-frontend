@@ -18,40 +18,50 @@ function Animal(props) {
 
 
   return (
-  <View style={modalStyle.modalView}>
+  <View style={{backgroundColor: 'white', flex:1, width:'100%'}}>
 
-    {/* Top bar */}
-    <View style={modalStyle.topBar}>
-      <Pressable onPress={() => toggleSeen()}>
-        <Ionicons 
-          name={seen? "eye" : "eye-outline"} 
-          size={32} 
-          style={seen? modalStyle.seenSelected : modalStyle.seenUnselected} />
-      </Pressable>
-      <Pressable onPress={() => toggleLove()}>
-        <Ionicons 
-          name={love? "heart" : "heart-outline"} 
-          size={32} 
-          style={love? modalStyle.loveSelected : modalStyle.loveUnselected} />
-      </Pressable>
-      <Pressable onPress={() => props.setShowAnimal(false)}>
-            <Ionicons 
-              name={"ios-close-circle"} 
-              size={32} 
-              style={modalStyle.close} />
-      </Pressable>
-    </View>
-
-    {/* Image */}
+    {/* Background Image */}
     <ImageBackground style={modalStyle.image} source={{uri: props.image}}/>
 
+    <View style={modalStyle.container}>
 
-    {/* Text */}
-    <Text style={modalStyle.commonName} numberOfLines={3}> {props.commonName}</Text>
+      {/* Elements on Image */}
+      <View style={modalStyle.onImage}>
+        <Pressable onPress={() => props.setShowAnimal(false)}>
+          <Ionicons 
+            name={"ios-close-circle"} 
+            size={50} 
+            style={modalStyle.close} />
+        </Pressable>
+        <Text 
+          style={modalStyle.commonName} 
+          numberOfLines={3}> 
+          {props.commonName}
+        </Text>
+      </View>
 
-    <View style={modalStyle.titleText}>
-      <Text style={cardStyle.binomial}> {props.binomial}</Text>
-      <Text style={cardStyle.summary}>{props.summary}</Text>
+      {/* Buttons */}
+      <View style={modalStyle.topBar}>
+        <Pressable onPress={() => toggleSeen()}>
+          <Ionicons 
+            name={seen? "eye" : "eye-outline"} 
+            size={32} 
+            style={seen? modalStyle.seenSelected : modalStyle.seenUnselected} />
+        </Pressable>
+        <Pressable onPress={() => toggleLove()}>
+          <Ionicons 
+            name={love? "heart" : "heart-outline"} 
+            size={32} 
+            style={love? modalStyle.loveSelected : modalStyle.loveUnselected} />
+        </Pressable>
+      </View>
+
+      {/* Description Text */}
+      <View style={modalStyle.titleText}>
+        <Text style={cardStyle.binomial}> {props.binomial}</Text>
+        <Text style={cardStyle.summary}>{props.summary}</Text>
+      </View>
+    
     </View>
 
   </View>
@@ -60,15 +70,18 @@ function Animal(props) {
 
 const modalStyle = StyleSheet.create({
   commonName: {
-    marginLeft: 10,
     fontWeight: 'bold', 
     color:'white',
-    position: 'absolute',
-    left: 0,
-    right: 0,
-    bottom: 300,
-    marginBottom: 10,
-    fontSize: 25
+    fontSize: 25,
+  },
+  onImage: {
+    height: 320,
+    flex: 1,
+    justifyContent: 'space-between',
+    flexDirection: 'column',
+    zIndex: 5,
+    width:'100%',
+    padding: 10
   },
   image: {
     height: 320,
@@ -95,14 +108,15 @@ const modalStyle = StyleSheet.create({
     fontWeight: "bold",
     textAlign: "center"
   },
-  modalView: {
+  container: {
     flex: 1,
     flexDirection: 'column',
-    justifyContent: 'space-between',
-    backgroundColor: "white",
+    alignContent: 'space-between',
+    position: 'absolute',
+    alignItems: 'stretch',
+    width:'100%',
   },
   topBar: {
-    position: 'absolute',
     top: 10,
     left: 0,
     right: 0,
@@ -127,8 +141,11 @@ const modalStyle = StyleSheet.create({
     color: 'red',
   },
   close: {
+    marginLeft: 10,
+    marginTop: 10,
     color: 'white',
     opacity: 0.8,
+    alignSelf: 'flex-end'
   },
 })
 
