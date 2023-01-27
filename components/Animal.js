@@ -37,27 +37,41 @@ function Animal(props) {
         </Text>
       </View>
 
-      {/* Buttons */}
-      {/* <View style={modalStyle.topBar}>
-        <Pressable onPress={() => toggleSeen()}>
-          <Ionicons 
-            name={seen? "eye" : "eye-outline"} 
-            size={32} 
-            style={seen? modalStyle.seenSelected : modalStyle.seenUnselected} />
-        </Pressable>
-        <Pressable onPress={() => toggleLove()}>
-          <Ionicons 
-            name={love? "heart" : "heart-outline"} 
-            size={32} 
-            style={love? modalStyle.loveSelected : modalStyle.loveUnselected} />
-        </Pressable>
-      </View> */}
-
       {/* Description Text */}
       <ScrollView>
         <View style={modalStyle.titleText}>
-          <Text style={cardStyle.binomial}> {props.binomial}</Text>
-          <Text style={cardStyle.summary}>{props.summary}</Text>
+          <Text 
+            style={{...cardStyle.binomial, marginVertical: gap / 2}}
+            numberOfLines={3} >
+            {props.binomial}
+          </Text>
+          <ScrollView style={{flexDirection:'row', marginVertical: gap / 2, paddingHorizontal: (gap / -2)}} horizontal={true}>
+              {props.tags.map((tag) => (
+                <Text
+                  key={tag}
+                  style={modalStyle.tagStyle}>
+                  {tag}
+                </Text>
+            ))}
+          </ScrollView>
+
+          {/* Buttons */}
+          <View style={modalStyle.topBar}>
+            <Pressable onPress={() => toggleSeen()}>
+              <Ionicons 
+                name={seen? "eye" : "eye-outline"} 
+                size={32} 
+                style={seen? modalStyle.seenSelected : modalStyle.seenUnselected} />
+            </Pressable>
+            <Pressable onPress={() => toggleLove()}>
+              <Ionicons 
+                name={love? "heart" : "heart-outline"} 
+                size={32} 
+                style={love? modalStyle.loveSelected : modalStyle.loveUnselected} />
+            </Pressable>
+          </View>
+
+          <Text style={{...cardStyle.summary, marginVertical: gap / 2}}>{props.summary}</Text>
         </View>
       </ScrollView>
 
@@ -67,7 +81,15 @@ function Animal(props) {
   );
 };
 
+const gap = 10;
+
 const modalStyle = StyleSheet.create({
+  tagStyle: {
+    borderRadius: 20,
+    color: "white",
+    backgroundColor: 'teal',
+    marginHorizontal: gap / 2
+  },
   commonName: {
     fontWeight: 'bold', 
     color:'white',
@@ -86,10 +108,11 @@ const modalStyle = StyleSheet.create({
     justifyContent: 'center',
   },
   titleText: {
+    marginVertical: 5,
     padding: 10,
     flexDirection: 'column',
     flex: 1,
-    gap: 10,
+    paddingVertical: (gap / -2),
   },
   button: {
     borderRadius: 20,
@@ -112,24 +135,19 @@ const modalStyle = StyleSheet.create({
 
   },
   topBar: {
-    top: 10,
-    left: 0,
-    right: 0,
-    padding: 10,
     flexDirection: 'row',
-    justifyContent: 'space-around',
-    zIndex: 3,
+    justifyContent: 'flex-end',
     flex:1,
   },
   seenUnselected: {
-    color: 'white',
+    color: 'grey',
     opacity: 0.8,
   },
   seenSelected: {
-    color: '#B2FFE4',
+    color: 'teal',
   },
   loveUnselected: {
-    color: 'white',
+    color: 'grey',
     opacity: 0.8,
   },
   loveSelected: {

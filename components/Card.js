@@ -3,6 +3,7 @@ import cardStyle from "../styles/CardStyle"
 
 
 function AnimalCard(props) {
+
   return (
     <View>
     <TouchableOpacity onPress={() => {props.setShowAnimal(true); props.setAnimalProps(props)} }>
