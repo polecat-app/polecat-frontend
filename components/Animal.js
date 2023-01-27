@@ -1,4 +1,4 @@
-import { StyleSheet, Text, Pressable, View, Image, Button, ImageBackground } from "react-native";
+import { StyleSheet, Text, Pressable, View, Image, Button, ImageBackground, ScrollView } from "react-native";
 import cardStyle from "../styles/CardStyle";
 import { Ionicons } from '@expo/vector-icons'
 import { useState } from "react";
@@ -41,7 +41,7 @@ function Animal(props) {
       </View>
 
       {/* Buttons */}
-      <View style={modalStyle.topBar}>
+      {/* <View style={modalStyle.topBar}>
         <Pressable onPress={() => toggleSeen()}>
           <Ionicons 
             name={seen? "eye" : "eye-outline"} 
@@ -54,14 +54,16 @@ function Animal(props) {
             size={32} 
             style={love? modalStyle.loveSelected : modalStyle.loveUnselected} />
         </Pressable>
-      </View>
+      </View> */}
 
       {/* Description Text */}
-      <View style={modalStyle.titleText}>
-        <Text style={cardStyle.binomial}> {props.binomial}</Text>
-        <Text style={cardStyle.summary}>{props.summary}</Text>
-      </View>
-    
+      <ScrollView>
+        <View style={modalStyle.titleText}>
+          <Text style={cardStyle.binomial}> {props.binomial}</Text>
+          <Text style={cardStyle.summary}>{props.summary}</Text>
+        </View>
+      </ScrollView>
+
     </View>
 
   </View>
@@ -76,11 +78,9 @@ const modalStyle = StyleSheet.create({
   },
   onImage: {
     height: 320,
-    flex: 1,
     justifyContent: 'space-between',
     flexDirection: 'column',
     zIndex: 5,
-    width:'100%',
     padding: 10
   },
   image: {
@@ -92,8 +92,7 @@ const modalStyle = StyleSheet.create({
     padding: 10,
     flexDirection: 'column',
     flex: 1,
-    justifyContent: 'flex-start',
-    alignItems: 'flex-start'
+    gap: 10,
   },
   button: {
     borderRadius: 20,
@@ -109,12 +108,11 @@ const modalStyle = StyleSheet.create({
     textAlign: "center"
   },
   container: {
-    flex: 1,
     flexDirection: 'column',
-    alignContent: 'space-between',
     position: 'absolute',
-    alignItems: 'stretch',
     width:'100%',
+    height: '100%'
+
   },
   topBar: {
     top: 10,
