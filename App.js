@@ -58,7 +58,9 @@ export default function App() {
           },
           tabBarActiveTintColor: 'teal',
           tabBarInactiveTintColor: 'gray',
-        })}
+          headerShown: false
+        })
+      }
       >
         <Tab.Screen name="Home" component={HomeScreen} />
         <Tab.Screen name="Discover" component={SettingsScreen} />

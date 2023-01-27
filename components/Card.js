@@ -8,10 +8,10 @@ function AnimalCard(props) {
     <TouchableOpacity onPress={() => {props.setShowAnimal(true); props.setAnimalProps(props)} }>
     <View style={cardStyle.cardContainer}>
       <View style={cardStyle.textContainer}>
-        <Text style={cardStyle.commonName}>
+        <Text style={cardStyle.commonName} numberOfLines={1}>
         {props.commonName}
         </Text>
-        <Text style={cardStyle.binomial}>
+        <Text style={cardStyle.binomial} numberOfLines={1}>
           {props.binomial}
         </Text>
         <Text style={cardStyle.summary} numberOfLines={2}>
