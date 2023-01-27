@@ -1,6 +1,6 @@
-import { getCurrentPositionAsync, useForegroundPermissions, PermissionStatus } from "expo-location"
-import { Alert, ScrollView, StyleSheet } from "react-native"
+import { Alert, ScrollView, StyleSheet, View } from "react-native"
 import AnimalCard from "./Card"
+import FilterBar from "./FilterBar"
 
 
 // Get animals
@@ -34,53 +34,19 @@ This sparrow-sized bird has the typical short-tailed, large-headed kingfisher pr
 
 
 function CardList(props) {
-
-  // Get location
-  const [locationPermissionInformation, requestPermission] = useForegroundPermissions()
-
-  async function verifyPermissions() {
-    if (locationPermissionInformation === null) {
-      return false
-    }
-    if (locationPermissionInformation.status === PermissionStatus.UNDETERMINED) {
-      const permissionResponse = await requestPermission()
-
-      return permissionResponse.granted
-    }
-    if (locationPermissionInformation.status === PermissionStatus.DENIED) {
-      Alert.alert('You need to grant location permissions to find local wildlife.')
-      return false
-    }
-    if (locationPermissionInformation.status === PermissionStatus.GRANTED) {
-      return true
-    }
-    return false
-  }
-
-  async function getLocationHandler() {
-    const hasPermission = await verifyPermissions()
-
-    if (!hasPermission) {
-      return
-    }
-    const location = await getCurrentPositionAsync()
-    console.log(location)
-
-  }
-
-  getLocationHandler()
-
-  // Component
   return (
-    <ScrollView style={styles.scrollViewContainer}>
-        {animals.map((animal) => (
-          <AnimalCard
-            key={animal.key}
-            {...animal} 
-            {...props}
-            />
-        ))}
-    </ScrollView>
+    <View style={{flexDirection: 'column', width:'100%', flex:1}}>
+      <FilterBar/>
+      <ScrollView style={styles.scrollViewContainer}>
+          {animals.map((animal) => (
+            <AnimalCard
+              key={animal.key}
+              {...animal}
+              {...props}
+              />
+          ))}
+      </ScrollView>
+    </View>
   )
 }
 
@@ -89,5 +55,6 @@ export default CardList
 const styles = StyleSheet.create({
     scrollViewContainer: {
         marginHorizontal: 10,
+        flex:10
     }
   })
