@@ -2,6 +2,6 @@
     "compilerOptions": {
       "module": "CommonJS",
       "jsx": "preserve",
-      "checkJs": true
+      "checkJs": false
     },
 }
