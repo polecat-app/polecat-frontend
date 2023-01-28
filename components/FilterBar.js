@@ -43,8 +43,7 @@ function FilterBar() {
   
   useEffect(() => {
     getLocationHandler()
-  })
-  console.log(location.timestamp)
+  }, [])
 
   return (
     <View style={{padding: 20, height: 150, backgroundColor: 'teal', justifyContent: 'space-around', flexDirection: 'column'}}>
