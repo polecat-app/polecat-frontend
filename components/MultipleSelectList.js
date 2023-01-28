@@ -144,8 +144,9 @@ function MultipleSelectList({
                     style={{
                       marginTop: 10,
                     }}
+                    key={item}
                   >
-                    <Tag key={index} tag={item}></Tag>
+                    <Tag tag={item}></Tag>
                   </View>
                 );
               })}

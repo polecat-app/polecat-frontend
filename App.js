@@ -1,31 +1,10 @@
-import { StyleSheet, Text, View } from "react-native";
-import CardList from "./components/CardList";
+import { Text, View } from "react-native";
 import * as React from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { Ionicons } from "@expo/vector-icons";
-import { useState } from "react";
-import Animal from "./components/Animal";
 import { LocationProvider } from "./store/locationContext";
-
-function HomeScreen() {
-  // Animal detail page states
-  const [showAnimal, setShowAnimal] = useState(false);
-  const [animalProps, setAnimalProps] = useState({});
-
-  return (
-    <View style={styles.cardListContainer}>
-      {showAnimal ? (
-        <Animal {...animalProps} setShowAnimal={setShowAnimal} />
-      ) : (
-        <CardList
-          setAnimalProps={setAnimalProps}
-          setShowAnimal={setShowAnimal}
-        />
-      )}
-    </View>
-  );
-}
+import { HomeScreen } from "./components/HomeScreen";
 
 function SettingsScreen() {
   return (
@@ -68,9 +47,3 @@ export default function App() {
     </LocationProvider>
   );
 }
-
-const styles = StyleSheet.create({
-  cardListContainer: {
-    flex: 1,
-  },
-});
