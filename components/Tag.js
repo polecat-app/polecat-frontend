@@ -46,3 +46,4 @@ function Tag(props) {
 }
 
 export default Tag
+export { SpeciesTags, OccuranceTags }
