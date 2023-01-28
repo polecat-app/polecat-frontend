@@ -32,7 +32,6 @@ function LocationProvider({children}) {
     }
     if (locationPermissionInformation.status === PermissionStatus.UNDETERMINED) {
       const permissionResponse = await requestPermission()
-  
       return permissionResponse.granted
     }
     if (locationPermissionInformation.status === PermissionStatus.DENIED) {
@@ -60,14 +59,13 @@ function LocationProvider({children}) {
     setLoading(true)
     const newLocation = await getLocationHandler();
     if (newLocation) {
-      setLocation(newLocation)
       setLoading(false)
+      setLocation(newLocation)
     }
   }
 
   // Use effect to re initialize location on app reload
   useEffect(()=> {
-    console.log('getting location')
     getLocation()
   },[])
 
