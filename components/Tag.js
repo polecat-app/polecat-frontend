@@ -34,8 +34,8 @@ function Tag(props) {
         style={{
           color: "white",
           fontWeight: "bold",
-          marginLeft: 5,
-          marginRight: 5,
+          marginHorizontal: 7,
+          marginVertical: 2,
         }}
       >
         {props.tag}

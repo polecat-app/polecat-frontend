@@ -10,6 +10,7 @@ import {
   Pressable,
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
+import Tag from "./Tag";
 
 function MultipleSelectList({
   fontFamily,
@@ -33,8 +34,6 @@ function MultipleSelectList({
   disabledTextStyles,
   disabledCheckBoxStyles,
   labelStyles,
-  badgeStyles,
-  badgeTextStyles,
   checkBoxStyles,
   save = "key",
   dropdownShown = false,
@@ -142,27 +141,11 @@ function MultipleSelectList({
               {selectedval?.map((item, index) => {
                 return (
                   <View
-                    key={index}
-                    style={[
-                      {
-                        backgroundColor: "gray",
-                        paddingHorizontal: 20,
-                        paddingVertical: 5,
-                        borderRadius: 50,
-                        marginRight: 10,
-                        marginTop: 10,
-                      },
-                      badgeStyles,
-                    ]}
+                    style={{
+                      marginTop: 10,
+                    }}
                   >
-                    <Text
-                      style={[
-                        { color: "white", fontSize: 12, fontFamily },
-                        badgeTextStyles,
-                      ]}
-                    >
-                      {item}
-                    </Text>
+                    <Tag key={index} tag={item}></Tag>
                   </View>
                 );
               })}
