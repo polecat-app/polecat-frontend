@@ -6,6 +6,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Ionicons } from '@expo/vector-icons'
 import { useState } from 'react';
 import Animal from './components/Animal';
+import { LocationProvider } from './store/locationContext';
 
 
 function HomeScreen() {
@@ -36,6 +37,7 @@ const Tab = createBottomTabNavigator();
 
 export default function App() {
   return (
+    <LocationProvider>
     <NavigationContainer>
       <Tab.Navigator
         screenOptions={({ route }) => ({
@@ -52,8 +54,6 @@ export default function App() {
             else if (route.name === 'Settings') {
               iconName = focused ? 'ios-settings' : 'ios-settings-outline';
             }
-
-            // You can return any component that you like here!
             return <Ionicons name={iconName} size={size} color={color} />;
           },
           tabBarActiveTintColor: 'teal',
@@ -67,6 +67,7 @@ export default function App() {
         <Tab.Screen name="Settings" component={SettingsScreen} />
       </Tab.Navigator>
     </NavigationContainer>
+    </LocationProvider>
   );
 }
 
