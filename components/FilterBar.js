@@ -4,12 +4,12 @@ import { LocationContext } from "../store/locationContext";
 import MultipleSelectList from "./MultipleSelectList";
 import { SpeciesTags, OccuranceTags } from "./Tag";
 
-function FilterBar() {
+function FilterBar(props) {
   // Get location and loading state from from context
   const theme = useContext(LocationContext);
 
   // Label select dropdown state
-  const [selected, setSelected] = useState("");
+  const [selected, setSelected] = [props.selected, props.setSelected];
 
   const allTags = Object.keys({ ...SpeciesTags, ...OccuranceTags });
   const data = allTags.map((tag) => ({ key: tag, value: tag }));
@@ -72,6 +72,7 @@ function FilterBar() {
         search={false}
         maxHeight={285}
         inputStyles={{ color: "white" }}
+        selected={selected}
       />
     </View>
   );

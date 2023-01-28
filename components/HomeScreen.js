@@ -11,7 +11,7 @@ export function HomeScreen() {
   const [animalProps, setAnimalProps] = useState({});
 
   // Filter settings
-  const [selected, setSelected] = useState("");
+  const [selected, setSelected] = useState([]);
 
   return (
     <View style={styles.cardListContainer}>
@@ -20,7 +20,10 @@ export function HomeScreen() {
       ) : (
         <CardList
           setAnimalProps={setAnimalProps}
-          setShowAnimal={setShowAnimal} />
+          setShowAnimal={setShowAnimal}
+          selected={selected}
+          setSelected={setSelected}
+          />
       )}
     </View>
   );

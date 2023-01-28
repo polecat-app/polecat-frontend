@@ -36,7 +36,10 @@ This sparrow-sized bird has the typical short-tailed, large-headed kingfisher pr
 function CardList(props) {
   return (
     <View style={{ flexDirection: "column", width: "100%", flex: 1 }}>
-      <FilterBar />
+      <FilterBar 
+        selected={props.selected}
+        setSelected={props.setSelected}
+      />
       <ScrollView style={styles.scrollViewContainer}>
         {animals.map((animal) => (
           <AnimalCard key={animal.key} {...animal} {...props} />

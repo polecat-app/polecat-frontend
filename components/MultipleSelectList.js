@@ -37,10 +37,11 @@ function MultipleSelectList({
   checkBoxStyles,
   save = "key",
   dropdownShown = false,
+  selected
 }) {
   const [_firstRender, _setFirstRender] = useState(true);
   const [dropdown, setDropdown] = useState(dropdownShown);
-  const [selectedval, setSelectedVal] = useState([]);
+  const [selectedval, setSelectedVal] = useState(selected);
   const [height, setHeight] = useState(350);
   const animatedvalue = React.useRef(new Animated.Value(0)).current;
   const [filtereddata, setFilteredData] = useState(data);
