@@ -95,7 +95,7 @@ function Animal(props) {
               style={{
                 ...cardStyle.summary,
                 marginVertical: gap / 2,
-                textAlign: "justify",
+                textAlign: 'left',
               }}
             >
               {props.summary}
@@ -107,7 +107,7 @@ function Animal(props) {
   );
 }
 
-const gap = 20;
+const gap = 25;
 
 const modalStyle = StyleSheet.create({
   commonName: {

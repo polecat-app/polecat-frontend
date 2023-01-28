@@ -1,7 +1,7 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useState } from "react";
 import { View, Text, Pressable, StyleSheet } from "react-native";
 import { LocationContext } from "../store/locationContext";
-import { MultipleSelectList } from "react-native-dropdown-select-list";
+import MultipleSelectList from "./MultipleSelectList";
 import { SpeciesTags, OccuranceTags } from "./Tag";
 
 function FilterBar() {
@@ -32,11 +32,12 @@ function FilterBar() {
           backgroundColor: "lightseagreen",
           flexDirection: "row",
           alignItems: "center",
-          padding: 8,
+          paddingHorizontal: 15,
+          paddingVertical: 10,
         }}
       >
         <Text style={{ color: "white", flex: 1 }} numberOfLines={1}>
-          {theme.loading ? "loading..." : theme.location.coords.latitude}
+          {theme.loading ? "loading location..." : theme.location.coords.latitude}
         </Text>
       </Pressable>
       <MultipleSelectList
@@ -70,6 +71,7 @@ function FilterBar() {
         placeholder="Select filters"
         search={false}
         maxHeight={285}
+        inputStyles={{ color: "white" }}
       />
     </View>
   );
