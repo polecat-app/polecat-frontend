@@ -1,6 +1,7 @@
 import { useContext, useState } from "react";
 import { View, Text, Pressable, StyleSheet } from "react-native";
 import { LocationContext } from "../store/locationContext";
+import LocationPicker from "./LocationPicker";
 import MultipleSelectList from "./MultipleSelectList";
 import { SpeciesTags, OccuranceTags } from "./Tag";
 
@@ -25,7 +26,8 @@ function FilterBar(props) {
         padding: 10,
       }}
     >
-      <Pressable
+      <LocationPicker/>
+      {/* <Pressable
         style={{
           margin: 10,
           borderRadius: 20,
@@ -39,7 +41,7 @@ function FilterBar(props) {
         <Text style={{ color: "white", flex: 1 }} numberOfLines={1}>
           {theme.loading ? "loading location..." : theme.location.coords.latitude}
         </Text>
-      </Pressable>
+      </Pressable> */}
       <MultipleSelectList
         badgeTextStyles={{
           color: "white",
