@@ -5,6 +5,7 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { Ionicons } from "@expo/vector-icons";
 import { LocationProvider } from "./store/locationContext";
 import { HomeScreen } from "./components/HomeScreen";
+import Map from "./components/Map";
 
 function SettingsScreen() {
   return (
@@ -26,9 +27,9 @@ export default function App() {
               let iconName;
 
               if (route.name === "Home") {
-                iconName = focused ? "ios-location" : "ios-location-outline";
-              } else if (route.name === "Discover") {
                 iconName = focused ? "ios-search" : "ios-search-outline";
+              } else if (route.name === "Map") {
+                iconName = focused ? "ios-location" : "ios-location-outline";
               } else if (route.name === "Settings") {
                 iconName = focused ? "ios-settings" : "ios-settings-outline";
               }
@@ -40,7 +41,7 @@ export default function App() {
           })}
         >
           <Tab.Screen name="Home" component={HomeScreen} />
-          <Tab.Screen name="Discover" component={SettingsScreen} />
+          <Tab.Screen name="Map" component={Map} />
           <Tab.Screen name="Settings" component={SettingsScreen} />
         </Tab.Navigator>
       </NavigationContainer>
