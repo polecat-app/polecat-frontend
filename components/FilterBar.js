@@ -45,8 +45,8 @@ function FilterBar(props) {
           paddingVertical: 10,
         }}
       >
-        <Text>{getLocationName()}</Text>
-        <Ionicons name="ios-map" size={15} color={"white"} />
+        <Ionicons style={{marginRight: 5}} name="location-outline" size={15} color={"white"} />
+        <Text style={{color: 'white'}}>{getLocationName()}</Text>
       </TouchableOpacity>
       <MultipleSelectList
         badgeTextStyles={{

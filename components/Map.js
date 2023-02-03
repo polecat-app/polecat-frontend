@@ -60,7 +60,6 @@ function Map({ navigation, route }) {
 
       <MapView
         region={region}
-        onRegionChange={(region) => setRegion(region)}
         style={{ width: "100%", flex: 3 }}
         onPress={selectLocationHandler}
       >
