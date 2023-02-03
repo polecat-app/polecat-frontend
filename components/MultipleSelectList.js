@@ -11,16 +11,13 @@ import {
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import Tag from "./Tag";
+import { Colors } from "../styles/Colors";
+import textStyles from "../styles/TextStyles";
+import { Offsets } from "../styles/Offsets";
 
 function MultipleSelectList({
-  fontFamily,
   setSelected,
   placeholder,
-  boxStyles,
-  inputStyles,
-  dropdownStyles,
-  dropdownItemStyles,
-  dropdownTextStyles,
   maxHeight,
   data,
   searchicon = false,
@@ -30,11 +27,6 @@ function MultipleSelectList({
   onSelect = () => {},
   label,
   notFoundText = "No data found",
-  disabledItemStyles,
-  disabledTextStyles,
-  disabledCheckBoxStyles,
-  labelStyles,
-  checkBoxStyles,
   save = "key",
   dropdownShown = false,
   selected
@@ -89,7 +81,7 @@ function MultipleSelectList({
   return (
     <View>
       {dropdown && search ? (
-        <View style={[styles.wrapper, boxStyles]}>
+        <View style={styles.wrapper}>
           <View style={{ flexDirection: "row", alignItems: "center", flex: 1 }}>
             {searchicon}
             <TextInput
@@ -102,10 +94,9 @@ function MultipleSelectList({
                 });
                 setFilteredData(result);
               }}
-              style={[
-                { padding: 0, height: 20, flex: 1, fontFamily },
-                inputStyles,
-              ]}
+              style={
+                { padding: 0, height: 20, flex: 1, color: Colors.AccentText }
+              }
             />
             <TouchableOpacity
               onPress={() => {
@@ -119,7 +110,7 @@ function MultipleSelectList({
         </View>
       ) : selectedval?.length > 0 ? (
         <TouchableOpacity
-          style={[styles.wrapper, boxStyles]}
+          style={styles.wrapper}
           onPress={() => {
             if (!dropdown) {
               slidedown();
@@ -129,7 +120,7 @@ function MultipleSelectList({
           }}
         >
           <View>
-            <Text style={[{ fontWeight: "600", fontFamily }, labelStyles]}>
+            <Text style={textStyles.basicAccentBold}>
               {label}
             </Text>
             <View
@@ -156,7 +147,7 @@ function MultipleSelectList({
         </TouchableOpacity>
       ) : (
         <TouchableOpacity
-          style={[styles.wrapper, boxStyles]}
+          style={styles.wrapper}
           onPress={() => {
             if (!dropdown) {
               slidedown();
@@ -165,7 +156,7 @@ function MultipleSelectList({
             }
           }}
         >
-          <Text style={[{ fontFamily }, inputStyles]}>
+          <Text style={textStyles.basicAccentBold}>
             {selectedval == ""
               ? placeholder
                 ? placeholder
@@ -176,7 +167,7 @@ function MultipleSelectList({
             name="chevron-down-outline"
             style={{ alignSelf: "center" }}
             size={15}
-            color="white"
+            color={Colors.AccentIcon}
           ></Ionicons>
         </TouchableOpacity>
       )}
@@ -185,8 +176,7 @@ function MultipleSelectList({
         <Animated.View
           style={[
             { maxHeight: animatedvalue },
-            styles.dropdown,
-            dropdownStyles,
+            styles.dropdown
           ]}
         >
           <View style={[{ maxHeight: height }]}>
@@ -202,11 +192,11 @@ function MultipleSelectList({
                   if (disabled) {
                     return (
                       <TouchableOpacity
-                        style={[styles.disabledoption, disabledItemStyles]}
+                        style={styles.disabledoption}
                         key={index}
                       >
                         <View
-                          style={[
+                          style={
                             {
                               width: 15,
                               height: 15,
@@ -215,22 +205,19 @@ function MultipleSelectList({
                               justifyContent: "center",
                               alignItems: "center",
                               backgroundColor: "#c4c5c6",
-                            },
-                            disabledCheckBoxStyles,
-                          ]}
+                            }}
                         >
                           {selectedval?.includes(value) ? (
                             <Ionicons
                               name="checkmark-outline"
-                              color="white"
+                              color={Colors.AccentIcon}
                             ></Ionicons>
                           ) : null}
                         </View>
                         <Text
-                          style={[
-                            { fontFamily, color: "#c4c5c6" },
-                            disabledTextStyles,
-                          ]}
+                          style={
+                            { color: "#c4c5c6" }
+                          }
                         >
                           {value}
                         </Text>
@@ -239,7 +226,7 @@ function MultipleSelectList({
                   } else {
                     return (
                       <TouchableOpacity
-                        style={[styles.option, dropdownItemStyles]}
+                        style={styles.option}
                         key={index}
                         onPress={() => {
                           let existing = selectedval?.indexOf(value);
@@ -278,28 +265,16 @@ function MultipleSelectList({
                         }}
                       >
                         <View
-                          style={[
-                            {
-                              width: 15,
-                              height: 15,
-                              borderWidth: 1,
-                              marginRight: 10,
-                              borderColor: "gray",
-                              borderRadius: 3,
-                              justifyContent: "center",
-                              alignItems: "center",
-                            },
-                            checkBoxStyles,
-                          ]}
+                          style={styles.checkmark}
                         >
                           {selectedval?.includes(value) ? (
                             <Ionicons
                               name="checkmark-outline"
-                              color="white"
+                              color={Colors.AccentIcon}
                             ></Ionicons>
                           ) : null}
                         </View>
-                        <Text style={[{ fontFamily }, dropdownTextStyles]}>
+                        <Text style={textStyles.basicAccent}>
                           {value}
                         </Text>
                       </TouchableOpacity>
@@ -308,7 +283,7 @@ function MultipleSelectList({
                 })
               ) : (
                 <TouchableOpacity
-                  style={[styles.option, dropdownItemStyles]}
+                  style={styles.option}
                   onPress={() => {
                     setSelected(undefined);
                     setSelectedVal("");
@@ -316,7 +291,7 @@ function MultipleSelectList({
                     setTimeout(() => setFilteredData(data), 800);
                   }}
                 >
-                  <Text style={dropdownTextStyles}>{notFoundText}</Text>
+                  <Text style={textStyles.basicAccent}>{notFoundText}</Text>
                 </TouchableOpacity>
               )}
             </ScrollView>
@@ -344,19 +319,20 @@ export default MultipleSelectList;
 
 const styles = StyleSheet.create({
   wrapper: {
-    borderWidth: 1,
-    borderRadius: 10,
-    borderColor: "gray",
     paddingHorizontal: 15,
-    paddingVertical: 10,
+    paddingVertical: Offsets.DefaultMargin,
     flexDirection: "row",
     justifyContent: "space-between",
-    marginBottom: 10,
+    marginBottom: Offsets.DefaultMargin,
+    borderRadius: 20,
+    margin: Offsets.DefaultMargin,
+    backgroundColor: Colors.AccentSecondary,
+    borderWidth: 0,
+    color: Colors.AccentText,
   },
   dropdown: {
-    borderWidth: 1,
+    borderWidth: 0,
     borderRadius: 10,
-    borderColor: "gray",
     overflow: "hidden",
   },
   option: {
@@ -372,4 +348,14 @@ const styles = StyleSheet.create({
     alignItems: "center",
     backgroundColor: "whitesmoke",
   },
+  checkmark: {
+    width: 15,
+    height: 15,
+    borderWidth: 1,
+    marginRight: Offsets.DefaultMargin,
+    borderRadius: 3,
+    justifyContent: "center",
+    alignItems: "center",
+    borderColor: Colors.AccentIcon
+  }
 });

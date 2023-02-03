@@ -2,6 +2,7 @@ import { useIsFocused } from "@react-navigation/native";
 import { useEffect, useState } from "react";
 import { ScrollView, StyleSheet, View } from "react-native";
 import useLocation from "../hooks/useLocation";
+import { Offsets } from "../styles/Offsets";
 import AnimalCard from "./Card";
 import FilterBar from "./FilterBar";
 
@@ -37,16 +38,14 @@ This sparrow-sized bird has the typical short-tailed, large-headed kingfisher pr
 ];
 
 function AnimalList({ navigation, route }) {
-
   // Filter states
   const [selected, setSelected] = useState([]);
   const location = useLocation();
   const [pickedLocation, setPickedLocation] = useState(null);
-  const isFocused = useIsFocused()
+  const isFocused = useIsFocused();
 
   useEffect(() => {
     if (isFocused && route.params) {
-
       const mapPickedLocation = {
         latitude: route.params.selectedLocation.latitude,
         longitude: route.params.selectedLocation.longitude,
@@ -83,7 +82,7 @@ export default AnimalList;
 
 const styles = StyleSheet.create({
   scrollViewContainer: {
-    marginHorizontal: 10,
+    marginHorizontal: Offsets.DefaultMargin,
     flex: 10,
   },
 });

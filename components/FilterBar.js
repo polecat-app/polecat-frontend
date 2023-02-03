@@ -3,9 +3,11 @@ import { View, StyleSheet, TouchableOpacity, Text } from "react-native";
 import MultipleSelectList from "./MultipleSelectList";
 import { SpeciesTags, OccuranceTags } from "./Tag";
 import { Ionicons } from "@expo/vector-icons";
+import { Colors } from "../styles/Colors";
+import { Offsets } from "../styles/Offsets";
+import textStyles from "../styles/TextStyles";
 
 function FilterBar(props) {
-
   const navigation = useNavigation();
 
   const allTags = Object.keys({ ...SpeciesTags, ...OccuranceTags });
@@ -23,54 +25,20 @@ function FilterBar(props) {
   }
 
   return (
-    <View
-      style={{
-        backgroundColor: "teal",
-        justifyContent: "space-around",
-        flexDirection: "column",
-        paddingTop: 30,
-        paddingBottom: 10,
-        padding: 10,
-      }}
-    >
+    <View style={styles.background}>
       <TouchableOpacity
         onPress={pickOnMapHandler}
-        style={{
-          margin: 10,
-          borderRadius: 20,
-          backgroundColor: "lightseagreen",
-          flexDirection: "row",
-          alignItems: "center",
-          paddingHorizontal: 15,
-          paddingVertical: 10,
-        }}
+        style={styles.inputfield}
       >
-        <Ionicons style={{marginRight: 5}} name="location-outline" size={15} color={"white"} />
-        <Text style={{color: 'white'}}>{getLocationName()}</Text>
+        <Ionicons
+          style={{ marginRight: 5 }}
+          name="location-outline"
+          size={15}
+          color={Colors.AccentIcon}
+        />
+        <Text style={textStyles.basicAccentBold}>{getLocationName()}</Text>
       </TouchableOpacity>
       <MultipleSelectList
-        badgeTextStyles={{
-          color: "white",
-        }}
-        boxStyles={{
-          borderRadius: 20,
-          margin: 10,
-          backgroundColor: "lightseagreen",
-          borderWidth: 0,
-          color: "white",
-        }}
-        dropdownStyles={{
-          borderWidth: 0,
-        }}
-        dropdownTextStyles={{
-          color: "white",
-        }}
-        checkBoxStyles={{
-          borderColor: "white",
-        }}
-        labelStyles={{
-          color: "white",
-        }}
         setSelected={(val) => props.setSelected(val)}
         data={data}
         save="value"
@@ -79,7 +47,6 @@ function FilterBar(props) {
         placeholder="Select filters"
         search={false}
         maxHeight={285}
-        inputStyles={{ color: "white" }}
         selected={props.selected}
       />
     </View>
@@ -87,14 +54,23 @@ function FilterBar(props) {
 }
 
 const styles = StyleSheet.create({
+  background: {
+    backgroundColor: Colors.AccentPrimary,
+    justifyContent: "space-around",
+    flexDirection: "column",
+    paddingTop: 30,
+    paddingBottom: Offsets.DefaultMargin,
+    padding: Offsets.DefaultMargin,
+  },
   inputfield: {
-    borderRadius: "50%",
-    backgroundColor: "lightseagreen",
-    marginRight: 10,
+    margin: 10,
+    borderRadius: 20,
+    backgroundColor: Colors.AccentSecondary,
     flexDirection: "row",
     alignItems: "center",
-    padding: 8,
-  },
+    paddingHorizontal: 15,
+    paddingVertical: 10,
+  }
 });
 
 export default FilterBar;

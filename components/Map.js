@@ -1,11 +1,13 @@
-import { Pressable, View, Text, StyleSheet, Alert } from "react-native";
+import { TouchableOpacity, View, Text, StyleSheet, Alert } from "react-native";
 import MapView, { Marker } from "react-native-maps";
 import useLocation from "../hooks/useLocation";
 import { Ionicons } from "@expo/vector-icons";
 import { useState } from "react";
+import { Colors } from "../styles/Colors";
+import { Offsets } from "../styles/Offsets";
+import textStyles from "../styles/TextStyles";
 
 function Map({ navigation, route }) {
-
   // States from parent component
   const pickedLocation = route.params.pickedLocation;
 
@@ -17,7 +19,7 @@ function Map({ navigation, route }) {
     longitude: pickedLocation.longitude,
     latitudeDelta: 0.01,
     longitudeDelta: 0.03,
-  })
+  });
 
   function selectLocationHandler(event) {
     const lat = event.nativeEvent.coordinate.latitude;
@@ -42,21 +44,11 @@ function Map({ navigation, route }) {
       longitude: lng,
       latitudeDelta: 0.01,
       longitudeDelta: 0.03,
-    })
+    });
   }
 
   return (
     <View style={{ flexDirection: "column", flex: 1 }}>
-      {/* Elements on Map */}
-      <View style={modalStyle.onImage}>
-        <Pressable onPress={() => navigation.navigate("AnimalList")}>
-          <Ionicons
-            name={"arrow-back-outline"}
-            size={32}
-            style={modalStyle.close}
-          />
-        </Pressable>
-      </View>
 
       <MapView
         region={region}
@@ -67,31 +59,73 @@ function Map({ navigation, route }) {
           <Marker title="Picked location" coordinate={selectedLocation} />
         )}
       </MapView>
-      <Pressable
-        onPress={savePickedLocationHandler}
-        style={{ width: "100%", flex: 1, backgroundColor: "teal" }}
-      >
-        <Text>Save location</Text>
-      </Pressable>
-      <Pressable
-        onPress={useCurrentLocationHandler}
-        style={{ width: "100%", flex: 1, backgroundColor: "teal" }}
-      >
-        <Text>Use current location</Text>
-      </Pressable>
+
+      {/* Elements on Map */}
+      <View style={styles.onImage}>
+        <TouchableOpacity onPress={() => navigation.navigate("AnimalList")}>
+          <Ionicons
+            name={"arrow-back-outline"}
+            size={32}
+            style={styles.close}
+          />
+        </TouchableOpacity>
+      </View>
+
+      {/* Elements below map */}
+      <View style={styles.bottom}>
+        <TouchableOpacity
+          onPress={useCurrentLocationHandler}
+          style={styles.buttonCurrentLocation}
+        >
+          <Text>Navigate to current location</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          onPress={savePickedLocationHandler}
+          style={styles.buttonConfirm}
+        >
+          <Text style={textStyles.basicAccentBold}>Confirm location</Text>
+        </TouchableOpacity>
+      </View>
     </View>
   );
 }
 
 export default Map;
 
-const modalStyle = StyleSheet.create({
+const styles = StyleSheet.create({
   onImage: {
-    height: 100,
-    justifyContent: "space-between",
-    flexDirection: "column",
+    flexDirection: "row",
     zIndex: 5,
-    padding: 10,
+    padding: Offsets.DefaultMargin,
+    position: "absolute",
+  },
+  bottom: {
+    backgroundColor: Colors.Primary,
+    width: '100%',
+    height: 160,
+    alignSelf: 'flex-end',
+    alignItems: 'center',
+    flexDirection: 'column',
+    justifyContent: 'space-between',
+    padding: 20
+  },
+  buttonCurrentLocation: {
+    width: "100%",
+    flex: 1,
+    backgroundColor: Colors.Secondary,
+    margin: Offsets.DefaultMargin,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: Offsets.BorderRadius
+  },
+  buttonConfirm: {
+    width: "100%",
+    flex: 1,
+    backgroundColor: Colors.AccentPrimary,
+    margin: Offsets.DefaultMargin,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: Offsets.BorderRadius
   },
   close: {
     marginRight: 10,
