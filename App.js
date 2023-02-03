@@ -1,19 +1,11 @@
-import { Text, View } from "react-native";
 import * as React from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { Ionicons } from "@expo/vector-icons";
 import { LocationProvider } from "./store/locationContext";
-import { HomeScreen } from "./components/HomeScreen";
-import Map from "./components/Map";
-
-function SettingsScreen() {
-  return (
-    <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-      <Text>Settings!</Text>
-    </View>
-  );
-}
+import HomeScreen from "./screens/HomeScreen";
+import { SettingsScreen } from "./screens/SettingsScreen";
+import { SearchScreen } from "./screens/SearchScreen";
 
 const Tab = createBottomTabNavigator();
 
@@ -27,9 +19,9 @@ export default function App() {
               let iconName;
 
               if (route.name === "Home") {
-                iconName = focused ? "ios-search" : "ios-search-outline";
-              } else if (route.name === "Map") {
                 iconName = focused ? "ios-location" : "ios-location-outline";
+              } else if (route.name === "Search") {
+                iconName = focused ? "ios-search" : "ios-search-outline";
               } else if (route.name === "Settings") {
                 iconName = focused ? "ios-settings" : "ios-settings-outline";
               }
@@ -41,7 +33,7 @@ export default function App() {
           })}
         >
           <Tab.Screen name="Home" component={HomeScreen} />
-          <Tab.Screen name="Map" component={Map} />
+          <Tab.Screen name="Search" component={SearchScreen} />
           <Tab.Screen name="Settings" component={SettingsScreen} />
         </Tab.Navigator>
       </NavigationContainer>

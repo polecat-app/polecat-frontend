@@ -43,7 +43,7 @@ function LocationPicker() {
   }
 
   function pickOnMapHandler() {
-    navigation.navigate('Map')
+    navigation.navigate('Map', {pickedLocation})
   }
 
   let locationPreview = <Text>No location picked yet.</Text>

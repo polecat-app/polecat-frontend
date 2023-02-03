@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { Alert, ScrollView, StyleSheet, View } from "react-native";
 import AnimalCard from "./Card";
 import FilterBar from "./FilterBar";
@@ -33,23 +34,27 @@ This sparrow-sized bird has the typical short-tailed, large-headed kingfisher pr
   },
 ];
 
-function CardList(props) {
+function AnimalList(props) {
+
+  // Filter settings
+  const [selected, setSelected] = useState([]);
+
   return (
     <View style={{ flexDirection: "column", width: "100%", flex: 1 }}>
       <FilterBar 
-        selected={props.selected}
-        setSelected={props.setSelected}
+        selected={selected}
+        setSelected={setSelected}
       />
       <ScrollView style={styles.scrollViewContainer}>
         {animals.map((animal) => (
-          <AnimalCard key={animal.key} {...animal} {...props} />
+          <AnimalCard key={animal.key} {...animal}/>
         ))}
       </ScrollView>
     </View>
   );
 }
 
-export default CardList;
+export default AnimalList;
 
 const styles = StyleSheet.create({
   scrollViewContainer: {

@@ -1,13 +1,15 @@
+import { useNavigation } from "@react-navigation/native";
 import { TouchableOpacity, View, Text, Image } from "react-native";
 import cardStyle from "../styles/CardStyle";
 
 function AnimalCard(props) {
+  const navigation = useNavigation()
+
   return (
     <View>
       <TouchableOpacity
         onPress={() => {
-          props.setShowAnimal(true);
-          props.setAnimalProps(props);
+          navigation.navigate('Animal', props)
         }}
       >
         <View style={cardStyle.cardContainer}>

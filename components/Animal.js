@@ -3,8 +3,6 @@ import {
   Text,
   Pressable,
   View,
-  Image,
-  Button,
   ImageBackground,
   ScrollView,
 } from "react-native";
@@ -13,9 +11,12 @@ import { Ionicons } from "@expo/vector-icons";
 import { useState } from "react";
 import Tag from "./Tag";
 
-function Animal(props) {
+function Animal({ navigation, route }) {
   const [seen, setSeen] = useState(false);
   const [love, setlove] = useState(false);
+  const props = route.params
+
+
   function toggleSeen() {
     setSeen(!seen);
   }
@@ -31,10 +32,10 @@ function Animal(props) {
       <View style={modalStyle.container}>
         {/* Elements on Image */}
         <View style={modalStyle.onImage}>
-          <Pressable onPress={() => props.setShowAnimal(false)}>
+          <Pressable onPress={() => navigation.navigate('AnimalList')}>
             <Ionicons
-              name={"ios-close-circle"}
-              size={50}
+              name={"arrow-back-outline"}
+              size={32}
               style={modalStyle.close}
             />
           </Pressable>
@@ -162,11 +163,11 @@ const modalStyle = StyleSheet.create({
     color: "red",
   },
   close: {
-    marginLeft: 10,
+    marginRight: 10,
     marginTop: 10,
     color: "white",
     opacity: 0.8,
-    alignSelf: "flex-end",
+    alignSelf: "flex-start",
   },
 });
 
