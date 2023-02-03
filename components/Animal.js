@@ -6,16 +6,17 @@ import {
   ImageBackground,
   ScrollView,
 } from "react-native";
-import cardStyle from "../styles/CardStyle";
 import { Ionicons } from "@expo/vector-icons";
 import { useState } from "react";
 import Tag from "./Tag";
+import textStyles from "../styles/TextStyles";
+import { Colors } from "../styles/Colors";
+import { Offsets } from "../styles/Offsets";
 
 function Animal({ navigation, route }) {
   const [seen, setSeen] = useState(false);
   const [love, setlove] = useState(false);
-  const props = route.params
-
+  const props = route.params;
 
   function toggleSeen() {
     setSeen(!seen);
@@ -25,50 +26,43 @@ function Animal({ navigation, route }) {
   }
 
   return (
-    <View style={{ backgroundColor: "white", flex: 1, width: "100%" }}>
+    <View style={styles.background}>
       {/* Background Image */}
-      <ImageBackground style={modalStyle.image} source={{ uri: props.image }} />
+      <ImageBackground style={styles.image} source={{ uri: props.image }} />
 
-      <View style={modalStyle.container}>
+      <View style={styles.container}>
         {/* Elements on Image */}
-        <View style={modalStyle.onImage}>
-          <Pressable onPress={() => navigation.navigate('AnimalList')}>
+        <View style={styles.onImage}>
+          <Pressable onPress={() => navigation.navigate("AnimalList")}>
             <Ionicons
               name={"arrow-back-outline"}
               size={32}
-              style={modalStyle.close}
+              style={styles.close}
             />
           </Pressable>
 
-          <View
-            style={{
-              flexDirection: "row",
-              justifyContent: "space-between",
-              alignItems: "flex-end",
-            }}
-          >
-            <Text style={modalStyle.commonName} numberOfLines={3}>
+          <View style={styles.onImageBottom}>
+            <Text
+              style={[styles.commonName, textStyles.overlayBold]}
+              numberOfLines={3}
+            >
               {props.commonName}
             </Text>
 
             {/* Buttons */}
-            <View style={modalStyle.buttonSet}>
+            <View style={styles.buttonSet}>
               <Pressable onPress={() => toggleSeen()}>
                 <Ionicons
                   name={seen ? "eye" : "eye-outline"}
                   size={32}
-                  style={
-                    seen ? modalStyle.seenSelected : modalStyle.seenUnselected
-                  }
+                  style={seen ? styles.seenSelected : styles.seenUnselected}
                 />
               </Pressable>
               <Pressable onPress={() => toggleLove()}>
                 <Ionicons
                   name={love ? "heart" : "heart-outline"}
                   size={32}
-                  style={
-                    love ? modalStyle.loveSelected : modalStyle.loveUnselected
-                  }
+                  style={love ? styles.loveSelected : styles.loveUnselected}
                 />
               </Pressable>
             </View>
@@ -77,9 +71,9 @@ function Animal({ navigation, route }) {
 
         {/* Description Text */}
         <ScrollView>
-          <View style={modalStyle.scrollView}>
+          <View style={styles.scrollView}>
             <Text
-              style={{ ...cardStyle.binomial, marginVertical: gap / 2 }}
+              style={{ ...textStyles.basicItalic, marginVertical: gap / 2 }}
               numberOfLines={3}
             >
               {props.binomial}
@@ -94,9 +88,9 @@ function Animal({ navigation, route }) {
             </ScrollView>
             <Text
               style={{
-                ...cardStyle.summary,
+                ...textStyles.basic,
                 marginVertical: gap / 2,
-                textAlign: 'left',
+                textAlign: "left",
               }}
             >
               {props.summary}
@@ -110,11 +104,13 @@ function Animal({ navigation, route }) {
 
 const gap = 25;
 
-const modalStyle = StyleSheet.create({
+const styles = StyleSheet.create({
+  background: {
+    backgroundColor: Colors.Primary,
+    flex: 1,
+    width: "100%",
+  },
   commonName: {
-    fontWeight: "bold",
-    color: "white",
-    fontSize: 25,
     flex: 3,
   },
   onImage: {
@@ -122,7 +118,12 @@ const modalStyle = StyleSheet.create({
     justifyContent: "space-between",
     flexDirection: "column",
     zIndex: 5,
-    padding: 10,
+    padding: Offsets.DefaultMargin,
+  },
+  onImageBottom: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "flex-end",
   },
   image: {
     height: 320,
@@ -149,23 +150,23 @@ const modalStyle = StyleSheet.create({
     flex: 1,
   },
   seenUnselected: {
-    color: "white",
+    color: Colors.AccentIcon,
     opacity: 0.8,
   },
   seenSelected: {
-    color: "teal",
+    color: Colors.AccentPrimary,
   },
   loveUnselected: {
-    color: "white",
+    color: Colors.AccentIcon,
     opacity: 0.8,
   },
   loveSelected: {
-    color: "red",
+    color: Colors.AccentTertiary,
   },
   close: {
-    marginRight: 10,
-    marginTop: 10,
-    color: "white",
+    marginRight: Offsets.DefaultMargin,
+    marginTop: Offsets.DefaultMargin,
+    color: Colors.AccentIcon,
     opacity: 0.8,
     alignSelf: "flex-start",
   },

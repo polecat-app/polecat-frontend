@@ -6,6 +6,7 @@ import { LocationProvider } from "./store/locationContext";
 import HomeScreen from "./screens/HomeScreen";
 import { SettingsScreen } from "./screens/SettingsScreen";
 import { SearchScreen } from "./screens/SearchScreen";
+import { Colors } from "./styles/Colors";
 
 const Tab = createBottomTabNavigator();
 
@@ -27,8 +28,8 @@ export default function App() {
               }
               return <Ionicons name={iconName} size={size} color={color} />;
             },
-            tabBarActiveTintColor: "teal",
-            tabBarInactiveTintColor: "gray",
+            tabBarActiveTintColor: Colors.AccentPrimary,
+            tabBarInactiveTintColor: Colors.Inactive,
             headerShown: false,
           })}
         >

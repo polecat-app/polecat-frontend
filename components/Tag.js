@@ -1,5 +1,8 @@
-import { View, Text } from "react-native";
+import { View, Text, StyleSheet } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { Colors } from "../styles/Colors";
+import { Offsets } from "../styles/Offsets";
+import textStyles from "../styles/TextStyles";
 
 const SpeciesTags = {
   bird: ["coral", "bird"],
@@ -21,34 +24,33 @@ function Tag(props) {
   const [color, icon] = Tags[props.tag];
 
   return (
-    <View
-      style={{
-        borderRadius: 10,
-        backgroundColor: color,
-        marginRight: 10,
-        flexDirection: "row",
-        alignItems: "center",
-      }}
-    >
+    <View style={[styles.container, {backgroundColor: color}]}>
       <Text
-        style={{
-          color: "white",
-          fontWeight: "bold",
-          marginHorizontal: 7,
-          marginVertical: 2,
-        }}
+        style={[
+          textStyles.basicAccentBold,
+          {marginHorizontal: 7, marginVertical: 2}
+        ]}
       >
         {props.tag}
       </Text>
       <MaterialCommunityIcons
         name={icon}
         size={12}
-        color="white"
+        color={Colors.AccentIcon}
         style={{ marginRight: 5 }}
       />
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    borderRadius: 10,
+    marginRight: Offsets.DefaultMargin,
+    flexDirection: "row",
+    alignItems: "center",
+  },
+});
 
 export default Tag;
 export { SpeciesTags, OccuranceTags };
