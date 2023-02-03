@@ -34,7 +34,9 @@ This sparrow-sized bird has the typical short-tailed, large-headed kingfisher pr
   },
 ];
 
-function AnimalList(props) {
+function AnimalList({ navigation, route }) {
+
+  console.log(route.params)
 
   // Filter settings
   const [selected, setSelected] = useState([]);

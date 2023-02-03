@@ -1,4 +1,4 @@
-import { Pressable, StyleSheet, Text } from "react-native"
+import { Pressable, StyleSheet, Text, TouchableOpacity } from "react-native"
 import { Ionicons } from "@expo/vector-icons";
 import { useState } from "react";
 import { useNavigation } from "@react-navigation/native"
@@ -18,10 +18,10 @@ function LocationPicker() {
   }
 
   return (
-    <Pressable onPress={pickOnMapHandler}>
+    <TouchableOpacity onPress={pickOnMapHandler} style={{flex:1, width:'100%'}}>
       <Text>{location? 'some location' : 'Loading location...'}</Text>
       <Ionicons name="ios-map" size={15} color={'white'} />
-    </Pressable>
+    </TouchableOpacity>
   )
 }
 

@@ -27,7 +27,7 @@ function Map() {
       Alert.alert('No location picked! Click the map to pick location.')
       return
     }
-    navigation.navigate('Home', {selectedLocation})
+    navigation.navigate('AnimalList', {selectedLocation})
     
   }
 
@@ -48,7 +48,7 @@ function Map() {
           <Marker title="Picked location" coordinate={selectedLocation} />
         )}
       </MapView>
-      <Pressable onPress={savePickedLocationHandler} style={{width: "100%", flex: 1}}>
+      <Pressable onPress={savePickedLocationHandler} style={{width: "100%", flex: 1, backgroundColor: 'teal'}}>
         <Text>Save location</Text>
       </Pressable>
     </View>
