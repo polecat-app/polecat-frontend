@@ -12,13 +12,12 @@ function Map({ navigation, route }) {
   // States
   const location = useLocation();
   const [selectedLocation, setSelectedLocation] = useState(pickedLocation);
-
-  const region = {
+  const [region, setRegion] = useState({
     latitude: pickedLocation.latitude,
     longitude: pickedLocation.longitude,
     latitudeDelta: 0.01,
     longitudeDelta: 0.03,
-  };
+  })
 
   function selectLocationHandler(event) {
     const lat = event.nativeEvent.coordinate.latitude;
@@ -38,6 +37,12 @@ function Map({ navigation, route }) {
     const lat = location.latitude;
     const lng = location.longitude;
     setSelectedLocation({ latitude: lat, longitude: lng });
+    setRegion({
+      latitude: lat,
+      longitude: lng,
+      latitudeDelta: 0.01,
+      longitudeDelta: 0.03,
+    })
   }
 
   return (
@@ -54,7 +59,8 @@ function Map({ navigation, route }) {
       </View>
 
       <MapView
-        initialRegion={region}
+        region={region}
+        onRegionChange={(region) => setRegion(region)}
         style={{ width: "100%", flex: 3 }}
         onPress={selectLocationHandler}
       >
