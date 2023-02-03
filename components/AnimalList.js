@@ -1,5 +1,7 @@
-import { useState } from "react";
-import { Alert, ScrollView, StyleSheet, View } from "react-native";
+import { useIsFocused } from "@react-navigation/native";
+import { useEffect, useState } from "react";
+import { ScrollView, StyleSheet, View } from "react-native";
+import useLocation from "../hooks/useLocation";
 import AnimalCard from "./Card";
 import FilterBar from "./FilterBar";
 
@@ -36,20 +38,41 @@ This sparrow-sized bird has the typical short-tailed, large-headed kingfisher pr
 
 function AnimalList({ navigation, route }) {
 
-  console.log(route.params)
-
-  // Filter settings
+  // Filter states
   const [selected, setSelected] = useState([]);
+  const location = useLocation();
+  const [pickedLocation, setPickedLocation] = useState(null);
+  const isFocused = useIsFocused()
+
+  useEffect(() => {
+    if (isFocused && route.params) {
+
+      const mapPickedLocation = {
+        latitude: route.params.selectedLocation.latitude,
+        longitude: route.params.selectedLocation.longitude,
+      };
+      setPickedLocation(mapPickedLocation);
+    }
+  }, [route, isFocused]);
+
+  // Set initial location to current location
+  useEffect(() => {
+    if (location && !pickedLocation) {
+      setPickedLocation(location);
+    }
+  }, [location, pickedLocation]);
 
   return (
     <View style={{ flexDirection: "column", width: "100%", flex: 1 }}>
-      <FilterBar 
+      <FilterBar
         selected={selected}
         setSelected={setSelected}
+        pickedLocation={pickedLocation}
+        setPickedLocation={setPickedLocation}
       />
       <ScrollView style={styles.scrollViewContainer}>
         {animals.map((animal) => (
-          <AnimalCard key={animal.key} {...animal}/>
+          <AnimalCard key={animal.key} {...animal} />
         ))}
       </ScrollView>
     </View>

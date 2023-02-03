@@ -1,19 +1,26 @@
-import { useContext, useState } from "react";
-import { View, Text, Pressable, StyleSheet, TouchableOpacity } from "react-native";
-import { LocationContext } from "../store/locationContext";
-import LocationPicker from "./LocationPicker";
+import { useNavigation } from "@react-navigation/native";
+import { View, StyleSheet, TouchableOpacity, Text } from "react-native";
 import MultipleSelectList from "./MultipleSelectList";
 import { SpeciesTags, OccuranceTags } from "./Tag";
+import { Ionicons } from "@expo/vector-icons";
 
 function FilterBar(props) {
-  // Get location and loading state from from context
-  const theme = useContext(LocationContext);
 
-  // Label select dropdown state
-  const [selected, setSelected] = [props.selected, props.setSelected];
+  const navigation = useNavigation();
 
   const allTags = Object.keys({ ...SpeciesTags, ...OccuranceTags });
   const data = allTags.map((tag) => ({ key: tag, value: tag }));
+
+  // Navigate to the map location picker
+  function pickOnMapHandler() {
+    navigation.navigate("Map", {
+      pickedLocation: props.pickedLocation,
+    });
+  }
+
+  function getLocationName() {
+    return props.pickedLocation ? "some location" : "loading..";
+  }
 
   return (
     <View
@@ -27,6 +34,7 @@ function FilterBar(props) {
       }}
     >
       <TouchableOpacity
+        onPress={pickOnMapHandler}
         style={{
           margin: 10,
           borderRadius: 20,
@@ -37,7 +45,8 @@ function FilterBar(props) {
           paddingVertical: 10,
         }}
       >
-        <LocationPicker/>
+        <Text>{getLocationName()}</Text>
+        <Ionicons name="ios-map" size={15} color={"white"} />
       </TouchableOpacity>
       <MultipleSelectList
         badgeTextStyles={{
@@ -62,7 +71,7 @@ function FilterBar(props) {
         labelStyles={{
           color: "white",
         }}
-        setSelected={(val) => setSelected(val)}
+        setSelected={(val) => props.setSelected(val)}
         data={data}
         save="value"
         onSelect={() => {}}
@@ -71,7 +80,7 @@ function FilterBar(props) {
         search={false}
         maxHeight={285}
         inputStyles={{ color: "white" }}
-        selected={selected}
+        selected={props.selected}
       />
     </View>
   );
