@@ -6,7 +6,6 @@ import {
   TouchableOpacity,
   ScrollView,
   Animated,
-  TextInput,
   Pressable,
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
@@ -20,10 +19,6 @@ function MultipleSelectList({
   placeholder,
   maxHeight,
   data,
-  searchicon = false,
-  closeicon = false,
-  search = true,
-  searchPlaceholder = "search",
   onSelect = () => {},
   label,
   notFoundText = "No data found",
@@ -80,35 +75,7 @@ function MultipleSelectList({
 
   return (
     <View>
-      {dropdown && search ? (
-        <View style={styles.wrapper}>
-          <View style={{ flexDirection: "row", alignItems: "center", flex: 1 }}>
-            {searchicon}
-            <TextInput
-              placeholder={searchPlaceholder}
-              onChangeText={(val) => {
-                let result = data.filter((item) => {
-                  val.toLowerCase();
-                  let row = item.value.toLowerCase();
-                  return row.search(val.toLowerCase()) > -1;
-                });
-                setFilteredData(result);
-              }}
-              style={
-                { padding: 0, height: 20, flex: 1, color: Colors.AccentText }
-              }
-            />
-            <TouchableOpacity
-              onPress={() => {
-                slideup();
-                // setTimeout(() => setFilteredData(data), 800)
-              }}
-            >
-              {closeicon}
-            </TouchableOpacity>
-          </View>
-        </View>
-      ) : selectedval?.length > 0 ? (
+      {selectedval?.length > 0 ? (
         <TouchableOpacity
           style={styles.wrapper}
           onPress={() => {
@@ -164,7 +131,7 @@ function MultipleSelectList({
               : selectedval}
           </Text>
           <Ionicons
-            name="chevron-down-outline"
+            name= {dropdown? "chevron-up-outline" : "chevron-down-outline"}
             style={{ alignSelf: "center" }}
             size={15}
             color={Colors.AccentIcon}

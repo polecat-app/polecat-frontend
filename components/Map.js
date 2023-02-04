@@ -2,7 +2,7 @@ import { TouchableOpacity, View, Text, StyleSheet, Alert } from "react-native";
 import MapView, { Marker } from "react-native-maps";
 import useLocation from "../hooks/useLocation";
 import { Ionicons } from "@expo/vector-icons";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { Colors } from "../styles/Colors";
 import { Offsets } from "../styles/Offsets";
 import textStyles from "../styles/TextStyles";
@@ -14,12 +14,13 @@ function Map({ navigation, route }) {
   // States
   const location = useLocation();
   const [selectedLocation, setSelectedLocation] = useState(pickedLocation);
-  const [region, setRegion] = useState({
+  const region = {
     latitude: pickedLocation.latitude,
     longitude: pickedLocation.longitude,
     latitudeDelta: 0.01,
     longitudeDelta: 0.03,
-  });
+  }
+  const mapRef = useRef(null);
 
   function selectLocationHandler(event) {
     const lat = event.nativeEvent.coordinate.latitude;
@@ -39,7 +40,7 @@ function Map({ navigation, route }) {
     const lat = location.latitude;
     const lng = location.longitude;
     setSelectedLocation({ latitude: lat, longitude: lng });
-    setRegion({
+    mapRef.current?.animateToRegion({
       latitude: lat,
       longitude: lng,
       latitudeDelta: 0.01,
@@ -48,27 +49,32 @@ function Map({ navigation, route }) {
   }
 
   return (
-    <View style={{ flexDirection: "column", flex: 1 }}>
+    <View style={{ flexDirection: "column", flex: 1, alignItems: "center"}}>
 
       <MapView
+        ref={mapRef}
         region={region}
         style={{ width: "100%", flex: 3 }}
         onPress={selectLocationHandler}
       >
         {selectedLocation && (
-          <Marker title="Picked location" coordinate={selectedLocation} />
+          <Marker title="location" coordinate={selectedLocation} />
         )}
       </MapView>
 
       {/* Elements on Map */}
-      <View style={styles.onImage}>
-        <TouchableOpacity onPress={() => navigation.navigate("AnimalList")}>
-          <Ionicons
-            name={"arrow-back-outline"}
-            size={32}
-            style={styles.close}
-          />
-        </TouchableOpacity>
+      <TouchableOpacity 
+      onPress={() => navigation.navigate("AnimalList")}
+      style={styles.closeButton}
+      >
+        <Ionicons
+          name={"arrow-back-outline"}
+          size={32}
+          style={styles.closeIcon}
+        />
+      </TouchableOpacity>
+      <View style={styles.hint}>
+        <Text style={textStyles.basic}> Pick a location on the map. </Text>
       </View>
 
       {/* Elements below map */}
@@ -77,7 +83,7 @@ function Map({ navigation, route }) {
           onPress={useCurrentLocationHandler}
           style={styles.buttonCurrentLocation}
         >
-          <Text>Navigate to current location</Text>
+          <Text style={textStyles.basic}>Navigate to current location</Text>
         </TouchableOpacity>
         <TouchableOpacity
           onPress={savePickedLocationHandler}
@@ -98,6 +104,8 @@ const styles = StyleSheet.create({
     zIndex: 5,
     padding: Offsets.DefaultMargin,
     position: "absolute",
+    marginTop: 30,
+    alignItems: "flex-start"
   },
   bottom: {
     backgroundColor: Colors.Primary,
@@ -107,7 +115,10 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     flexDirection: 'column',
     justifyContent: 'space-between',
-    padding: 20
+    padding: 20,
+    shadowColor: "black",
+    shadowOpacity: 0.4,
+    shadowRadius: Offsets.DefaultMargin
   },
   buttonCurrentLocation: {
     width: "100%",
@@ -127,11 +138,26 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     borderRadius: Offsets.BorderRadius
   },
-  close: {
-    marginRight: 10,
-    marginTop: 10,
-    color: "white",
+  closeIcon: {
+    color: Colors.AccentIcon,
     opacity: 0.8,
+  },
+  closeButton: {
+    position: "absolute",
     alignSelf: "flex-start",
+    marginTop: 30,
+    marginLeft: Offsets.DefaultMargin,
+    zIndex: 5,
+  },
+  hint: {
+    position: "absolute",
+    marginTop: 30,
+    zIndex: 4,
+    backgroundColor: Colors.Primary,
+    padding: Offsets.DefaultMargin,
+    borderRadius: Offsets.BorderRadius,
+    shadowColor: "black",
+    shadowOpacity: 0.4,
+    shadowRadius: Offsets.DefaultMargin,
   },
 });

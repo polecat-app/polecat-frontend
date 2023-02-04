@@ -45,7 +45,6 @@ function FilterBar(props) {
         onSelect={() => {}}
         label="Filters"
         placeholder="Select filters"
-        search={false}
         maxHeight={285}
         selected={props.selected}
       />

@@ -5,7 +5,6 @@ const textStyles = StyleSheet.create({
   // Basic
   basic: {
     color: Colors.Text,
-    fontWeight: "300",
     lineHeight: 20,
   },
   basicBold: {
