@@ -6,9 +6,12 @@ import { Ionicons } from "@expo/vector-icons";
 import { Colors } from "../styles/Colors";
 import { Offsets } from "../styles/Offsets";
 import textStyles from "../styles/TextStyles";
+import { useEffect, useState } from "react";
+import getAddressFromCoordinates from "../util/GetAddress";
 
 function FilterBar(props) {
   const navigation = useNavigation();
+  const [locationName, setLocationName] = useState("Loading location..")
 
   const allTags = Object.keys({ ...SpeciesTags, ...OccuranceTags });
   const data = allTags.map((tag) => ({ key: tag, value: tag }));
@@ -20,9 +23,19 @@ function FilterBar(props) {
     });
   }
 
-  function getLocationName() {
-    return props.pickedLocation ? "some location" : "loading..";
-  }
+  // Get location name by reverse geocoding
+  useEffect(() => {
+    if (props.pickedLocation) {
+      getAddressFromCoordinates({
+        latitude: props.pickedLocation.latitude, 
+        longitude: props.pickedLocation.longitude, 
+        setLocationName: setLocationName
+        })
+    }
+    else {
+      setLocationName("Loading location..")
+    }
+  }, [props.pickedLocation, setLocationName])
 
   return (
     <View style={styles.background}>
@@ -36,7 +49,7 @@ function FilterBar(props) {
           size={15}
           color={Colors.AccentIcon}
         />
-        <Text style={textStyles.basicAccentBold}>{getLocationName()}</Text>
+        <Text style={textStyles.basicAccentBold}>{locationName}</Text>
       </TouchableOpacity>
       <MultipleSelectList
         setSelected={(val) => props.setSelected(val)}
