@@ -99,14 +99,6 @@ function Map({ navigation, route }) {
 export default Map;
 
 const styles = StyleSheet.create({
-  onImage: {
-    flexDirection: "row",
-    zIndex: 5,
-    padding: Offsets.DefaultMargin,
-    position: "absolute",
-    marginTop: 30,
-    alignItems: "flex-start"
-  },
   bottom: {
     backgroundColor: Colors.Primary,
     width: '100%',

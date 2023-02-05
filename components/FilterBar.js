@@ -75,13 +75,13 @@ const styles = StyleSheet.create({
     padding: Offsets.DefaultMargin,
   },
   inputfield: {
-    margin: 10,
-    borderRadius: 20,
+    margin: Offsets.DefaultMargin,
+    borderRadius: Offsets.BorderRadius,
     backgroundColor: Colors.AccentSecondary,
     flexDirection: "row",
     alignItems: "center",
     paddingHorizontal: 15,
-    paddingVertical: 10,
+    paddingVertical: Offsets.DefaultMargin,
   }
 });
 
