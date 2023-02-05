@@ -15,12 +15,12 @@ function getAddressFromCoordinates({ latitude, longitude, setLocationName }) {
           && resJson.items[0].address.countryName) {
           setLocationName(resJson.items[0].address.city + ", " + resJson.items[0].address.countryName)
         } else {
-          setLocationName("")
+          setLocationName(latitude.toFixed(2) + ", " + longitude.toFixed(2))
         }
       })
       .catch((e) => {
         console.log('Error in getAddressFromCoordinates', e)
-        setLocationName("")
+        setLocationName(latitude.toFixed(2) + ", " + longitude.toFixed(2))
       })
   })
 }
