@@ -5,6 +5,7 @@ import {
   ActivityIndicator,
   View,
   ImageBackground,
+  Animated
 } from "react-native";
 
 import SearchList from "../components/SearchList";
@@ -16,6 +17,31 @@ function SearchScreen() {
   const [searchPhrase, setSearchPhrase] = useState("");
   const [clicked, setClicked] = useState(false);
   const [fakeData, setFakeData] = useState();
+  const animatedvalue = React.useRef(new Animated.Value(0)).current;
+
+  const slidedown = () => {
+    Animated.timing(animatedvalue, {
+      toValue: 300,
+      duration: 300,
+      useNativeDriver: false,
+    }).start();
+  };
+  const slideup = () => {
+    Animated.timing(animatedvalue, {
+      toValue: 0,
+      duration: 300,
+      useNativeDriver: false,
+    }).start();
+  };
+
+  // Slide view based on clicked state
+  useEffect(() => {
+    if (clicked) {slideup()}
+    else {slidedown()}
+    console.log(clicked)
+    console.log(animatedvalue)
+  }, [clicked])
+
 
   // get data from the fake api
   useEffect(() => {
@@ -36,11 +62,12 @@ function SearchScreen() {
         style={styles.backgroundImage}
       />
       <View style={{...styles.onImage}}>
-        {!clicked && (
-          <Text style={[styles.title, textStyles.overlayBold]}>
-            Search Animals
-          </Text>
-        )}
+        <View>
+
+        </View>
+        <Animated.Text style={[textStyles.overlayBold, {flex:0, marginTop: animatedvalue}]}>
+          {(!clicked) && "Search Animals"}
+        </Animated.Text>
 
         <SearchBar
           searchPhrase={searchPhrase}
@@ -78,11 +105,10 @@ const styles = StyleSheet.create({
     height: "100%",
     alignItems: "center",
     position: "absolute",
+    justifyContent: "flex-start",
     zIndex: 5,
     margin: Offsets.DefaultMargin,
     flex:1,
   },
-  title: {
-    marginTop: "65%",
-  },
+  header: {}
 });
