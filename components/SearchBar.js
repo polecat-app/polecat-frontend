@@ -1,8 +1,17 @@
 import React from "react";
-import { StyleSheet, TextInput, View, Keyboard, Button } from "react-native";
+import {
+  StyleSheet,
+  TextInput,
+  View,
+  Keyboard,
+  Button,
+  Pressable,
+  Text,
+} from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { Colors } from "../styles/Colors";
 import { Offsets } from "../styles/Offsets";
+import textStyles from "../styles/TextStyles";
 
 const SearchBar = (props) => {
   return (
@@ -43,15 +52,15 @@ const SearchBar = (props) => {
         )}
       </View>
       {props.clicked && (
-        <View>
-          <Button
-            title="Cancel"
-            onPress={() => {
-              Keyboard.dismiss();
-              props.setClicked(false);
-            }}
-          ></Button>
-        </View>
+        <Pressable
+          style={styles.closeButton}
+          onPress={() => {
+            Keyboard.dismiss();
+            props.setClicked(false);
+          }}
+        >
+          <Text style={textStyles.basicAccentBold}>Cancel</Text>
+        </Pressable>
       )}
     </View>
   );
@@ -90,5 +99,8 @@ const styles = StyleSheet.create({
     marginLeft: Offsets.DefaultMargin,
     flex: 1,
   },
+  closeButton: {
+    marginLeft: Offsets.DefaultMargin,
+    marginRight: Offsets.DefaultMargin
+  }
 });
-

@@ -6,6 +6,7 @@ import {
   View,
   ImageBackground,
   Animated,
+  useWindowDimensions,
 } from "react-native";
 
 import SearchList from "../components/SearchList";
@@ -18,11 +19,20 @@ function SearchScreen() {
   const [searchPhrase, setSearchPhrase] = useState("");
   const [clicked, setClicked] = useState(false);
   const [fakeData, setFakeData] = useState();
-  const animatedvalue = React.useRef(new Animated.Value(0)).current;
+  const { height } = useWindowDimensions();
+  const animatedvalue = React.useRef(
+    new Animated.Value(height / 2 - 55)
+  ).current;
+  const animatedOpacity = React.useRef(new Animated.Value(0)).current;
 
   const slidedown = () => {
     Animated.timing(animatedvalue, {
-      toValue: 280,
+      toValue: height / 2 - 55,
+      duration: 300,
+      useNativeDriver: false,
+    }).start();
+    Animated.timing(animatedOpacity, {
+      toValue: 0,
       duration: 300,
       useNativeDriver: false,
     }).start();
@@ -30,6 +40,11 @@ function SearchScreen() {
   const slideup = () => {
     Animated.timing(animatedvalue, {
       toValue: 30,
+      duration: 300,
+      useNativeDriver: false,
+    }).start();
+    Animated.timing(animatedOpacity, {
+      toValue: 1,
       duration: 300,
       useNativeDriver: false,
     }).start();
@@ -42,8 +57,6 @@ function SearchScreen() {
     } else {
       slidedown();
     }
-    console.log(clicked);
-    console.log(animatedvalue);
   }, [clicked]);
 
   // get data from the fake api
@@ -101,6 +114,7 @@ const styles = StyleSheet.create({
     flex: 1,
     resizeMode: "contain",
     width: "100%",
+    backgroundColor: Colors.AccentPrimary
   },
   onImage: {
     height: "100%",
@@ -115,6 +129,6 @@ const styles = StyleSheet.create({
     padding: Offsets.DefaultMargin,
     backgroundColor: Colors.AccentPrimary,
     justifyContent: "flex-end",
-    alignItems: "center"
+    alignItems: "center",
   },
 });
