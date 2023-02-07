@@ -65,7 +65,7 @@ function SearchComponent() {
   return (
     <View style={styles.container}>
       <ImageBackground
-        source={require("../images/background-image.jpg")}
+        source={require("../images/ladybug.png")}
         style={[styles.backgroundImage]}
       />
       <Animated.View
@@ -103,8 +103,11 @@ export default SearchComponent;
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    justifyContent: "flex-end",
+    flexDirection: "column",
+    height: "100%",
     width: "100%",
+    backgroundColor: Colors.AccentPrimary
   },
   backgroundView: {
     width: "100%",
@@ -114,11 +117,9 @@ const styles = StyleSheet.create({
     zIndex: 2,
   },
   backgroundImage: {
-    width: "100%",
-    height: "100%",
-    resizeMode: "contain",
-    width: "100%",
-    position: "absolute",
+    padding: 20,
+    alignSelf: "center",
+    resizeMode: "center",
     zIndex: 1,
   },
   onImage: {
