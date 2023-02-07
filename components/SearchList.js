@@ -52,7 +52,7 @@ function SearchList(props) {
   return (
     <SafeAreaView style={styles.scrollViewContainer}>
       {loading && <ActivityIndicator size="large" style={styles.ActivityIndicator} />}
-      <ScrollView style={styles.scrollView}>
+      <ScrollView style={styles.scrollView} keyboardShouldPersistTaps='handled'>
         {fakeData &&
           fakeData.map((data) => (
             <AnimalCardSmall

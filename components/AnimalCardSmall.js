@@ -10,14 +10,24 @@ function AnimalCardSmall(props) {
   return (
     <TouchableOpacity
       style={styles.cardContainer}
-      onPress={() => {navigation.navigate("Animal", props)}}
+      onPress={() => {
+        navigation.navigate(
+          "Animal",
+          (props = {
+            ...props,
+            image: "",
+            tags: ["bird", "common"],
+            summary: "Some summary.",
+          })
+        );
+      }}
     >
-        <Text style={textStyles.basicBold} numberOfLines={1}>
-          {props.commonName}
-        </Text>
-        <Text style={textStyles.basicItalic} numberOfLines={1}>
-          {props.binomial}
-        </Text>
+      <Text style={textStyles.basicBold} numberOfLines={1}>
+        {props.commonName}
+      </Text>
+      <Text style={textStyles.basicItalic} numberOfLines={1}>
+        {props.binomial}
+      </Text>
     </TouchableOpacity>
   );
 }

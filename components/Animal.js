@@ -7,23 +7,13 @@ import {
   ScrollView,
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
-import { useState } from "react";
 import Tag from "./Tag";
 import textStyles from "../styles/TextStyles";
 import { Colors } from "../styles/Colors";
 import { Offsets } from "../styles/Offsets";
 
 function Animal({ navigation, route }) {
-  const [seen, setSeen] = useState(false);
-  const [love, setlove] = useState(false);
   const props = route.params;
-
-  function toggleSeen() {
-    setSeen(!seen);
-  }
-  function toggleLove() {
-    setlove(!love);
-  }
 
   return (
     <View style={styles.background}>
