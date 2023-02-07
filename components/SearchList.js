@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   StyleSheet,
   Text,
   View,
-  FlatList,
   SafeAreaView,
+  ActivityIndicator,
+  ScrollView,
 } from "react-native";
 
 // definition of the Item, which will be rendered in the FlatList
@@ -16,34 +17,57 @@ const Item = ({ name, details }) => (
 );
 
 // the filter
-const SearchList = (props) => {
-  const renderItem = ({ item }) => {
-    // when no input, show all
+function SearchList(props) {
+  const [fakeData, setFakeData] = useState(null);
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+
+    // If empty searchphrase, return
     if (props.searchPhrase === "") {
-      return <Item name={item.name} details={item.details} />;
+      setFakeData(null)
+      setLoading(false)
+      return
     }
-    // filter of the name
-    if (item.name.toUpperCase().includes(props.searchPhrase.toUpperCase().trim().replace(/\s/g, ""))) {
-      return <Item name={item.name} details={item.details} />;
+    
+    // Get filtered list of matching animal names from server 
+    async function getData() {
+
+      const apiResponse = await fetch(
+        "https://my-json-server.typicode.com/kevintomas1995/logRocket_searchBar/languages"
+      );
+      const data = await apiResponse.json();
+
+      // filter the data (will eventually be done server side)
+      const result = data.filter(data => (
+        data.name
+          .toUpperCase()
+          .includes(props.searchPhrase.toUpperCase().trim().replace(/\s/g, ""))
+      ));
+      setLoading(false)
+      setFakeData(result);
     }
-    // filter of the description
-    if (item.details.toUpperCase().includes(props.searchPhrase.toUpperCase().trim().replace(/\s/g, ""))) {
-      return <Item name={item.name} details={item.details} />;
-    }
-  };
+
+    setLoading(true)
+
+    // Timeout to only send request after delay
+    const delayDebounceFn = setTimeout(() => {
+      getData()
+    }, 2000)
+
+    return () => clearTimeout(delayDebounceFn)
+  }, [props.searchPhrase])
+
 
   return (
     <SafeAreaView style={styles.list__container}>
-      <View
-        onStartShouldSetResponder={() => {
-          props.setClicked(false);
-        }}
-      >
-        <FlatList
-          data={props.data}
-          renderItem={renderItem}
-          keyExtractor={(item) => item.id}
-        />
+      {loading && <ActivityIndicator size="large" />}
+      <View>
+        <ScrollView style={styles.list__container}>
+        {fakeData && fakeData.map((data) => (
+          <Item key={data.name} name={data.name} details={data.details} />
+        ))}
+      </ScrollView>
       </View>
     </SafeAreaView>
   );
@@ -60,7 +84,7 @@ const styles = StyleSheet.create({
   item: {
     margin: 30,
     borderBottomWidth: 2,
-    borderBottomColor: "lightgrey"
+    borderBottomColor: "lightgrey",
   },
   title: {
     fontSize: 20,

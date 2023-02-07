@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import {
   StyleSheet,
   Text,
-  ActivityIndicator,
   View,
   ImageBackground,
   Animated,
@@ -18,7 +17,6 @@ import { Colors } from "../styles/Colors";
 function SearchScreen() {
   const [searchPhrase, setSearchPhrase] = useState("");
   const [clicked, setClicked] = useState(false);
-  const [fakeData, setFakeData] = useState();
   const { height } = useWindowDimensions();
   const animatedvalue = React.useRef(
     new Animated.Value(height / 2 - 55)
@@ -59,18 +57,6 @@ function SearchScreen() {
     }
   }, [clicked]);
 
-  // get data from the fake api
-  useEffect(() => {
-    const getData = async () => {
-      const apiResponse = await fetch(
-        "https://my-json-server.typicode.com/kevintomas1995/logRocket_searchBar/languages"
-      );
-      const data = await apiResponse.json();
-      setFakeData(data);
-    };
-    getData();
-  }, []);
-
   return (
     <View style={styles.container}>
       <ImageBackground
@@ -90,11 +76,9 @@ function SearchScreen() {
             setClicked={setClicked}
           />
         </Animated.View>
-        {!fakeData && <ActivityIndicator size="large" />}
-        {fakeData && clicked && (
+        {searchPhrase && clicked && (
           <SearchList
             searchPhrase={searchPhrase}
-            data={fakeData}
             setClicked={setClicked}
           />
         )}
