@@ -7,11 +7,10 @@ function AnimalCard(props) {
   const navigation = useNavigation();
 
   return (
-    <View>
       <TouchableOpacity
+        style={styles.cardContainer}
         onPress={() => {navigation.navigate("Animal", props)}}
       >
-        <View style={styles.cardContainer}>
           <View style={styles.textContainer}>
             <Text style={textStyles.basicBold} numberOfLines={1}>
               {props.commonName}
@@ -26,9 +25,7 @@ function AnimalCard(props) {
           <View style={styles.imageContainer}>
             <Image style={styles.image} source={{ uri: props.image }} />
           </View>
-        </View>
       </TouchableOpacity>
-    </View>
   );
 }
 

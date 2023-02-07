@@ -48,24 +48,6 @@ function Animal({ navigation, route }) {
             >
               {props.commonName}
             </Text>
-
-            {/* Buttons */}
-            <View style={styles.buttonSet}>
-              <Pressable onPress={() => toggleSeen()}>
-                <Ionicons
-                  name={seen ? "eye" : "eye-outline"}
-                  size={32}
-                  style={seen ? styles.seenSelected : styles.seenUnselected}
-                />
-              </Pressable>
-              <Pressable onPress={() => toggleLove()}>
-                <Ionicons
-                  name={love ? "heart" : "heart-outline"}
-                  size={32}
-                  style={love ? styles.loveSelected : styles.loveUnselected}
-                />
-              </Pressable>
-            </View>
           </View>
         </View>
 
@@ -148,20 +130,6 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-evenly",
     flex: 1,
-  },
-  seenUnselected: {
-    color: Colors.AccentIcon,
-    opacity: 0.8,
-  },
-  seenSelected: {
-    color: Colors.AccentPrimary,
-  },
-  loveUnselected: {
-    color: Colors.AccentIcon,
-    opacity: 0.8,
-  },
-  loveSelected: {
-    color: Colors.AccentTertiary,
   },
   close: {
     marginRight: Offsets.DefaultMargin,

@@ -1,20 +1,13 @@
 import React, { useEffect, useState } from "react";
 import {
   StyleSheet,
-  Text,
-  View,
   SafeAreaView,
   ActivityIndicator,
   ScrollView,
 } from "react-native";
+import { Offsets } from "../styles/Offsets";
+import AnimalCardSmall from "./AnimalCardSmall";
 
-// definition of the Item, which will be rendered in the FlatList
-const Item = ({ name, details }) => (
-  <View style={styles.item}>
-    <Text style={styles.title}>{name}</Text>
-    <Text style={styles.details}>{details}</Text>
-  </View>
-);
 
 // the filter
 function SearchList(props) {
@@ -22,74 +15,69 @@ function SearchList(props) {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-
     // If empty searchphrase, return
     if (props.searchPhrase === "") {
-      setFakeData(null)
-      setLoading(false)
-      return
+      setFakeData(null);
+      setLoading(false);
+      return;
     }
-    
-    // Get filtered list of matching animal names from server 
-    async function getData() {
 
+    // Get filtered list of matching animal names from server
+    async function getData() {
       const apiResponse = await fetch(
         "https://my-json-server.typicode.com/kevintomas1995/logRocket_searchBar/languages"
       );
       const data = await apiResponse.json();
 
       // filter the data (will eventually be done server side)
-      const result = data.filter(data => (
+      const result = data.filter((data) =>
         data.name
           .toUpperCase()
           .includes(props.searchPhrase.toUpperCase().trim().replace(/\s/g, ""))
-      ));
-      setLoading(false)
+      );
+      setLoading(false);
       setFakeData(result);
     }
 
-    setLoading(true)
+    setLoading(true);
 
     // Timeout to only send request after delay
     const delayDebounceFn = setTimeout(() => {
-      getData()
-    }, 2000)
+      getData();
+    }, 2000);
 
-    return () => clearTimeout(delayDebounceFn)
-  }, [props.searchPhrase])
-
+    return () => clearTimeout(delayDebounceFn);
+  }, [props.searchPhrase]);
 
   return (
-    <SafeAreaView style={styles.list__container}>
-      {loading && <ActivityIndicator size="large" />}
-      <View>
-        <ScrollView style={styles.list__container}>
-        {fakeData && fakeData.map((data) => (
-          <Item key={data.name} name={data.name} details={data.details} />
-        ))}
+    <SafeAreaView style={styles.scrollViewContainer}>
+      {loading && <ActivityIndicator size="large" style={styles.ActivityIndicator} />}
+      <ScrollView style={styles.scrollView}>
+        {fakeData &&
+          fakeData.map((data) => (
+            <AnimalCardSmall
+              key={data.name}
+              commonName={data.name}
+              binomial={data.details}
+            />
+          ))}
       </ScrollView>
-      </View>
     </SafeAreaView>
   );
-};
+}
 
 export default SearchList;
 
 const styles = StyleSheet.create({
-  list__container: {
-    margin: 10,
-    height: "85%",
+  scrollViewContainer: {
+    flex: 1,
     width: "100%",
   },
-  item: {
-    margin: 30,
-    borderBottomWidth: 2,
-    borderBottomColor: "lightgrey",
+  scrollView: {
+    paddingLeft: Offsets.DefaultMargin,
+    paddingRight: Offsets.DefaultMargin,
   },
-  title: {
-    fontSize: 20,
-    fontWeight: "bold",
-    marginBottom: 5,
-    fontStyle: "italic",
+  ActivityIndicator: {
+    marginTop: Offsets.DefaultMargin
   },
 });

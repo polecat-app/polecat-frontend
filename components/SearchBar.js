@@ -70,12 +70,11 @@ export default SearchBar;
 
 const styles = StyleSheet.create({
   container: {
-    marginTop: Offsets.DefaultMargin,
+    width: "100%",
+    padding: Offsets.DefaultMargin,
     justifyContent: "flex-start",
     alignItems: "center",
     flexDirection: "row",
-    marginLeft: 30,
-    marginRight: 30,
   },
   searchBar__unclicked: {
     padding: Offsets.DefaultMargin,
@@ -100,7 +99,8 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   closeButton: {
-    marginLeft: Offsets.DefaultMargin,
-    marginRight: Offsets.DefaultMargin
+    flexDirection: "column",
+    alignItems: "center",
+    width: "20%",
   }
 });

@@ -21,7 +21,7 @@ function SearchScreen() {
   const animatedvalue = React.useRef(
     new Animated.Value(height / 2 - 55)
   ).current;
-  const animatedOpacity = React.useRef(new Animated.Value(0)).current;
+  const animatedOpacity = React.useRef(new Animated.Value(1.0)).current;
 
   const slidedown = () => {
     Animated.timing(animatedvalue, {
@@ -30,7 +30,7 @@ function SearchScreen() {
       useNativeDriver: false,
     }).start();
     Animated.timing(animatedOpacity, {
-      toValue: 0,
+      toValue: 1.0,
       duration: 300,
       useNativeDriver: false,
     }).start();
@@ -42,7 +42,7 @@ function SearchScreen() {
       useNativeDriver: false,
     }).start();
     Animated.timing(animatedOpacity, {
-      toValue: 1,
+      toValue: 0.0,
       duration: 300,
       useNativeDriver: false,
     }).start();
@@ -59,11 +59,13 @@ function SearchScreen() {
 
   return (
     <View style={styles.container}>
-      <ImageBackground
-        source={require("../images/background-image.jpg")}
-        style={styles.backgroundImage}
-      />
-      <View style={{ ...styles.onImage }}>
+      <Animated.View style={[styles.backgroundView, {opacity: animatedOpacity}]}>
+        <ImageBackground
+          source={require("../images/background-image.jpg")}
+          style={[styles.backgroundImage]}
+        />
+      </Animated.View>
+      <View style={styles.onImage}>
         <Animated.View style={[styles.header, { paddingTop: animatedvalue }]}>
           {!clicked && (
             <Text style={textStyles.overlayBold}>Search Animals</Text>
@@ -93,12 +95,16 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     width: "100%",
+    backgroundColor: Colors.Secondary
+  },
+  backgroundView: {
+    flex: 1,
+    width: "100%",
   },
   backgroundImage: {
     flex: 1,
     resizeMode: "contain",
     width: "100%",
-    backgroundColor: Colors.AccentPrimary
   },
   onImage: {
     height: "100%",
