@@ -74,7 +74,7 @@ function MultipleSelectList({
   }, [dropdownShown]);
 
   return (
-    <View>
+    <View style={{flex: 1}}>
       {selectedval?.length > 0 ? (
         <TouchableOpacity
           style={styles.wrapper}
@@ -290,9 +290,7 @@ const styles = StyleSheet.create({
     paddingVertical: Offsets.DefaultMargin,
     flexDirection: "row",
     justifyContent: "space-between",
-    marginBottom: Offsets.DefaultMargin,
     borderRadius: 20,
-    margin: Offsets.DefaultMargin,
     backgroundColor: Colors.AccentSecondary,
     borderWidth: 0,
     color: Colors.AccentText,

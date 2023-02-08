@@ -24,6 +24,10 @@ const textStyles = StyleSheet.create({
   basicAccentBold: {
     fontWeight: "bold",
     color: Colors.AccentText,
+    lineHeight: 20,
+    flexShrink: 1,
+    height:20,
+    ellipsizeMode:'head'
   },
   basicAccentItalic: {
     fontStyle: "italic",

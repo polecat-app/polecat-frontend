@@ -1,5 +1,11 @@
 import { useNavigation } from "@react-navigation/native";
-import { View, StyleSheet, TouchableOpacity, Text } from "react-native";
+import {
+  View,
+  StyleSheet,
+  TouchableOpacity,
+  Text,
+  SafeAreaView,
+} from "react-native";
 import MultipleSelectList from "./MultipleSelectList";
 import { SpeciesTags, OccuranceTags } from "./Tag";
 import { Ionicons } from "@expo/vector-icons";
@@ -8,10 +14,11 @@ import { Offsets } from "../styles/Offsets";
 import textStyles from "../styles/TextStyles";
 import { useEffect, useState } from "react";
 import getAddressFromCoordinates from "../util/GetAddress";
+import { Bars } from "../util/Constants";
 
 function FilterBar(props) {
   const navigation = useNavigation();
-  const [locationName, setLocationName] = useState("Loading location..")
+  const [locationName, setLocationName] = useState("Loading location..");
 
   const allTags = Object.keys({ ...SpeciesTags, ...OccuranceTags });
   const data = allTags.map((tag) => ({ key: tag, value: tag }));
@@ -27,40 +34,57 @@ function FilterBar(props) {
   useEffect(() => {
     if (props.pickedLocation) {
       getAddressFromCoordinates({
-        latitude: props.pickedLocation.latitude, 
-        longitude: props.pickedLocation.longitude, 
-        setLocationName: setLocationName
-        })
+        latitude: props.pickedLocation.latitude,
+        longitude: props.pickedLocation.longitude,
+        setLocationName: setLocationName,
+      });
+    } else {
+      setLocationName("Loading location..");
     }
-    else {
-      setLocationName("Loading location..")
-    }
-  }, [props.pickedLocation, setLocationName])
+  }, [props.pickedLocation, setLocationName]);
 
   return (
     <View style={styles.background}>
-      <TouchableOpacity
-        onPress={pickOnMapHandler}
-        style={styles.inputfield}
-      >
-        <Ionicons
-          style={{ marginRight: 5 }}
-          name="location-outline"
-          size={15}
-          color={Colors.AccentIcon}
+      <View style={styles.topRow}>
+        <TouchableOpacity onPress={pickOnMapHandler} style={styles.inputfield}>
+          <Ionicons
+            style={{ marginRight: 5 }}
+            name="location-outline"
+            size={15}
+            color={Colors.AccentIcon}
+          />
+          <Text style={textStyles.basicAccentBold}>{locationName}</Text>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => {props.setSelectedBar(Bars.SearchBar)}}>
+          <Ionicons
+            style={styles.searchIcon}
+            name="ios-search-outline"
+            size={25}
+            color={Colors.AccentIcon}
+          />
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => {props.setSelectedBar(Bars.LikeBar)}}>
+          <Ionicons
+            style={styles.heartIcon}
+            name="ios-heart-outline"
+            size={25}
+            color={Colors.AccentIcon}
+          />
+        </TouchableOpacity>
+      </View>
+
+      <View style={styles.topRow}>
+        <MultipleSelectList
+          setSelected={(val) => props.setSelected(val)}
+          data={data}
+          save="value"
+          onSelect={() => {}}
+          label="Filters"
+          placeholder="Select filters"
+          maxHeight={285}
+          selected={props.selected}
         />
-        <Text style={textStyles.basicAccentBold}>{locationName}</Text>
-      </TouchableOpacity>
-      <MultipleSelectList
-        setSelected={(val) => props.setSelected(val)}
-        data={data}
-        save="value"
-        onSelect={() => {}}
-        label="Filters"
-        placeholder="Select filters"
-        maxHeight={285}
-        selected={props.selected}
-      />
+      </View>
     </View>
   );
 }
@@ -68,21 +92,34 @@ function FilterBar(props) {
 const styles = StyleSheet.create({
   background: {
     backgroundColor: Colors.AccentPrimary,
-    justifyContent: "space-around",
+    justifyContent: "flex-end",
     flexDirection: "column",
-    paddingTop: 30,
-    paddingBottom: Offsets.DefaultMargin,
-    padding: Offsets.DefaultMargin,
+    width: "100%",
+    padding: Offsets.LargeMargin
+  },
+  topRow: {
+    marginTop: Offsets.LargeMargin,
+    flexDirection: "row",
+    width: "100%",
+    alignItems: "center",
+    justifyContent: "space-between",
   },
   inputfield: {
-    margin: Offsets.DefaultMargin,
+    flex: 1,
     borderRadius: Offsets.BorderRadius,
     backgroundColor: Colors.AccentSecondary,
     flexDirection: "row",
     alignItems: "center",
-    paddingHorizontal: 15,
-    paddingVertical: Offsets.DefaultMargin,
-  }
+    padding: Offsets.DefaultMargin,
+  },
+  searchIcon: {
+    color: Colors.Secondary,
+    marginLeft: Offsets.LargeMargin
+  },
+  heartIcon: {
+    color: Colors.Secondary,
+    marginLeft: Offsets.LargeMargin
+  },
 });
 
 export default FilterBar;

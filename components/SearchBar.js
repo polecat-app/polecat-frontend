@@ -12,26 +12,24 @@ import { Ionicons } from "@expo/vector-icons";
 import { Colors } from "../styles/Colors";
 import { Offsets } from "../styles/Offsets";
 import textStyles from "../styles/TextStyles";
+import { Bars } from "../util/Constants";
 
 const SearchBar = (props) => {
   return (
     <View style={styles.container}>
       <View
-        style={
-          !props.clicked
-            ? styles.searchBar__unclicked
-            : styles.searchBar__clicked
-        }
+        style={styles.searchBar}
       >
         <Ionicons
           name="ios-search"
           size={20}
-          color={Colors.Inactive}
-          style={{ marginLeft: 1 }}
+          color={Colors.Primary}
+          style={{ marginLeft: 1, opacity: 0.5 }}
         />
         <TextInput
-          style={styles.input}
+          style={[styles.input, {opacity: props.searchPhrase.length ? 1 : 0.5 }]}
           placeholder="Search"
+          placeholderTextColor={Colors.Primary}
           value={props.searchPhrase}
           onChangeText={props.setSearchPhrase}
           onFocus={() => {
@@ -43,25 +41,24 @@ const SearchBar = (props) => {
           <Ionicons
             name="ios-close"
             size={20}
-            color={Colors.Inactive}
-            style={{ padding: 1 }}
+            color={Colors.Primary}
+            style={{ padding: 1, opacity: 0.5 }}
             onPress={() => {
               props.setSearchPhrase("");
             }}
           />
         )}
       </View>
-      {props.clicked && (
         <Pressable
           style={styles.closeButton}
           onPress={() => {
             Keyboard.dismiss();
+            props.setSelectedBar(Bars.FilterBar)
             props.setClicked(false);
           }}
         >
           <Text style={textStyles.basicAccentBold}>Cancel</Text>
         </Pressable>
-      )}
     </View>
   );
 };
@@ -70,26 +67,18 @@ export default SearchBar;
 
 const styles = StyleSheet.create({
   container: {
+    backgroundColor: Colors.AccentPrimary,
     width: "100%",
     padding: Offsets.DefaultMargin,
     justifyContent: "flex-start",
     alignItems: "center",
     flexDirection: "row",
   },
-  searchBar__unclicked: {
-    padding: Offsets.DefaultMargin,
-    flexDirection: "row",
-    width: "100%",
-    backgroundColor: Colors.Primary,
-    opacity: 0.7,
-    borderRadius: Offsets.BorderRadius,
-    alignItems: "center",
-  },
-  searchBar__clicked: {
+  searchBar: {
     padding: Offsets.DefaultMargin,
     flexDirection: "row",
     width: "80%",
-    backgroundColor: Colors.Primary,
+    backgroundColor: Colors.AccentSecondary,
     borderRadius: Offsets.BorderRadius,
     alignItems: "center",
   },
@@ -97,6 +86,7 @@ const styles = StyleSheet.create({
     fontSize: 20,
     marginLeft: Offsets.DefaultMargin,
     flex: 1,
+    color: Colors.Primary
   },
   closeButton: {
     flexDirection: "column",

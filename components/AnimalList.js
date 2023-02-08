@@ -5,6 +5,9 @@ import useLocation from "../hooks/useLocation";
 import { Offsets } from "../styles/Offsets";
 import AnimalCard from "./AnimalCard";
 import FilterBar from "./FilterBar";
+import { Bars } from "../util/Constants";
+import SearchBar from "./SearchBar";
+import { Colors } from "react-native/Libraries/NewAppScreen";
 
 // Get animals
 const animals = [
@@ -43,6 +46,11 @@ function AnimalList({ navigation, route }) {
   const location = useLocation();
   const [pickedLocation, setPickedLocation] = useState(null);
   const isFocused = useIsFocused();
+  const [selectedBar, setSelectedBar] = useState(Bars.FilterBar);
+
+  // Search states
+  const [searchPhrase, setSearchPhrase] = useState("");
+  const [clicked, setClicked] = useState(false);
 
   useEffect(() => {
     if (isFocused && route.params) {
@@ -63,12 +71,27 @@ function AnimalList({ navigation, route }) {
 
   return (
     <View style={{ flexDirection: "column", width: "100%", flex: 1 }}>
-      <FilterBar
-        selected={selected}
-        setSelected={setSelected}
-        pickedLocation={pickedLocation}
-        setPickedLocation={setPickedLocation}
-      />
+      <View style={styles.barContainer}>
+        {selectedBar === Bars.SearchBar && (
+          <SearchBar
+            searchPhrase={searchPhrase}
+            setSearchPhrase={setSearchPhrase}
+            clicked={clicked}
+            setClicked={setClicked}
+            setSelectedBar={setSelectedBar}
+          ></SearchBar>
+        )}
+        {selectedBar === Bars.LikeBar && <View></View>}
+        {selectedBar === Bars.FilterBar && (
+          <FilterBar
+            selected={selected}
+            setSelected={setSelected}
+            pickedLocation={pickedLocation}
+            setPickedLocation={setPickedLocation}
+            setSelectedBar={setSelectedBar}
+          />
+        )}
+      </View>
       <ScrollView style={styles.scrollViewContainer}>
         {animals.map((animal) => (
           <AnimalCard key={animal.key} {...animal} />
@@ -81,6 +104,9 @@ function AnimalList({ navigation, route }) {
 export default AnimalList;
 
 const styles = StyleSheet.create({
+  barContainer: {
+    width: "100%",
+  },
   scrollViewContainer: {
     marginHorizontal: Offsets.DefaultMargin,
     flex: 10,
