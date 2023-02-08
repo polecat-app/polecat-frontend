@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { ScrollView, StyleSheet, View } from "react-native";
 import useLocation from "../hooks/useLocation";
 import { Offsets } from "../styles/Offsets";
-import AnimalCard from "./Card";
+import AnimalCard from "./AnimalCard";
 import FilterBar from "./FilterBar";
 
 // Get animals

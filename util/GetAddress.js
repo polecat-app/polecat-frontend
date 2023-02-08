@@ -19,7 +19,6 @@ function getAddressFromCoordinates({ latitude, longitude, setLocationName }) {
         }
       })
       .catch((e) => {
-        console.log('Error in getAddressFromCoordinates', e)
         setLocationName(latitude.toFixed(2) + ", " + longitude.toFixed(2))
       })
   })

@@ -5,7 +5,7 @@ import { Ionicons } from "@expo/vector-icons";
 import { LocationProvider } from "./store/locationContext";
 import HomeScreen from "./screens/HomeScreen";
 import { SettingsScreen } from "./screens/SettingsScreen";
-import { SearchScreen } from "./screens/SearchScreen";
+import SearchScreen from "./screens/SearchScreen";
 import { Colors } from "./styles/Colors";
 
 const Tab = createBottomTabNavigator();

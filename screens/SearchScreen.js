@@ -1,10 +1,16 @@
-import { Text, View } from "react-native";
-import * as React from "react";
+import { createStackNavigator } from '@react-navigation/stack';
+import Animal from '../components/Animal';
+import SearchComponent from '../components/SearchComponent';
 
-export function SearchScreen() {
+const Stack = createStackNavigator();
+
+function SearchScreen() {
   return (
-    <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-      <Text>Search</Text>
-    </View>
+    <Stack.Navigator>
+      <Stack.Screen name="SearchComponent" component={SearchComponent} options={{ headerShown: false }}/>
+      <Stack.Screen name="Animal" component={Animal} options={{ headerShown: false }}/>
+    </Stack.Navigator>
   );
 }
+
+export default SearchScreen

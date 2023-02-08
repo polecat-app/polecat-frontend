@@ -18,9 +18,7 @@ function useLocation() {
       } else {
         return;
       }
-    } catch (error) {
-      console.log(error);
-    }
+    } catch (error) {}
   };
   useEffect(() => {
     getLocation();
