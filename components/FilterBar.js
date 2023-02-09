@@ -28,7 +28,7 @@ function FilterBar(props) {
 
   return (
     <View style={styles.background}>
-      <View style={styles.topRow}>
+      <View style={styles.row}>
         <TouchableOpacity onPress={pickOnMapHandler} style={styles.inputfield}>
           <Ionicons
             style={{ marginRight: 5 }}
@@ -56,7 +56,7 @@ function FilterBar(props) {
         </TouchableOpacity>
       </View>
 
-      <View style={styles.topRow}>
+      <View style={styles.row}>
         <MultipleSelectList
           setSelected={(val) => props.setSelected(val)}
           data={data}
@@ -80,7 +80,7 @@ const styles = StyleSheet.create({
     width: "100%",
     padding: Offsets.LargeMargin
   },
-  topRow: {
+  row: {
     marginTop: Offsets.LargeMargin,
     flexDirection: "row",
     width: "100%",

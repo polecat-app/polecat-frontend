@@ -16,7 +16,8 @@ import { Bars } from "../util/Constants";
 
 const SearchBar = (props) => {
   return (
-    <View style={styles.container}>
+    <View style={styles.background}>
+      <View style={styles.row}>
       <View
         style={styles.searchBar}
       >
@@ -59,6 +60,7 @@ const SearchBar = (props) => {
         >
           <Text style={textStyles.basicAccentBold}>Cancel</Text>
         </Pressable>
+      </View>
     </View>
   );
 };
@@ -66,13 +68,19 @@ const SearchBar = (props) => {
 export default SearchBar;
 
 const styles = StyleSheet.create({
-  container: {
+  background: {
     backgroundColor: Colors.AccentPrimary,
+    justifyContent: "flex-end",
+    flexDirection: "column",
     width: "100%",
-    padding: Offsets.DefaultMargin,
-    justifyContent: "flex-start",
-    alignItems: "center",
+    padding: Offsets.LargeMargin
+  },
+  row: {
+    marginTop: Offsets.LargeMargin,
     flexDirection: "row",
+    width: "100%",
+    alignItems: "center",
+    justifyContent: "space-between",
   },
   searchBar: {
     padding: Offsets.DefaultMargin,
