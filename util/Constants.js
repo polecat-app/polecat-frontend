@@ -1,7 +1,7 @@
 const Bars = {
   FilterBar: "FilterBar",
   SearchBar: "SearchBar",
-  LikeBar: "LikeBar",
+  SavedBar: "SavedBar",
 };
 
 export { Bars }

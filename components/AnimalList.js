@@ -9,6 +9,7 @@ import { Bars } from "../util/Constants";
 import SearchBar from "./SearchBar";
 import { Colors } from "react-native/Libraries/NewAppScreen";
 import getAddressFromCoordinates from "../util/GetAddress";
+import SavedBar from "./SavedBar";
 
 // Get animals
 const animals = [
@@ -98,7 +99,11 @@ function AnimalList({ navigation, route }) {
             setSelectedBar={setSelectedBar}
           ></SearchBar>
         )}
-        {selectedBar === Bars.LikeBar && <View></View>}
+        {selectedBar === Bars.SavedBar && (
+        <SavedBar>
+
+        </SavedBar>
+        )}
         {selectedBar === Bars.FilterBar && (
           <FilterBar
             selected={selected}

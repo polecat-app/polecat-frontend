@@ -46,10 +46,10 @@ function FilterBar(props) {
             color={Colors.AccentIcon}
           />
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => {props.setSelectedBar(Bars.LikeBar)}}>
+        <TouchableOpacity onPress={() => {props.setSelectedBar(Bars.SavedBar); console.log(props.selectedBar)}}>
           <Ionicons
-            style={styles.heartIcon}
-            name="ios-heart-outline"
+            style={styles.bookmarkIcon}
+            name="ios-bookmark-outline"
             size={25}
             color={Colors.AccentIcon}
           />
@@ -99,7 +99,7 @@ const styles = StyleSheet.create({
     color: Colors.Secondary,
     marginLeft: Offsets.LargeMargin
   },
-  heartIcon: {
+  bookmarkIcon: {
     color: Colors.Secondary,
     marginLeft: Offsets.LargeMargin
   },

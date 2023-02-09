@@ -13,6 +13,7 @@ import { Colors } from "../styles/Colors";
 import { Offsets } from "../styles/Offsets";
 import textStyles from "../styles/TextStyles";
 import { Bars } from "../util/Constants";
+import TextStyles from "../styles/TextStyles";
 
 const SearchBar = (props) => {
   return (
@@ -23,16 +24,18 @@ const SearchBar = (props) => {
       >
         <Ionicons
           name="ios-search"
-          size={20}
+          size={18}
           color={Colors.Primary}
           style={{ marginLeft: 1, opacity: 0.5 }}
         />
         <TextInput
-          style={[styles.input, {opacity: props.searchPhrase.length ? 1 : 0.5 }]}
+          style={[TextStyles.searchAccentBold, styles.input, {opacity: props.searchPhrase.length ? 1 : 0.5 }]}
           placeholder="Search"
           placeholderTextColor={Colors.Primary}
           value={props.searchPhrase}
           onChangeText={props.setSearchPhrase}
+          autoFocus={true}
+          returnKeyType={"search"}
           onFocus={() => {
             props.setClicked(true);
           }}
@@ -41,9 +44,9 @@ const SearchBar = (props) => {
         {props.clicked && (
           <Ionicons
             name="ios-close"
-            size={20}
+            size={18}
             color={Colors.Primary}
-            style={{ padding: 1, opacity: 0.5 }}
+            style={{ opacity: 0.5 }}
             onPress={() => {
               props.setSearchPhrase("");
             }}
@@ -91,10 +94,9 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   input: {
-    fontSize: 20,
     marginLeft: Offsets.DefaultMargin,
     flex: 1,
-    color: Colors.Primary
+    alignSelf: "center"
   },
   closeButton: {
     flexDirection: "column",
