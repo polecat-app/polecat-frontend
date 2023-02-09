@@ -4,7 +4,6 @@ import {
   StyleSheet,
   TouchableOpacity,
   Text,
-  SafeAreaView,
 } from "react-native";
 import MultipleSelectList from "./MultipleSelectList";
 import { SpeciesTags, OccuranceTags } from "./Tag";
@@ -12,13 +11,10 @@ import { Ionicons } from "@expo/vector-icons";
 import { Colors } from "../styles/Colors";
 import { Offsets } from "../styles/Offsets";
 import textStyles from "../styles/TextStyles";
-import { useEffect, useState } from "react";
-import getAddressFromCoordinates from "../util/GetAddress";
 import { Bars } from "../util/Constants";
 
 function FilterBar(props) {
   const navigation = useNavigation();
-  const [locationName, setLocationName] = useState("Loading location..");
 
   const allTags = Object.keys({ ...SpeciesTags, ...OccuranceTags });
   const data = allTags.map((tag) => ({ key: tag, value: tag }));
@@ -30,19 +26,6 @@ function FilterBar(props) {
     });
   }
 
-  // Get location name by reverse geocoding
-  useEffect(() => {
-    if (props.pickedLocation) {
-      getAddressFromCoordinates({
-        latitude: props.pickedLocation.latitude,
-        longitude: props.pickedLocation.longitude,
-        setLocationName: setLocationName,
-      });
-    } else {
-      setLocationName("Loading location..");
-    }
-  }, [props.pickedLocation, setLocationName]);
-
   return (
     <View style={styles.background}>
       <View style={styles.topRow}>
@@ -53,7 +36,7 @@ function FilterBar(props) {
             size={15}
             color={Colors.AccentIcon}
           />
-          <Text style={textStyles.basicAccentBold}>{locationName}</Text>
+          <Text style={textStyles.basicAccentBold}>{props.locationName}</Text>
         </TouchableOpacity>
         <TouchableOpacity onPress={() => {props.setSelectedBar(Bars.SearchBar)}}>
           <Ionicons

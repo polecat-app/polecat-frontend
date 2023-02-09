@@ -8,6 +8,7 @@ import FilterBar from "./FilterBar";
 import { Bars } from "../util/Constants";
 import SearchBar from "./SearchBar";
 import { Colors } from "react-native/Libraries/NewAppScreen";
+import getAddressFromCoordinates from "../util/GetAddress";
 
 // Get animals
 const animals = [
@@ -43,10 +44,13 @@ This sparrow-sized bird has the typical short-tailed, large-headed kingfisher pr
 function AnimalList({ navigation, route }) {
   // Filter states
   const [selected, setSelected] = useState([]);
-  const location = useLocation();
-  const [pickedLocation, setPickedLocation] = useState(null);
   const isFocused = useIsFocused();
   const [selectedBar, setSelectedBar] = useState(Bars.FilterBar);
+  
+  // Location states
+  const location = useLocation();
+  const [pickedLocation, setPickedLocation] = useState(null);
+  const [locationName, setLocationName] = useState("Loading location..");
 
   // Search states
   const [searchPhrase, setSearchPhrase] = useState("");
@@ -69,6 +73,19 @@ function AnimalList({ navigation, route }) {
     }
   }, [location, pickedLocation]);
 
+  // Get location name by reverse geocoding
+  useEffect(() => {
+    if (pickedLocation) {
+      getAddressFromCoordinates({
+        latitude: pickedLocation.latitude,
+        longitude: pickedLocation.longitude,
+        setLocationName: setLocationName,
+      });
+    } else {
+      setLocationName("Loading location..");
+    }
+  }, [pickedLocation]);
+
   return (
     <View style={{ flexDirection: "column", width: "100%", flex: 1 }}>
       <View style={styles.barContainer}>
@@ -87,8 +104,8 @@ function AnimalList({ navigation, route }) {
             selected={selected}
             setSelected={setSelected}
             pickedLocation={pickedLocation}
-            setPickedLocation={setPickedLocation}
             setSelectedBar={setSelectedBar}
+            locationName={locationName}
           />
         )}
       </View>
