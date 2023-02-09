@@ -46,7 +46,7 @@ function FilterBar(props) {
             color={Colors.AccentIcon}
           />
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => {props.setSelectedBar(Bars.SavedBar); console.log(props.selectedBar)}}>
+        <TouchableOpacity onPress={() => {props.setSelectedBar(Bars.SavedBar)}}>
           <Ionicons
             style={styles.bookmarkIcon}
             name="ios-bookmark-outline"
