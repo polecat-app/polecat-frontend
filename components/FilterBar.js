@@ -1,10 +1,5 @@
 import { useNavigation } from "@react-navigation/native";
-import {
-  View,
-  StyleSheet,
-  TouchableOpacity,
-  Text,
-} from "react-native";
+import { View, StyleSheet, TouchableOpacity, Text } from "react-native";
 import MultipleSelectList from "./MultipleSelectList";
 import { SpeciesTags, OccuranceTags } from "./Tag";
 import { Ionicons } from "@expo/vector-icons";
@@ -27,7 +22,7 @@ function FilterBar(props) {
   }
 
   return (
-    <View style={styles.background}>
+    <View>
       <View style={styles.row}>
         <TouchableOpacity onPress={pickOnMapHandler} style={styles.inputfield}>
           <Ionicons
@@ -38,7 +33,11 @@ function FilterBar(props) {
           />
           <Text style={textStyles.basicAccentBold}>{props.locationName}</Text>
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => {props.setSelectedBar(Bars.SearchBar)}}>
+        <TouchableOpacity
+          onPress={() => {
+            props.setSelectedBar(Bars.SearchBar);
+          }}
+        >
           <Ionicons
             style={styles.searchIcon}
             name="ios-search-outline"
@@ -46,7 +45,11 @@ function FilterBar(props) {
             color={Colors.AccentIcon}
           />
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => {props.setSelectedBar(Bars.SavedBar)}}>
+        <TouchableOpacity
+          onPress={() => {
+            props.setSelectedBar(Bars.SavedBar);
+          }}
+        >
           <Ionicons
             style={styles.bookmarkIcon}
             name="ios-bookmark-outline"
@@ -73,13 +76,6 @@ function FilterBar(props) {
 }
 
 const styles = StyleSheet.create({
-  background: {
-    backgroundColor: Colors.AccentPrimary,
-    justifyContent: "flex-end",
-    flexDirection: "column",
-    width: "100%",
-    padding: Offsets.LargeMargin
-  },
   row: {
     marginTop: Offsets.LargeMargin,
     flexDirection: "row",
@@ -97,11 +93,11 @@ const styles = StyleSheet.create({
   },
   searchIcon: {
     color: Colors.Secondary,
-    marginLeft: Offsets.LargeMargin
+    marginLeft: Offsets.LargeMargin,
   },
   bookmarkIcon: {
     color: Colors.Secondary,
-    marginLeft: Offsets.LargeMargin
+    marginLeft: Offsets.LargeMargin,
   },
 });
 

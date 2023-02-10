@@ -4,7 +4,7 @@ import { Offsets } from "../styles/Offsets"
 
 function SavedBar(props) {
   return (
-    <View style={styles.background}>
+    <View style={styles.row}>
       <Text>Saved bar</Text>
     </View>
   )
@@ -13,10 +13,9 @@ function SavedBar(props) {
 export default SavedBar
 
 const styles = StyleSheet.create({
-  background: {
-    backgroundColor: Colors.AccentPrimary,
-    justifyContent: "flex-end",
-    flexDirection: "column",
+  row: {
+    flexDirection: "row",
     width: "100%",
-    padding: Offsets.LargeMargin
+    alignItems: "center",
+    justifyContent: "space-between",
   },})

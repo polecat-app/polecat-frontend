@@ -7,9 +7,9 @@ import AnimalCard from "./AnimalCard";
 import FilterBar from "./FilterBar";
 import { Bars } from "../util/Constants";
 import SearchBar from "./SearchBar";
-import { Colors } from "react-native/Libraries/NewAppScreen";
 import getAddressFromCoordinates from "../util/GetAddress";
 import SavedBar from "./SavedBar";
+import { Colors } from "../styles/Colors";
 
 // Get animals
 const animals = [
@@ -47,7 +47,7 @@ function AnimalList({ navigation, route }) {
   const [selected, setSelected] = useState([]);
   const isFocused = useIsFocused();
   const [selectedBar, setSelectedBar] = useState(Bars.FilterBar);
-  
+
   // Location states
   const location = useLocation();
   const [pickedLocation, setPickedLocation] = useState(null);
@@ -99,11 +99,7 @@ function AnimalList({ navigation, route }) {
             setSelectedBar={setSelectedBar}
           ></SearchBar>
         )}
-        {selectedBar === Bars.SavedBar && (
-        <SavedBar>
-
-        </SavedBar>
-        )}
+        {selectedBar === Bars.SavedBar && <SavedBar></SavedBar>}
         {selectedBar === Bars.FilterBar && (
           <FilterBar
             selected={selected}
@@ -127,7 +123,11 @@ export default AnimalList;
 
 const styles = StyleSheet.create({
   barContainer: {
+    backgroundColor: Colors.AccentPrimary,
+    justifyContent: "flex-end",
+    flexDirection: "column",
     width: "100%",
+    padding: Offsets.LargeMargin,
   },
   scrollViewContainer: {
     marginHorizontal: Offsets.DefaultMargin,

@@ -17,11 +17,8 @@ import TextStyles from "../styles/TextStyles";
 
 const SearchBar = (props) => {
   return (
-    <View style={styles.background}>
-      <View style={styles.row}>
-      <View
-        style={styles.searchBar}
-      >
+    <View style={styles.row}>
+      <View style={styles.searchBar}>
         <Ionicons
           name="ios-search"
           size={18}
@@ -29,7 +26,11 @@ const SearchBar = (props) => {
           style={{ marginLeft: 1, opacity: 0.5 }}
         />
         <TextInput
-          style={[TextStyles.searchAccentBold, styles.input, {opacity: props.searchPhrase.length ? 1 : 0.5 }]}
+          style={[
+            TextStyles.searchAccentBold,
+            styles.input,
+            { opacity: props.searchPhrase.length ? 1 : 0.5 },
+          ]}
           placeholder="Search"
           placeholderTextColor={Colors.Primary}
           value={props.searchPhrase}
@@ -53,17 +54,16 @@ const SearchBar = (props) => {
           />
         )}
       </View>
-        <Pressable
-          style={styles.closeButton}
-          onPress={() => {
-            Keyboard.dismiss();
-            props.setSelectedBar(Bars.FilterBar)
-            props.setClicked(false);
-          }}
-        >
-          <Text style={textStyles.basicAccentBold}>Cancel</Text>
-        </Pressable>
-      </View>
+      <Pressable
+        style={styles.closeButton}
+        onPress={() => {
+          Keyboard.dismiss();
+          props.setSelectedBar(Bars.FilterBar);
+          props.setClicked(false);
+        }}
+      >
+        <Text style={textStyles.basicAccentBold}>Cancel</Text>
+      </Pressable>
     </View>
   );
 };
@@ -71,13 +71,6 @@ const SearchBar = (props) => {
 export default SearchBar;
 
 const styles = StyleSheet.create({
-  background: {
-    backgroundColor: Colors.AccentPrimary,
-    justifyContent: "flex-end",
-    flexDirection: "column",
-    width: "100%",
-    padding: Offsets.LargeMargin
-  },
   row: {
     marginTop: Offsets.LargeMargin,
     flexDirection: "row",
@@ -96,11 +89,11 @@ const styles = StyleSheet.create({
   input: {
     marginLeft: Offsets.DefaultMargin,
     flex: 1,
-    alignSelf: "center"
+    alignSelf: "center",
   },
   closeButton: {
     flexDirection: "column",
     alignItems: "center",
     width: "20%",
-  }
+  },
 });
