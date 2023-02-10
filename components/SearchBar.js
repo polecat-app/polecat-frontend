@@ -14,6 +14,7 @@ import { Offsets } from "../styles/Offsets";
 import textStyles from "../styles/TextStyles";
 import { Bars } from "../util/Constants";
 import TextStyles from "../styles/TextStyles";
+import CloseButton from "./CloseButton";
 
 const SearchBar = (props) => {
   return (
@@ -54,16 +55,11 @@ const SearchBar = (props) => {
           />
         )}
       </View>
-      <Pressable
-        style={styles.closeButton}
-        onPress={() => {
-          Keyboard.dismiss();
-          props.setSelectedBar(Bars.FilterBar);
-          props.setClicked(false);
-        }}
-      >
-        <Text style={textStyles.basicAccentBold}>Cancel</Text>
-      </Pressable>
+      <CloseButton closeFunction={() => {
+        Keyboard.dismiss();
+        props.setSelectedBar(Bars.FilterBar);
+        props.setClicked(false);
+      }}></CloseButton>
     </View>
   );
 };

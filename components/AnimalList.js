@@ -99,7 +99,7 @@ function AnimalList({ navigation, route }) {
             setSelectedBar={setSelectedBar}
           ></SearchBar>
         )}
-        {selectedBar === Bars.SavedBar && <SavedBar></SavedBar>}
+        {selectedBar === Bars.SavedBar && <SavedBar setSelectedBar={setSelectedBar}></SavedBar>}
         {selectedBar === Bars.FilterBar && (
           <FilterBar
             selected={selected}
@@ -128,6 +128,7 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     width: "100%",
     padding: Offsets.LargeMargin,
+    paddingTOp: Offsets.LargeMargin * 2,
   },
   scrollViewContainer: {
     marginHorizontal: Offsets.DefaultMargin,
