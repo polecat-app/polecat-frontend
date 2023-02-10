@@ -3,11 +3,41 @@ import { Colors } from "../styles/Colors"
 import { Offsets } from "../styles/Offsets"
 import { Bars } from "../util/Constants"
 import CloseButton from "./CloseButton"
+import SwitchSelector from "react-native-switch-selector";
+import textStyles from "../styles/TextStyles"
+
 
 function SavedBar(props) {
+
   return (
+    <View>
+    <Text style={[styles.row, textStyles.overlayBold]}>Saved animals</Text>
     <View style={styles.row}>
+      <View style={styles.toggle}>
+      <SwitchSelector
+        initial={0}
+        onPress={value => console.log('press')}
+        textStyle={textStyles.basicAccentBold}
+        selectedTextStyle={{...textStyles.basicAccentBold, color: Colors.AccentPrimary}}
+        borderColor={Colors.AccentPrimary}
+        hasPadding
+        buttonColor={Colors.Primary}
+        backgroundColor={Colors.AccentSecondary}
+        borderRadius={50}
+        valuePadding={0}
+        height={30}
+        bold={true}
+        options={[
+          { label: "Liked", value: "Liked" },
+          { label: "Seen", value: "Seen" }
+        ]}
+        testID="gender-switch-selector"
+        accessibilityLabel="gender-switch-selector"
+      />
+      </View>
+      <View style={styles.inbetween}></View>
       <CloseButton closeFunction={() => {props.setSelectedBar(Bars.FilterBar);}}/>
+    </View>
     </View>
   )
 }
@@ -21,4 +51,11 @@ const styles = StyleSheet.create({
     width: "100%",
     alignItems: "center",
     justifyContent: "space-between",
-  },})
+  },
+  toggle: {
+    width: "60%"
+  },
+  inbetween: {
+    width: "20%"
+  }
+})

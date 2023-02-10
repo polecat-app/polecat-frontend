@@ -87,9 +87,4 @@ const styles = StyleSheet.create({
     flex: 1,
     alignSelf: "center",
   },
-  closeButton: {
-    flexDirection: "column",
-    alignItems: "center",
-    width: "20%",
-  },
 });
