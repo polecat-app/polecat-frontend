@@ -94,8 +94,8 @@ function AnimalList({ navigation, route }) {
     setFilterProps({
       commonName: null,
       tags: null,
-      liked: savedFilterState === "liked" ? true : null,
-      seen: savedFilterState === "seen" ? true : null,
+      liked: savedFilterState === "Liked" ? true : null,
+      seen: savedFilterState === "Seen" ? true : null,
       location: null,
     });
   }, [savedFilterState]);

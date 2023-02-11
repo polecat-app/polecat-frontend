@@ -16,7 +16,7 @@ function SavedBar(props) {
       <View style={styles.toggle}>
       <SwitchSelector
         initial={0}
-        onPress={value => console.log('press')}
+        onPress={value => {props.setSavedFilterState(value)}}
         textStyle={textStyles.basicAccentBold}
         selectedTextStyle={{...textStyles.basicAccentBold, color: Colors.AccentPrimary}}
         borderColor={Colors.AccentPrimary}
