@@ -23,12 +23,12 @@ function FilterBar(props) {
 
   return (
     <View>
-      <Text style={[styles.row, textStyles.overlayBold]}>Find animals</Text>
+      <Text style={[styles.row, textStyles.overlayBold]}>Discover animals</Text>
       <View style={styles.row}>
         <TouchableOpacity onPress={pickOnMapHandler} style={styles.inputfield}>
           <Ionicons
             style={{ marginRight: 5 }}
-            name="location-outline"
+            name="location"
             size={15}
             color={Colors.AccentIcon}
           />

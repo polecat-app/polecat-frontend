@@ -17,7 +17,7 @@ export default function App() {
             let iconName;
 
             if (route.name === "Home") {
-              iconName = focused ? "ios-location" : "ios-location-outline";
+              iconName = focused ? "compass" : "compass-outline";
             } else if (route.name === "Saved") {
               iconName = focused ? "ios-bookmark" : "ios-bookmark-outline";
             }
