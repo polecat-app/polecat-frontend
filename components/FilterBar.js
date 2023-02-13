@@ -36,24 +36,12 @@ function FilterBar(props) {
         </TouchableOpacity>
         <TouchableOpacity
           onPress={() => {
-            props.setSelectedBar(Bars.SearchBar);
+            props.setClicked(true);
           }}
         >
           <Ionicons
             style={styles.searchIcon}
             name="ios-search-outline"
-            size={25}
-            color={Colors.AccentIcon}
-          />
-        </TouchableOpacity>
-        <TouchableOpacity
-          onPress={() => {
-            props.setSelectedBar(Bars.SavedBar);
-          }}
-        >
-          <Ionicons
-            style={styles.bookmarkIcon}
-            name="ios-bookmark-outline"
             size={25}
             color={Colors.AccentIcon}
           />

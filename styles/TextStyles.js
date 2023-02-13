@@ -26,8 +26,8 @@ const textStyles = StyleSheet.create({
     color: Colors.AccentText,
     lineHeight: 20,
     flexShrink: 1,
-    height:20,
-    ellipsizeMode:'tail'
+    height: 20,
+    ellipsizeMode: "tail",
   },
   basicAccentItalic: {
     fontStyle: "italic",
@@ -45,7 +45,7 @@ const textStyles = StyleSheet.create({
   searchAccentBold: {
     fontWeight: "bold",
     color: Colors.AccentText,
-    height:20,
+    height: 20,
   },
 });
 

@@ -19,7 +19,7 @@ function MapScreen({ navigation, route }) {
     longitude: pickedLocation.longitude,
     latitudeDelta: 0.01,
     longitudeDelta: 0.03,
-  }
+  };
   const mapRef = useRef(null);
 
   function selectLocationHandler(event) {
@@ -49,8 +49,7 @@ function MapScreen({ navigation, route }) {
   }
 
   return (
-    <View style={{ flexDirection: "column", flex: 1, alignItems: "center"}}>
-
+    <View style={{ flexDirection: "column", flex: 1, alignItems: "center" }}>
       <MapView
         ref={mapRef}
         region={region}
@@ -63,9 +62,9 @@ function MapScreen({ navigation, route }) {
       </MapView>
 
       {/* Elements on Map */}
-      <TouchableOpacity 
-      onPress={() => navigation.navigate("List")}
-      style={styles.closeButton}
+      <TouchableOpacity
+        onPress={() => navigation.navigate("List")}
+        style={styles.closeButton}
       >
         <Ionicons
           name={"arrow-back-outline"}
@@ -101,34 +100,34 @@ export default MapScreen;
 const styles = StyleSheet.create({
   bottom: {
     backgroundColor: Colors.Primary,
-    width: '100%',
+    width: "100%",
     height: 160,
-    alignSelf: 'flex-end',
-    alignItems: 'center',
-    flexDirection: 'column',
-    justifyContent: 'space-between',
+    alignSelf: "flex-end",
+    alignItems: "center",
+    flexDirection: "column",
+    justifyContent: "space-between",
     padding: 20,
     shadowColor: "black",
     shadowOpacity: 0.4,
-    shadowRadius: Offsets.DefaultMargin
+    shadowRadius: Offsets.DefaultMargin,
   },
   buttonCurrentLocation: {
     width: "100%",
     flex: 1,
     backgroundColor: Colors.Secondary,
     margin: Offsets.DefaultMargin,
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderRadius: Offsets.BorderRadius
+    alignItems: "center",
+    justifyContent: "center",
+    borderRadius: Offsets.BorderRadius,
   },
   buttonConfirm: {
     width: "100%",
     flex: 1,
     backgroundColor: Colors.AccentPrimary,
     margin: Offsets.DefaultMargin,
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderRadius: Offsets.BorderRadius
+    alignItems: "center",
+    justifyContent: "center",
+    borderRadius: Offsets.BorderRadius,
   },
   closeIcon: {
     color: Colors.AccentIcon,

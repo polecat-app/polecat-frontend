@@ -8,7 +8,6 @@ import { getAnimals } from "../../util/AnimalAPI";
 import TopBarContainer from "../../components/TopBarContainer";
 
 function ListScreen({ navigation, route }) {
-
   // Filter states
   const [filterProps, setFilterProps] = useState({
     commonName: null,
@@ -51,9 +50,7 @@ function ListScreen({ navigation, route }) {
   return (
     <View style={{ flexDirection: "column", width: "100%", flex: 1 }}>
       <TopBarContainer>
-          <SavedBar
-            setSavedFilterState={setSavedFilterState}
-          ></SavedBar>
+        <SavedBar setSavedFilterState={setSavedFilterState}></SavedBar>
       </TopBarContainer>
       <Text>{loading && "loading.."}</Text>
       <ScrollView style={styles.scrollViewContainer}>

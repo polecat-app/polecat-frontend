@@ -5,11 +5,8 @@ import useLocation from "../../hooks/useLocation";
 import { Offsets } from "../../styles/Offsets";
 import AnimalCard from "../../components/AnimalCard";
 import FilterBar from "../../components/FilterBar";
-import { Bars } from "../../util/Constants";
 import SearchBar from "../../components/SearchBar";
 import getAddressFromCoordinates from "../../util/GetAddress";
-import SavedBar from "../../components/SavedBar";
-import { Colors } from "../../styles/Colors";
 import { getAnimals } from "../../util/AnimalAPI";
 import TopBarContainer from "../../components/TopBarContainer";
 
@@ -17,7 +14,6 @@ function ListScreen({ navigation, route }) {
   // Filter states
   const [selected, setSelected] = useState([]);
   const isFocused = useIsFocused();
-  const [selectedBar, setSelectedBar] = useState(Bars.FilterBar);
   const [filterProps, setFilterProps] = useState({
     commonName: null,
     tags: null,
@@ -104,22 +100,20 @@ function ListScreen({ navigation, route }) {
   return (
     <View style={{ flexDirection: "column", width: "100%", flex: 1 }}>
       <TopBarContainer>
-        {selectedBar === Bars.SearchBar && (
+        {clicked && (
           <SearchBar
             searchPhrase={searchPhrase}
             setSearchPhrase={setSearchPhrase}
-            clicked={clicked}
             setClicked={setClicked}
-            setSelectedBar={setSelectedBar}
           ></SearchBar>
         )}
-        {selectedBar === Bars.FilterBar && (
+        {!clicked && (
           <FilterBar
             selected={selected}
             setSelected={setSelected}
             pickedLocation={pickedLocation}
-            setSelectedBar={setSelectedBar}
             locationName={locationName}
+            setClicked={setClicked}
           />
         )}
       </TopBarContainer>

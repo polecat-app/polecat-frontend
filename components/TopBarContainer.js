@@ -4,10 +4,10 @@ import { Offsets } from "../styles/Offsets";
 const { View, StyleSheet } = require("react-native");
 
 function TopBarContainer(props) {
-  return (<View style={styles.barContainer}>{props.children}</View>)
+  return <View style={styles.barContainer}>{props.children}</View>;
 }
 
-export default TopBarContainer
+export default TopBarContainer;
 
 const styles = StyleSheet.create({
   barContainer: {

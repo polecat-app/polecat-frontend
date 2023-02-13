@@ -7,25 +7,27 @@ function AnimalCard(props) {
   const navigation = useNavigation();
 
   return (
-      <TouchableOpacity
-        style={styles.cardContainer}
-        onPress={() => {navigation.navigate("Animal", props)}}
-      >
-          <View style={styles.textContainer}>
-            <Text style={textStyles.basicBold} numberOfLines={1}>
-              {props.commonName}
-            </Text>
-            <Text style={textStyles.basicItalic} numberOfLines={1}>
-              {props.binomial}
-            </Text>
-            <Text style={textStyles.basic} numberOfLines={2}>
-              {props.summary}
-            </Text>
-          </View>
-          <View style={styles.imageContainer}>
-            <Image style={styles.image} source={{ uri: props.image }} />
-          </View>
-      </TouchableOpacity>
+    <TouchableOpacity
+      style={styles.cardContainer}
+      onPress={() => {
+        navigation.navigate("Animal", props);
+      }}
+    >
+      <View style={styles.textContainer}>
+        <Text style={textStyles.basicBold} numberOfLines={1}>
+          {props.commonName}
+        </Text>
+        <Text style={textStyles.basicItalic} numberOfLines={1}>
+          {props.binomial}
+        </Text>
+        <Text style={textStyles.basic} numberOfLines={2}>
+          {props.summary}
+        </Text>
+      </View>
+      <View style={styles.imageContainer}>
+        <Image style={styles.image} source={{ uri: props.image }} />
+      </View>
+    </TouchableOpacity>
   );
 }
 

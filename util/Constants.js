@@ -4,4 +4,4 @@ const Bars = {
   SavedBar: "SavedBar",
 };
 
-export { Bars }
+export { Bars };

@@ -1,17 +1,8 @@
 import React from "react";
-import {
-  StyleSheet,
-  TextInput,
-  View,
-  Keyboard,
-  Button,
-  Pressable,
-  Text,
-} from "react-native";
+import { StyleSheet, TextInput, View, Keyboard } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { Colors } from "../styles/Colors";
 import { Offsets } from "../styles/Offsets";
-import textStyles from "../styles/TextStyles";
 import { Bars } from "../util/Constants";
 import TextStyles from "../styles/TextStyles";
 import CloseButton from "./CloseButton";
@@ -43,23 +34,23 @@ const SearchBar = (props) => {
           }}
         />
 
-        {props.clicked && (
-          <Ionicons
-            name="ios-close"
-            size={18}
-            color={Colors.Primary}
-            style={{ opacity: 0.5 }}
-            onPress={() => {
-              props.setSearchPhrase("");
-            }}
-          />
-        )}
+        <Ionicons
+          name="ios-close"
+          size={18}
+          color={Colors.Primary}
+          style={{ opacity: 0.5 }}
+          onPress={() => {
+            props.setSearchPhrase("");
+          }}
+        />
       </View>
-      <CloseButton closeFunction={() => {
-        Keyboard.dismiss();
-        props.setSelectedBar(Bars.FilterBar);
-        props.setClicked(false);
-      }}></CloseButton>
+      <CloseButton
+        closeFunction={() => {
+          Keyboard.dismiss();
+          props.setClicked(false);
+          props.setSearchPhrase("");
+        }}
+      ></CloseButton>
     </View>
   );
 };
