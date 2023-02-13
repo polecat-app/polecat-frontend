@@ -1,4 +1,3 @@
-import { useIsFocused } from "@react-navigation/native";
 import { useEffect, useState } from "react";
 import { ScrollView, StyleSheet, View, Text } from "react-native";
 import { Offsets } from "../../styles/Offsets";
@@ -6,6 +5,7 @@ import AnimalCard from "../../components/AnimalCard";
 import SavedBar from "../../components/SavedBar";
 import { Colors } from "../../styles/Colors";
 import { getAnimals } from "../../util/AnimalAPI";
+import TopBarContainer from "../../components/TopBarContainer";
 
 function ListScreen({ navigation, route }) {
 
@@ -50,11 +50,11 @@ function ListScreen({ navigation, route }) {
 
   return (
     <View style={{ flexDirection: "column", width: "100%", flex: 1 }}>
-      <View style={styles.barContainer}>
+      <TopBarContainer>
           <SavedBar
             setSavedFilterState={setSavedFilterState}
           ></SavedBar>
-      </View>
+      </TopBarContainer>
       <Text>{loading && "loading.."}</Text>
       <ScrollView style={styles.scrollViewContainer}>
         {animals.map((animal) => (
@@ -68,14 +68,6 @@ function ListScreen({ navigation, route }) {
 export default ListScreen;
 
 const styles = StyleSheet.create({
-  barContainer: {
-    backgroundColor: Colors.AccentPrimary,
-    justifyContent: "flex-end",
-    flexDirection: "column",
-    width: "100%",
-    padding: Offsets.LargeMargin,
-    paddingTOp: Offsets.LargeMargin * 2,
-  },
   scrollViewContainer: {
     marginHorizontal: Offsets.DefaultMargin,
     flex: 10,

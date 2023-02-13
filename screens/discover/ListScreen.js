@@ -11,6 +11,7 @@ import getAddressFromCoordinates from "../../util/GetAddress";
 import SavedBar from "../../components/SavedBar";
 import { Colors } from "../../styles/Colors";
 import { getAnimals } from "../../util/AnimalAPI";
+import TopBarContainer from "../../components/TopBarContainer";
 
 function ListScreen({ navigation, route }) {
   // Filter states
@@ -33,9 +34,6 @@ function ListScreen({ navigation, route }) {
   // Search states
   const [searchPhrase, setSearchPhrase] = useState("");
   const [clicked, setClicked] = useState(false);
-
-  // Saved states
-  const [savedFilterState, setSavedFilterState] = useState(null);
 
   // List states
   const [loading, setLoading] = useState(false);
@@ -90,15 +88,6 @@ function ListScreen({ navigation, route }) {
       location: null,
     });
   }, [searchPhrase]);
-  useEffect(() => {
-    setFilterProps({
-      commonName: null,
-      tags: null,
-      liked: savedFilterState === "Liked" ? true : null,
-      seen: savedFilterState === "Seen" ? true : null,
-      location: null,
-    });
-  }, [savedFilterState]);
 
   // Timeout and send request for animal list after delay
   useEffect(() => {
@@ -114,7 +103,7 @@ function ListScreen({ navigation, route }) {
 
   return (
     <View style={{ flexDirection: "column", width: "100%", flex: 1 }}>
-      <View style={styles.barContainer}>
+      <TopBarContainer>
         {selectedBar === Bars.SearchBar && (
           <SearchBar
             searchPhrase={searchPhrase}
@@ -123,12 +112,6 @@ function ListScreen({ navigation, route }) {
             setClicked={setClicked}
             setSelectedBar={setSelectedBar}
           ></SearchBar>
-        )}
-        {selectedBar === Bars.SavedBar && (
-          <SavedBar
-            setSelectedBar={setSelectedBar}
-            setSavedFilterState={setSavedFilterState}
-          ></SavedBar>
         )}
         {selectedBar === Bars.FilterBar && (
           <FilterBar
@@ -139,7 +122,7 @@ function ListScreen({ navigation, route }) {
             locationName={locationName}
           />
         )}
-      </View>
+      </TopBarContainer>
       <Text>{loading && "loading.."}</Text>
       <ScrollView style={styles.scrollViewContainer}>
         {animals.map((animal) => (
@@ -153,14 +136,6 @@ function ListScreen({ navigation, route }) {
 export default ListScreen;
 
 const styles = StyleSheet.create({
-  barContainer: {
-    backgroundColor: Colors.AccentPrimary,
-    justifyContent: "flex-end",
-    flexDirection: "column",
-    width: "100%",
-    padding: Offsets.LargeMargin,
-    paddingTOp: Offsets.LargeMargin * 2,
-  },
   scrollViewContainer: {
     marginHorizontal: Offsets.DefaultMargin,
     flex: 10,
