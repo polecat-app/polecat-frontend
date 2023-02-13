@@ -17,7 +17,7 @@ function ListScreen({ navigation, route }) {
     seen: null,
     location: null,
   });
-  
+
   // Saved states
   const [savedFilterState, setSavedFilterState] = useState(null);
 
@@ -44,7 +44,7 @@ function ListScreen({ navigation, route }) {
         setAnimals: setAnimals,
         filterProps: filterProps,
       });
-    }, 2000);
+    }, 500);
     return () => clearTimeout(delayDebounceFn);
   }, [filterProps]);
 
