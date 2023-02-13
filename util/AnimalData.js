@@ -107,6 +107,7 @@ to purr, and their tendency to form strong bonds with their owners.`,
     summary: `The koala is an arboreal herbivorous marsupial native to Australia. It is the only extant representative of the family Phascolarctidae and its closest living relatives are the wombats.`,
     image:
       "https://upload.wikimedia.org/wikipedia/commons/4/49/Koala_climbing_tree.jpg",
+    tags: ["mammal", "rare"],
     liked: false,
     Seen: false,
   },
