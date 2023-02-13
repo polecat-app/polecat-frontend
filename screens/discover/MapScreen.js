@@ -2,17 +2,21 @@ import { TouchableOpacity, View, Text, StyleSheet, Alert } from "react-native";
 import MapView, { Marker } from "react-native-maps";
 import useLocation from "../../hooks/useLocation";
 import { Ionicons } from "@expo/vector-icons";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Colors } from "../../styles/Colors";
 import { Offsets } from "../../styles/Offsets";
 import textStyles from "../../styles/TextStyles";
+import getAddressFromCoordinates from "../../util/GetAddress";
+import TopBarContainer from "../../components/TopBarContainer";
 
 function MapScreen({ navigation, route }) {
   // States from parent component
   const pickedLocation = route.params.pickedLocation;
+  const previousLocationName = route.params.locationName;
 
   // States
   const location = useLocation();
+  const [locationName, setLocationName] = useState(previousLocationName);
   const [selectedLocation, setSelectedLocation] = useState(pickedLocation);
   const region = {
     latitude: pickedLocation.latitude,
@@ -48,8 +52,51 @@ function MapScreen({ navigation, route }) {
     });
   }
 
+  // Get location name by reverse geocoding
+  useEffect(() => {
+    if (selectedLocation) {
+      getAddressFromCoordinates({
+        latitude: selectedLocation.latitude,
+        longitude: selectedLocation.longitude,
+        setLocationName: setLocationName,
+      });
+    }
+  }, [selectedLocation]);
+
   return (
     <View style={{ flexDirection: "column", flex: 1, alignItems: "center" }}>
+      {/* Top bar */}
+      <View
+        style={{
+          ...styles.shadow,
+          width: "100%",
+          position: "absolute",
+          zIndex: 7,
+        }}
+      >
+        <TopBarContainer>
+          <View style={styles.row}>
+            <TouchableOpacity onPress={() => navigation.navigate("List")}>
+              <Ionicons
+                name={"arrow-back-outline"}
+                size={32}
+                style={styles.closeIcon}
+              />
+            </TouchableOpacity>
+            <Text style={textStyles.overlayBold}> Pick location</Text>
+          </View>
+          <View style={styles.row}>
+            <Ionicons
+              style={{ marginRight: 5 }}
+              name="location"
+              size={15}
+              color={Colors.AccentIcon}
+            />
+            <Text style={textStyles.basicAccentBold}>{locationName}</Text>
+          </View>
+        </TopBarContainer>
+      </View>
+
       <MapView
         ref={mapRef}
         region={region}
@@ -60,21 +107,6 @@ function MapScreen({ navigation, route }) {
           <Marker title="location" coordinate={selectedLocation} />
         )}
       </MapView>
-
-      {/* Elements on Map */}
-      <TouchableOpacity
-        onPress={() => navigation.navigate("List")}
-        style={styles.closeButton}
-      >
-        <Ionicons
-          name={"arrow-back-outline"}
-          size={32}
-          style={styles.closeIcon}
-        />
-      </TouchableOpacity>
-      <View style={styles.hint}>
-        <Text style={textStyles.basic}> Pick a location on the map. </Text>
-      </View>
 
       {/* Elements below map */}
       <View style={styles.bottom}>
@@ -98,6 +130,13 @@ function MapScreen({ navigation, route }) {
 export default MapScreen;
 
 const styles = StyleSheet.create({
+  row: {
+    marginTop: Offsets.LargeMargin,
+    flexDirection: "row",
+    width: "100%",
+    alignItems: "center",
+    justifyContent: "flex-start",
+  },
   bottom: {
     backgroundColor: Colors.Primary,
     width: "100%",
@@ -131,7 +170,6 @@ const styles = StyleSheet.create({
   },
   closeIcon: {
     color: Colors.AccentIcon,
-    opacity: 0.8,
   },
   closeButton: {
     position: "absolute",
@@ -141,12 +179,19 @@ const styles = StyleSheet.create({
     zIndex: 5,
   },
   hint: {
+    width: "70%",
     position: "absolute",
     marginTop: 30,
     zIndex: 4,
     backgroundColor: Colors.Primary,
     padding: Offsets.DefaultMargin,
     borderRadius: Offsets.BorderRadius,
+    shadowColor: "black",
+    shadowOpacity: 0.4,
+    shadowRadius: Offsets.DefaultMargin,
+    alignItems: "center",
+  },
+  shadow: {
     shadowColor: "black",
     shadowOpacity: 0.4,
     shadowRadius: Offsets.DefaultMargin,

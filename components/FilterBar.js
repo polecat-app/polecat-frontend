@@ -18,6 +18,7 @@ function FilterBar(props) {
   function pickOnMapHandler() {
     navigation.navigate("Map", {
       pickedLocation: props.pickedLocation,
+      locationName: props.locationName
     });
   }
 
