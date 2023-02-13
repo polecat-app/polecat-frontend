@@ -1,18 +1,18 @@
 import { useIsFocused } from "@react-navigation/native";
 import { useEffect, useState } from "react";
 import { ScrollView, StyleSheet, View, Text } from "react-native";
-import useLocation from "../hooks/useLocation";
-import { Offsets } from "../styles/Offsets";
-import AnimalCard from "./AnimalCard";
-import FilterBar from "./FilterBar";
-import { Bars } from "../util/Constants";
-import SearchBar from "./SearchBar";
-import getAddressFromCoordinates from "../util/GetAddress";
-import SavedBar from "./SavedBar";
-import { Colors } from "../styles/Colors";
-import { getAnimals } from "../util/AnimalAPI";
+import useLocation from "../../hooks/useLocation";
+import { Offsets } from "../../styles/Offsets";
+import AnimalCard from "../../components/AnimalCard";
+import FilterBar from "../../components/FilterBar";
+import { Bars } from "../../util/Constants";
+import SearchBar from "../../components/SearchBar";
+import getAddressFromCoordinates from "../../util/GetAddress";
+import SavedBar from "../../components/SavedBar";
+import { Colors } from "../../styles/Colors";
+import { getAnimals } from "../../util/AnimalAPI";
 
-function AnimalList({ navigation, route }) {
+function ListScreen({ navigation, route }) {
   // Filter states
   const [selected, setSelected] = useState([]);
   const isFocused = useIsFocused();
@@ -150,7 +150,7 @@ function AnimalList({ navigation, route }) {
   );
 }
 
-export default AnimalList;
+export default ListScreen;
 
 const styles = StyleSheet.create({
   barContainer: {

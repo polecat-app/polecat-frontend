@@ -1,10 +1,10 @@
 import * as React from "react";
 import { NavigationContainer } from "@react-navigation/native";
-import HomeScreen from "./screens/HomeScreen";
+import DiscoverScreen from "./screens/DiscoverScreen";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { Ionicons } from "@expo/vector-icons";
 import { Colors } from "./styles/Colors";
-import { SavedScreen } from "./screens/SavedScreen";
+import SavedScreen from "./screens/SavedScreen";
 
 const Tab = createBottomTabNavigator();
 
@@ -16,7 +16,7 @@ export default function App() {
           tabBarIcon: ({ focused, color, size }) => {
             let iconName;
 
-            if (route.name === "Home") {
+            if (route.name === "Discover") {
               iconName = focused ? "compass" : "compass-outline";
             } else if (route.name === "Saved") {
               iconName = focused ? "ios-bookmark" : "ios-bookmark-outline";
@@ -32,7 +32,7 @@ export default function App() {
         }
         })}
       >
-        <Tab.Screen name="Home" component={HomeScreen} />
+        <Tab.Screen name="Discover" component={DiscoverScreen} />
         <Tab.Screen name="Saved" component={SavedScreen} />
       </Tab.Navigator>
     </NavigationContainer>

@@ -1,13 +1,13 @@
 import { TouchableOpacity, View, Text, StyleSheet, Alert } from "react-native";
 import MapView, { Marker } from "react-native-maps";
-import useLocation from "../hooks/useLocation";
+import useLocation from "../../hooks/useLocation";
 import { Ionicons } from "@expo/vector-icons";
 import { useRef, useState } from "react";
-import { Colors } from "../styles/Colors";
-import { Offsets } from "../styles/Offsets";
-import textStyles from "../styles/TextStyles";
+import { Colors } from "../../styles/Colors";
+import { Offsets } from "../../styles/Offsets";
+import textStyles from "../../styles/TextStyles";
 
-function Map({ navigation, route }) {
+function MapScreen({ navigation, route }) {
   // States from parent component
   const pickedLocation = route.params.pickedLocation;
 
@@ -33,7 +33,7 @@ function Map({ navigation, route }) {
       Alert.alert("No location picked! Click the map to pick location.");
       return;
     }
-    navigation.navigate("AnimalList", { selectedLocation });
+    navigation.navigate("List", { selectedLocation });
   }
 
   function useCurrentLocationHandler() {
@@ -64,7 +64,7 @@ function Map({ navigation, route }) {
 
       {/* Elements on Map */}
       <TouchableOpacity 
-      onPress={() => navigation.navigate("AnimalList")}
+      onPress={() => navigation.navigate("List")}
       style={styles.closeButton}
       >
         <Ionicons
@@ -96,7 +96,7 @@ function Map({ navigation, route }) {
   );
 }
 
-export default Map;
+export default MapScreen;
 
 const styles = StyleSheet.create({
   bottom: {

@@ -1,8 +1,6 @@
 import { View, StyleSheet, Text } from "react-native"
 import { Colors } from "../styles/Colors"
 import { Offsets } from "../styles/Offsets"
-import { Bars } from "../util/Constants"
-import CloseButton from "./CloseButton"
 import SwitchSelector from "react-native-switch-selector";
 import textStyles from "../styles/TextStyles"
 
@@ -36,7 +34,6 @@ function SavedBar(props) {
       />
       </View>
       <View style={styles.inbetween}></View>
-      <CloseButton closeFunction={() => {props.setSelectedBar(Bars.FilterBar);}}/>
     </View>
     </View>
   )
