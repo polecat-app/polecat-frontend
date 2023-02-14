@@ -33,7 +33,7 @@ function ListScreen({ navigation, route }) {
       <TopBarContainer>
         <SavedBar setSavedFilterState={setSavedFilterState}></SavedBar>
       </TopBarContainer>
-      <AnimalList filterProps={filterProps}></AnimalList>
+      <AnimalList filterProps={filterProps} timeOutValue={500}></AnimalList>
     </View>
   );
 }

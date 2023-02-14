@@ -63,22 +63,13 @@ function ListScreen({ navigation, route }) {
   // Update search query
   useEffect(() => {
     setFilterProps({
-      commonName: null,
+      commonName: searchPhrase,
       tags: selected,
       liked: null,
       seen: null,
       location: pickedLocation,
     });
-  }, [selected, pickedLocation]);
-  useEffect(() => {
-    setFilterProps({
-      commonName: searchPhrase,
-      tags: null,
-      liked: null,
-      seen: null,
-      location: null,
-    });
-  }, [searchPhrase]);
+  }, [selected, pickedLocation, searchPhrase]);
 
   return (
     <View style={{ flexDirection: "column", width: "100%", flex: 1 }}>
@@ -100,7 +91,7 @@ function ListScreen({ navigation, route }) {
           />
         )}
       </TopBarContainer>
-      <AnimalList filterProps={filterProps}></AnimalList>
+      <AnimalList filterProps={filterProps} timeOutValue={1500}></AnimalList>
     </View>
   );
 }

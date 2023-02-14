@@ -10,15 +10,27 @@ import { Offsets } from "../styles/Offsets";
 import { getAnimals } from "../util/AnimalAPI";
 import AnimalCard from "./AnimalCard";
 
-function AnimalList({ filterProps }) {
+function AnimalList({ filterProps, timeOutValue }) {
   const [page, setPage] = useState(0);
   const [data, setData] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [filtersUpdating, setFiltersUpdating] = useState(true);
   const [isRefreshing, setIsRefreshing] = useState(false);
 
+  // Update results on change filterProps, after timeout
   useEffect(() => {
-    fetchData();
-  }, [page]);
+    !filtersUpdating && setFiltersUpdating(true)
+    const delayDebounceFn = setTimeout(() => {
+      setPage(0)
+      setFiltersUpdating(false)
+    }, timeOutValue);
+    return () => clearTimeout(delayDebounceFn);
+  }, [filterProps]);
+
+  useEffect(() => {
+    if (!filtersUpdating) {
+    fetchData();}
+  }, [page, filtersUpdating]);
 
   const fetchData = async () => {
     setIsLoading(true);
@@ -47,22 +59,10 @@ function AnimalList({ filterProps }) {
 
   const onRefresh = async () => {
     setIsRefreshing(true)
-    await timeout(1000)
+    await timeout(timeOutValue)
     setPage(() => 0)
     setIsRefreshing(false)
   };
-
-  // Timeout and send request for animal list after delay
-  // useEffect(() => {
-  //   const delayDebounceFn = setTimeout(() => {
-  //     getAnimals({
-  //       setLoading: setIsLoading,
-  //       setAnimals: setData,
-  //       filterProps: filterProps,
-  //     });
-  //   }, 500);
-  //   return () => clearTimeout(delayDebounceFn);
-  // }, [filterProps]);
 
   const renderFooter = () => {
     if (!isLoading) return null;
@@ -82,8 +82,8 @@ function AnimalList({ filterProps }) {
       refreshControl={
         <RefreshControl refreshing={isRefreshing} onRefresh={onRefresh} />
       }
-      // ListFooterComponent={renderFooter}
-      onEndReachedThreshold={0}
+      ListFooterComponent={renderFooter}
+      onEndReachedThreshold={0.2}
       onEndReached={fetchMoreData}
     />
   );
