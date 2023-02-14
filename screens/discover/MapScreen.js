@@ -64,17 +64,23 @@ function MapScreen({ navigation, route }) {
   }, [selectedLocation]);
 
   return (
-    <View style={{ flexDirection: "column", flex: 1, alignItems: "center" }}>
-      {/* Top bar */}
-      <View
-        style={{
-          ...styles.shadow,
-          width: "100%",
-          position: "absolute",
-          zIndex: 7,
-        }}
+    <View style={styles.container}>
+
+      {/* Map background */}
+      <MapView
+        ref={mapRef}
+        region={region}
+        style={styles.map}
+        onPress={selectLocationHandler}
       >
-        <TopBarContainer>
+        {selectedLocation && (
+          <Marker coordinate={selectedLocation} />
+        )}
+      </MapView>
+
+      {/* Top bar */}
+      <View style={[styles.onMapTop, styles.shadow]}>
+        <TopBarContainer backgroundColor={Colors.AccentSecondary}>
           <View style={styles.row}>
             <TouchableOpacity onPress={() => navigation.navigate("List")}>
               <Ionicons
@@ -97,39 +103,55 @@ function MapScreen({ navigation, route }) {
         </TopBarContainer>
       </View>
 
-      <MapView
-        ref={mapRef}
-        region={region}
-        style={{ width: "100%", flex: 3 }}
-        onPress={selectLocationHandler}
-      >
-        {selectedLocation && (
-          <Marker title="location" coordinate={selectedLocation} />
-        )}
-      </MapView>
-
-      {/* Elements below map */}
-      <View style={styles.bottom}>
+      {/* Bottom bar */}
+      <View style={styles.onMapBottom}>
         <TouchableOpacity
           onPress={useCurrentLocationHandler}
           style={styles.buttonCurrentLocation}
         >
-          <Text style={textStyles.basic}>Navigate to current location</Text>
+          <Ionicons name="navigate" size={32} color={Colors.Primary} />
         </TouchableOpacity>
-        <TouchableOpacity
-          onPress={savePickedLocationHandler}
-          style={styles.buttonConfirm}
-        >
-          <Text style={textStyles.basicAccentBold}>Confirm location</Text>
-        </TouchableOpacity>
+
+        {/* Elements below map */}
+        <View style={styles.bottom}>
+          <TouchableOpacity
+            onPress={savePickedLocationHandler}
+            style={styles.buttonConfirm}
+          >
+            <Text style={textStyles.basicAccentBold}>Confirm location</Text>
+          </TouchableOpacity>
+        </View>
       </View>
-    </View>
+
+      </View>
   );
 }
 
 export default MapScreen;
 
 const styles = StyleSheet.create({
+  container: {
+    height: "100%",
+    width: "100%",
+  },
+  map: {
+    width: "100%",
+    height: "100%",
+    position: "absolute",
+    zIndex: 1,
+  },
+  onMapTop: {
+    width: "100%",
+    position: "absolute",
+    zIndex: 5,
+    top: 0,
+  },
+  onMapBottom: {
+    width: "100%",
+    position: "absolute",
+    zIndex: 5,
+    bottom: 0,
+  },
   row: {
     marginTop: Offsets.LargeMargin,
     flexDirection: "row",
@@ -140,8 +162,6 @@ const styles = StyleSheet.create({
   bottom: {
     backgroundColor: Colors.Primary,
     width: "100%",
-    height: 160,
-    alignSelf: "flex-end",
     alignItems: "center",
     flexDirection: "column",
     justifyContent: "space-between",
@@ -151,18 +171,21 @@ const styles = StyleSheet.create({
     shadowRadius: Offsets.DefaultMargin,
   },
   buttonCurrentLocation: {
-    width: "100%",
-    flex: 1,
-    backgroundColor: Colors.Secondary,
-    margin: Offsets.DefaultMargin,
+    alignSelf: "flex-end",
+    marginBottom: Offsets.LargeMargin,
+    marginRight: Offsets.LargeMargin,
+    backgroundColor: "rgba(100,100,100,0.5)",
+    width: 60,
+    height: 60,
     alignItems: "center",
     justifyContent: "center",
-    borderRadius: Offsets.BorderRadius,
+    borderRadius: 60,
+    zIndex: 8,
   },
   buttonConfirm: {
+    padding: Offsets.DefaultMargin,
     width: "100%",
-    flex: 1,
-    backgroundColor: Colors.AccentPrimary,
+    backgroundColor: Colors.AccentSecondary,
     margin: Offsets.DefaultMargin,
     alignItems: "center",
     justifyContent: "center",
@@ -170,26 +193,6 @@ const styles = StyleSheet.create({
   },
   closeIcon: {
     color: Colors.AccentIcon,
-  },
-  closeButton: {
-    position: "absolute",
-    alignSelf: "flex-start",
-    marginTop: 30,
-    marginLeft: Offsets.DefaultMargin,
-    zIndex: 5,
-  },
-  hint: {
-    width: "70%",
-    position: "absolute",
-    marginTop: 30,
-    zIndex: 4,
-    backgroundColor: Colors.Primary,
-    padding: Offsets.DefaultMargin,
-    borderRadius: Offsets.BorderRadius,
-    shadowColor: "black",
-    shadowOpacity: 0.4,
-    shadowRadius: Offsets.DefaultMargin,
-    alignItems: "center",
   },
   shadow: {
     shadowColor: "black",
