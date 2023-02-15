@@ -24,7 +24,7 @@ function MultipleSelectList({
   notFoundText = "No data found",
   save = "key",
   dropdownShown = false,
-  selected
+  selected,
 }) {
   const [_firstRender, _setFirstRender] = useState(true);
   const [dropdown, setDropdown] = useState(dropdownShown);
@@ -74,7 +74,7 @@ function MultipleSelectList({
   }, [dropdownShown]);
 
   return (
-    <View>
+    <View style={{ flex: 1 }}>
       {selectedval?.length > 0 ? (
         <TouchableOpacity
           style={styles.wrapper}
@@ -87,9 +87,7 @@ function MultipleSelectList({
           }}
         >
           <View>
-            <Text style={textStyles.basicAccentBold}>
-              {label}
-            </Text>
+            <Text style={textStyles.basicAccentBold}>{label}</Text>
             <View
               style={{
                 flexDirection: "row",
@@ -131,7 +129,7 @@ function MultipleSelectList({
               : selectedval}
           </Text>
           <Ionicons
-            name= {dropdown? "chevron-up-outline" : "chevron-down-outline"}
+            name={dropdown ? "chevron-up-outline" : "chevron-down-outline"}
             style={{ alignSelf: "center" }}
             size={15}
             color={Colors.AccentIcon}
@@ -140,12 +138,7 @@ function MultipleSelectList({
       )}
 
       {dropdown ? (
-        <Animated.View
-          style={[
-            { maxHeight: animatedvalue },
-            styles.dropdown
-          ]}
-        >
+        <Animated.View style={[{ maxHeight: animatedvalue }, styles.dropdown]}>
           <View style={[{ maxHeight: height }]}>
             <ScrollView
               contentContainerStyle={{ paddingVertical: 10 }}
@@ -163,16 +156,15 @@ function MultipleSelectList({
                         key={index}
                       >
                         <View
-                          style={
-                            {
-                              width: 15,
-                              height: 15,
-                              marginRight: 10,
-                              borderRadius: 3,
-                              justifyContent: "center",
-                              alignItems: "center",
-                              backgroundColor: "#c4c5c6",
-                            }}
+                          style={{
+                            width: 15,
+                            height: 15,
+                            marginRight: 10,
+                            borderRadius: 3,
+                            justifyContent: "center",
+                            alignItems: "center",
+                            backgroundColor: "#c4c5c6",
+                          }}
                         >
                           {selectedval?.includes(value) ? (
                             <Ionicons
@@ -181,13 +173,7 @@ function MultipleSelectList({
                             ></Ionicons>
                           ) : null}
                         </View>
-                        <Text
-                          style={
-                            { color: "#c4c5c6" }
-                          }
-                        >
-                          {value}
-                        </Text>
+                        <Text style={{ color: "#c4c5c6" }}>{value}</Text>
                       </TouchableOpacity>
                     );
                   } else {
@@ -231,9 +217,7 @@ function MultipleSelectList({
                           }
                         }}
                       >
-                        <View
-                          style={styles.checkmark}
-                        >
+                        <View style={styles.checkmark}>
                           {selectedval?.includes(value) ? (
                             <Ionicons
                               name="checkmark-outline"
@@ -241,9 +225,7 @@ function MultipleSelectList({
                             ></Ionicons>
                           ) : null}
                         </View>
-                        <Text style={textStyles.basicAccent}>
-                          {value}
-                        </Text>
+                        <Text style={textStyles.basicAccent}>{value}</Text>
                       </TouchableOpacity>
                     );
                   }
@@ -290,9 +272,7 @@ const styles = StyleSheet.create({
     paddingVertical: Offsets.DefaultMargin,
     flexDirection: "row",
     justifyContent: "space-between",
-    marginBottom: Offsets.DefaultMargin,
     borderRadius: 20,
-    margin: Offsets.DefaultMargin,
     backgroundColor: Colors.AccentSecondary,
     borderWidth: 0,
     color: Colors.AccentText,
@@ -323,6 +303,6 @@ const styles = StyleSheet.create({
     borderRadius: 3,
     justifyContent: "center",
     alignItems: "center",
-    borderColor: Colors.AccentIcon
-  }
+    borderColor: Colors.AccentIcon,
+  },
 });

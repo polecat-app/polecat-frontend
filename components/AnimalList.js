@@ -1,80 +1,91 @@
-import { useIsFocused } from "@react-navigation/native";
 import { useEffect, useState } from "react";
-import { ScrollView, StyleSheet, View } from "react-native";
-import useLocation from "../hooks/useLocation";
+import {
+  ActivityIndicator,
+  FlatList,
+  RefreshControl,
+  StyleSheet,
+  View,
+} from "react-native";
 import { Offsets } from "../styles/Offsets";
+import { getAnimals } from "../util/AnimalAPI";
 import AnimalCard from "./AnimalCard";
-import FilterBar from "./FilterBar";
 
-// Get animals
-const animals = [
-  {
-    key: 0,
-    binomial: "Mustela Putorius",
-    commonName: "European Polecat",
-    summary: `The European polecat (Mustela putorius), also known as the common polecat, 
-black polecat, or forest polecat, is a species of mustelid native to western Eurasia and North 
-Africa. It is of a generally dark brown colour, with a pale underbelly and a dark mask across 
-the face. Occasionally, colour mutations including albinos, leucists, isabellinists, 
-xanthochromists, amelanists and erythrists occur.[2] It has a shorter, more compact body 
-than other Mustela species,[3] a more powerfully built skull and dentition,[4] is less agile,[5] 
-and is well known for having the characteristic ability to secrete a 
-particularly foul-smelling liquid to mark its territory.`,
-    image:
-      "https://upload.wikimedia.org/wikipedia/commons/1/17/Storm_the_polecat.jpg",
-    tags: ["mammal", "endangered"],
-  },
-  {
-    key: 1,
-    binomial: "Alcedo atthis",
-    commonName: "Common Kingfisher",
-    summary: `The common kingfisher (Alcedo atthis), also known as the Eurasian kingfisher and river kingfisher, 
-is a small kingfisher with seven subspecies recognized within its wide distribution across Eurasia and North Africa. It is resident in much of its range, but migrates from areas where rivers freeze in winter.
-This sparrow-sized bird has the typical short-tailed, large-headed kingfisher profile; it has blue upperparts, orange underparts and a long bill. It feeds mainly on fish, caught by diving, and has special visual adaptations to enable it to see prey under water. The glossy white eggs are laid in a nest at the end of a burrow in a riverbank.`,
-    image:
-      "https://upload.wikimedia.org/wikipedia/commons/9/92/%E2%99%82_Common_Kingfisher_%28Alcedo_atthis%29_Photograph_By_Shantanu_Kuveskar%2C_Mangaon%2C_Maharashtra%2C_India.jpg",
-    tags: ["bird", "rare"],
-  },
-];
+function AnimalList({ filterProps, timeOutValue }) {
+  const [page, setPage] = useState(0);
+  const [data, setData] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [filtersUpdating, setFiltersUpdating] = useState(true);
+  const [isRefreshing, setIsRefreshing] = useState(false);
 
-function AnimalList({ navigation, route }) {
-  // Filter states
-  const [selected, setSelected] = useState([]);
-  const location = useLocation();
-  const [pickedLocation, setPickedLocation] = useState(null);
-  const isFocused = useIsFocused();
+  // Update results on change filterProps, after timeout
+  useEffect(() => {
+    !filtersUpdating && setFiltersUpdating(true)
+    const delayDebounceFn = setTimeout(() => {
+      setPage(0)
+      setFiltersUpdating(false)
+    }, timeOutValue);
+    return () => clearTimeout(delayDebounceFn);
+  }, [filterProps]);
 
   useEffect(() => {
-    if (isFocused && route.params) {
-      const mapPickedLocation = {
-        latitude: route.params.selectedLocation.latitude,
-        longitude: route.params.selectedLocation.longitude,
-      };
-      setPickedLocation(mapPickedLocation);
-    }
-  }, [route, isFocused]);
+    if (!filtersUpdating) {
+    fetchData();}
+  }, [page, filtersUpdating]);
 
-  // Set initial location to current location
-  useEffect(() => {
-    if (location && !pickedLocation) {
-      setPickedLocation(location);
+  const fetchData = async () => {
+    setIsLoading(true);
+    const newAnimals = await getAnimals({
+      filterProps: filterProps,
+      page: page,
+    });
+    if (page === 0) {
+      setData(newAnimals)
     }
-  }, [location, pickedLocation]);
+    else {
+      setData((data) => [...data, ...newAnimals]);
+    }
+    setIsLoading(false);
+  };
+
+  const fetchMoreData = () => {
+    if (!isLoading) {
+      setPage((page) => page + 1);
+    }
+  };
+
+  function timeout(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+  const onRefresh = async () => {
+    setIsRefreshing(true)
+    await timeout(timeOutValue)
+    setPage(() => 0)
+    setIsRefreshing(false)
+  };
+
+  const renderFooter = () => {
+    if (!isLoading) return null;
+    return (
+      <View style={{ paddingVertical: 20 }}>
+        <ActivityIndicator size="large" animating={true} />
+      </View>
+    );
+  };
 
   return (
-    <View style={{ flexDirection: "column", width: "100%", flex: 1 }}>
-      <FilterBar
-        selected={selected}
-        setSelected={setSelected}
-        pickedLocation={pickedLocation}
-        setPickedLocation={setPickedLocation}
-      />
-      <ScrollView style={styles.scrollViewContainer}>
-        {animals.map((animal) => (
-          <AnimalCard key={animal.key} {...animal} />
-        ))}
-      </ScrollView>
-    </View>
+    <FlatList
+      data={data}
+      keyExtractor={(item) => item.key.toString()}
+      contentContainerStyle={styles.scrollViewContainer}
+      renderItem={({ item }) => <AnimalCard key={item.key} {...item} />}
+      refreshControl={
+        <RefreshControl refreshing={isRefreshing} onRefresh={onRefresh} />
+      }
+      ListFooterComponent={renderFooter}
+      onEndReachedThreshold={0.2}
+      onEndReached={fetchMoreData}
+    />
   );
 }
 
@@ -83,6 +94,5 @@ export default AnimalList;
 const styles = StyleSheet.create({
   scrollViewContainer: {
     marginHorizontal: Offsets.DefaultMargin,
-    flex: 10,
   },
 });

@@ -24,11 +24,11 @@ function Tag(props) {
   const [color, icon] = Tags[props.tag];
 
   return (
-    <View style={[styles.container, {backgroundColor: color}]}>
+    <View style={[styles.container, { backgroundColor: color }]}>
       <Text
         style={[
           textStyles.basicAccentBold,
-          {marginHorizontal: 7, marginVertical: 2}
+          { marginHorizontal: 7, marginVertical: 2 },
         ]}
       >
         {props.tag}

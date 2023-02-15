@@ -7,12 +7,12 @@ import {
   ScrollView,
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
-import Tag from "./Tag";
+import Tag from "../components/Tag";
 import textStyles from "../styles/TextStyles";
 import { Colors } from "../styles/Colors";
 import { Offsets } from "../styles/Offsets";
 
-function Animal({ navigation, route }) {
+function AnimalScreen({ navigation, route }) {
   const props = route.params;
 
   return (
@@ -23,7 +23,7 @@ function Animal({ navigation, route }) {
       <View style={styles.container}>
         {/* Elements on Image */}
         <View style={styles.onImage}>
-          <Pressable onPress={() => navigation.navigate("AnimalList")}>
+          <Pressable onPress={() => navigation.navigate("List")}>
             <Ionicons
               name={"arrow-back-outline"}
               size={32}
@@ -130,4 +130,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Animal;
+export default AnimalScreen;
