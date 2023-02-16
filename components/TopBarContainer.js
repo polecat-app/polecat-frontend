@@ -18,8 +18,4 @@ const styles = StyleSheet.create({
     padding: Offsets.LargeMargin,
     paddingTOp: Offsets.LargeMargin * 2,
   },
-  scrollViewContainer: {
-    marginHorizontal: Offsets.DefaultMargin,
-    flex: 10,
-  },
 });
