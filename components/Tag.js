@@ -15,29 +15,30 @@ const OccuranceTags = {
   common: ["darkgray", "circle"],
   uncommon: ["rosybrown", "record-circle"],
   rare: ["gold", "record-circle-outline"],
-  endangered: ["red", "exclamation-thick"],
+  endangered: ["lightcoral", "exclamation-thick"],
 };
 
 const Tags = { ...SpeciesTags, ...OccuranceTags };
 
-function Tag(props) {
-  const [color, icon] = Tags[props.tag];
+function Tag({tag, onlyIcon=false}) {
+  const [color, icon] = Tags[tag];
 
   return (
     <View style={[styles.container, { backgroundColor: color }]}>
+      {!onlyIcon &&
       <Text
         style={[
           textStyles.basicAccentBold,
           { marginHorizontal: 7, marginVertical: 2 },
         ]}
       >
-        {props.tag}
-      </Text>
+        {tag}
+      </Text>}
       <MaterialCommunityIcons
         name={icon}
         size={12}
         color={Colors.AccentIcon}
-        style={{ marginRight: 5 }}
+        style={{ margin: 5 }}
       />
     </View>
   );
@@ -45,8 +46,8 @@ function Tag(props) {
 
 const styles = StyleSheet.create({
   container: {
-    borderRadius: 10,
-    marginRight: Offsets.DefaultMargin,
+    borderRadius: 20,
+    marginRight: 7,
     flexDirection: "row",
     alignItems: "center",
   },

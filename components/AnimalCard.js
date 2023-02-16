@@ -3,6 +3,7 @@ import { TouchableOpacity, View, Text, Image, StyleSheet } from "react-native";
 import { Offsets } from "../styles/Offsets";
 import textStyles from "../styles/TextStyles";
 import Skeleton from "./Skeleton";
+import Tag from "./Tag";
 
 function AnimalCard(props) {
   const navigation = useNavigation();
@@ -21,9 +22,21 @@ function AnimalCard(props) {
         <Text style={textStyles.basicItalic} numberOfLines={1}>
           {props.binomial}
         </Text>
-        <Text style={textStyles.basic} numberOfLines={2}>
-          {props.summary}
-        </Text>
+
+        <View
+          style={{
+            flexDirection: "row",
+            flexWrap: "wrap",
+          }}
+        >
+          {props.tags?.map((item, index) => {
+            return (
+              <View key={item}>
+                <Tag tag={item} onlyIcon={true}></Tag>
+              </View>
+            );
+          })}
+        </View>
       </View>
       <View style={styles.imageContainer}>
         <Image style={styles.image} source={{ uri: props.image }} />
@@ -42,7 +55,7 @@ function AnimalCardSkeleton(props) {
             {
               borderRadius: 5,
               overflow: "hidden",
-              width: "50%",
+              width: "75%",
               height: textStyles.basicBold.lineHeight,
             },
           ]}
@@ -55,7 +68,7 @@ function AnimalCardSkeleton(props) {
             {
               borderRadius: 5,
               overflow: "hidden",
-              width: "85%",
+              width: "50%",
               height: textStyles.basicItalic.lineHeight,
             },
           ]}
@@ -68,7 +81,7 @@ function AnimalCardSkeleton(props) {
             {
               borderRadius: 5,
               overflow: "hidden",
-              width: "85%",
+              width: "50%",
               height: textStyles.basic.lineHeight,
             },
           ]}
@@ -109,11 +122,11 @@ const styles = StyleSheet.create({
   },
   textContainer: {
     flexDirection: "column",
-    justifyContent: "space-between",
-    marginLeft: 3,
+    justifyContent: "space-around",
+    marginHorizontal: 5,
     height: 80,
     flex: 3,
   },
 });
 
-export {AnimalCard, AnimalCardSkeleton};
+export { AnimalCard, AnimalCardSkeleton };

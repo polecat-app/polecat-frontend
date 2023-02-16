@@ -76,7 +76,9 @@ function AnimalList({ filterProps, timeOutValue }) {
 
   return filtersUpdating ? (
     <ScrollView style={styles.scrollViewContainer}>
-      {Array(10).fill(<AnimalCardSkeleton />)}
+      {[...Array(10).keys()].map((item) => (
+        <AnimalCardSkeleton key={item} />
+      ))}
     </ScrollView>
   ) : (
     <FlatList
