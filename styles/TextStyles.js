@@ -10,10 +10,12 @@ const textStyles = StyleSheet.create({
   basicBold: {
     fontWeight: "bold",
     color: Colors.Text,
+    lineHeight: 20,
   },
   basicItalic: {
     fontStyle: "italic",
     color: Colors.TextSecondary,
+    lineHeight: 20,
   },
 
   // Accent
@@ -26,7 +28,6 @@ const textStyles = StyleSheet.create({
     color: Colors.AccentText,
     lineHeight: 20,
     flexShrink: 1,
-    height: 20,
     ellipsizeMode: "tail",
   },
   basicAccentItalic: {
