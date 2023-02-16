@@ -3,12 +3,13 @@ import {
   ActivityIndicator,
   FlatList,
   RefreshControl,
+  ScrollView,
   StyleSheet,
   View,
 } from "react-native";
 import { Offsets } from "../styles/Offsets";
 import { getAnimals } from "../util/AnimalAPI";
-import AnimalCard from "./AnimalCard";
+import { AnimalCard, AnimalCardSkeleton } from "./AnimalCard";
 
 function AnimalList({ filterProps, timeOutValue }) {
   const [page, setPage] = useState(0);
@@ -19,17 +20,18 @@ function AnimalList({ filterProps, timeOutValue }) {
 
   // Update results on change filterProps, after timeout
   useEffect(() => {
-    !filtersUpdating && setFiltersUpdating(true)
+    !filtersUpdating && setFiltersUpdating(true);
     const delayDebounceFn = setTimeout(() => {
-      setPage(0)
-      setFiltersUpdating(false)
+      setPage(0);
+      setFiltersUpdating(false);
     }, timeOutValue);
     return () => clearTimeout(delayDebounceFn);
   }, [filterProps]);
 
   useEffect(() => {
     if (!filtersUpdating) {
-    fetchData();}
+      fetchData();
+    }
   }, [page, filtersUpdating]);
 
   const fetchData = async () => {
@@ -39,9 +41,8 @@ function AnimalList({ filterProps, timeOutValue }) {
       page: page,
     });
     if (page === 0) {
-      setData(newAnimals)
-    }
-    else {
+      setData(newAnimals);
+    } else {
       setData((data) => [...data, ...newAnimals]);
     }
     setIsLoading(false);
@@ -54,14 +55,14 @@ function AnimalList({ filterProps, timeOutValue }) {
   };
 
   function timeout(ms) {
-    return new Promise(resolve => setTimeout(resolve, ms));
-}
+    return new Promise((resolve) => setTimeout(resolve, ms));
+  }
 
   const onRefresh = async () => {
-    setIsRefreshing(true)
-    await timeout(timeOutValue)
-    setPage(() => 0)
-    setIsRefreshing(false)
+    setIsRefreshing(true);
+    await timeout(timeOutValue);
+    setPage(() => 0);
+    setIsRefreshing(false);
   };
 
   const renderFooter = () => {
@@ -73,7 +74,11 @@ function AnimalList({ filterProps, timeOutValue }) {
     );
   };
 
-  return (
+  return filtersUpdating ? (
+    <ScrollView style={styles.scrollViewContainer}>
+      {Array(10).fill(<AnimalCardSkeleton />)}
+    </ScrollView>
+  ) : (
     <FlatList
       data={data}
       keyExtractor={(item) => item.key.toString()}

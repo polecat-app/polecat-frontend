@@ -2,6 +2,7 @@ import { useNavigation } from "@react-navigation/native";
 import { TouchableOpacity, View, Text, Image, StyleSheet } from "react-native";
 import { Offsets } from "../styles/Offsets";
 import textStyles from "../styles/TextStyles";
+import Skeleton from "./Skeleton";
 
 function AnimalCard(props) {
   const navigation = useNavigation();
@@ -31,6 +32,59 @@ function AnimalCard(props) {
   );
 }
 
+function AnimalCardSkeleton(props) {
+  return (
+    <TouchableOpacity style={styles.cardContainer}>
+      <View style={styles.textContainer}>
+        <View
+          style={[
+            textStyles.basicBold,
+            {
+              borderRadius: 5,
+              overflow: "hidden",
+              width: "50%",
+              height: textStyles.basicBold.lineHeight,
+            },
+          ]}
+        >
+          <Skeleton />
+        </View>
+        <View
+          style={[
+            textStyles.basicItalic,
+            {
+              borderRadius: 5,
+              overflow: "hidden",
+              width: "85%",
+              height: textStyles.basicItalic.lineHeight,
+            },
+          ]}
+        >
+          <Skeleton />
+        </View>
+        <View
+          style={[
+            textStyles.basic,
+            {
+              borderRadius: 5,
+              overflow: "hidden",
+              width: "85%",
+              height: textStyles.basic.lineHeight,
+            },
+          ]}
+        >
+          <Skeleton />
+        </View>
+      </View>
+      <View style={styles.imageContainer}>
+        <View style={styles.image}>
+          <Skeleton />
+        </View>
+      </View>
+    </TouchableOpacity>
+  );
+}
+
 const styles = StyleSheet.create({
   imageContainer: {
     flex: 1,
@@ -41,6 +95,7 @@ const styles = StyleSheet.create({
     height: 80,
     width: 80,
     borderRadius: 40,
+    overflow: "hidden",
   },
   cardContainer: {
     flexDirection: "row",
@@ -61,4 +116,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default AnimalCard;
+export {AnimalCard, AnimalCardSkeleton};
