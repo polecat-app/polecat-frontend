@@ -12,6 +12,12 @@ const textStyles = StyleSheet.create({
     color: Colors.Text,
     lineHeight: 20,
   },
+  header: {
+    fontWeight: "bold",
+    color: Colors.Text,
+    lineHeight: 25,
+    fontSize: 18
+  },
   basicItalic: {
     fontStyle: "italic",
     color: Colors.TextSecondary,

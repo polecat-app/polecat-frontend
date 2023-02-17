@@ -13,7 +13,7 @@ and is well known for having the characteristic ability to secrete a
 particularly foul-smelling liquid to mark its territory.`,
     image:
       "https://upload.wikimedia.org/wikipedia/commons/1/17/Storm_the_polecat.jpg",
-    tags: ["mammal", "endangered"],
+    tags: ["mammal", "endangered", "rare", "common", "uncommon"],
     liked: true,
     seen: false,
   },

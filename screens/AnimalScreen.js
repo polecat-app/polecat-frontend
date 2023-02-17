@@ -18,7 +18,8 @@ function AnimalScreen({ navigation, route }) {
 
   return (
     <ScrollView style={styles.background}>
-      {/* Background Image */}
+
+      {/* Top Image */}
       <View style={styles.top}>
         <ImageBackground style={styles.image} source={{ uri: props.image }} />
 
@@ -31,7 +32,6 @@ function AnimalScreen({ navigation, route }) {
               style={styles.close}
             />
           </Pressable>
-
           <View style={styles.onImageBottom}>
             <Text
               style={[styles.commonName, textStyles.overlayBold]}
@@ -44,9 +44,9 @@ function AnimalScreen({ navigation, route }) {
       </View>
 
       {/* Description Text */}
-      <View style={styles.scrollView}>
+      <View style={styles.description}>
         <Text
-          style={{ ...textStyles.basicItalic, marginVertical: gap / 2 }}
+          style={[textStyles.basicItalic, styles.descriptionItem]}
           numberOfLines={3}
         >
           {props.binomial}
@@ -59,24 +59,22 @@ function AnimalScreen({ navigation, route }) {
         >
           {props.tags?.map((item, index) => {
             return (
-              <View key={item}>
+              <View                     style={styles.descriptionItem} key={item}>
                 <Tag tag={item}></Tag>
               </View>
             );
           })}
         </View>
+        <Text style={styles.header}>Summary</Text>
         <Text
-          style={{
-            ...textStyles.basic,
-            marginVertical: gap / 2,
-            textAlign: "left",
-          }}
+          style={[textStyles.basic, styles.descriptionItem]}
         >
           {props.summary}
         </Text>
+      <Text style={styles.header}>Similar animals</Text>
       </View>
 
-      <View style={styles.scrollViewContainer}>
+      <View style={[styles.scrollViewContainer, styles.descriptionItem]}>
       {[...Array(5).keys()].map((item) => (
         <AnimalCardSkeleton key={item} />
       ))}
@@ -119,13 +117,20 @@ const styles = StyleSheet.create({
     height: "100%",
     justifyContent: "center",
     zIndex: 1,
+    backgroundColor: '#e6e6e6'
   },
-  scrollView: {
+  description: {
     marginVertical: 5,
     padding: 20,
     flexDirection: "column",
     flex: 1,
     paddingVertical: gap / -2,
+  },
+  descriptionItem: {
+    marginTop: Offsets.DefaultMargin
+  },
+  header: {
+    ...textStyles.header, marginTop: Offsets.LargeMargin
   },
   buttonSet: {
     width: 50,
@@ -142,6 +147,7 @@ const styles = StyleSheet.create({
   },
   scrollViewContainer: {
     paddingHorizontal: Offsets.DefaultMargin,
+    paddingBottom: Offsets.DefaultMargin,
     backgroundColor: Colors.Secondary
   },
 });
