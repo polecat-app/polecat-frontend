@@ -11,16 +11,17 @@ import Tag from "../components/Tag";
 import textStyles from "../styles/TextStyles";
 import { Colors } from "../styles/Colors";
 import { Offsets } from "../styles/Offsets";
+import { AnimalCardSkeleton } from "../components/AnimalCard";
 
 function AnimalScreen({ navigation, route }) {
   const props = route.params;
 
   return (
-    <View style={styles.background}>
+    <ScrollView style={styles.background}>
       {/* Background Image */}
-      <ImageBackground style={styles.image} source={{ uri: props.image }} />
+      <View style={styles.top}>
+        <ImageBackground style={styles.image} source={{ uri: props.image }} />
 
-      <View style={styles.container}>
         {/* Elements on Image */}
         <View style={styles.onImage}>
           <Pressable onPress={() => navigation.navigate("List")}>
@@ -40,37 +41,47 @@ function AnimalScreen({ navigation, route }) {
             </Text>
           </View>
         </View>
-
-        {/* Description Text */}
-        <ScrollView>
-          <View style={styles.scrollView}>
-            <Text
-              style={{ ...textStyles.basicItalic, marginVertical: gap / 2 }}
-              numberOfLines={3}
-            >
-              {props.binomial}
-            </Text>
-            <ScrollView
-              style={{ flexDirection: "row", paddingHorizontal: gap / -2 }}
-              horizontal={true}
-            >
-              {props.tags.map((tag) => (
-                <Tag key={tag} tag={tag} />
-              ))}
-            </ScrollView>
-            <Text
-              style={{
-                ...textStyles.basic,
-                marginVertical: gap / 2,
-                textAlign: "left",
-              }}
-            >
-              {props.summary}
-            </Text>
-          </View>
-        </ScrollView>
       </View>
+
+      {/* Description Text */}
+      <View style={styles.scrollView}>
+        <Text
+          style={{ ...textStyles.basicItalic, marginVertical: gap / 2 }}
+          numberOfLines={3}
+        >
+          {props.binomial}
+        </Text>
+        <View
+          style={{
+            flexDirection: "row",
+            flexWrap: "wrap",
+          }}
+        >
+          {props.tags?.map((item, index) => {
+            return (
+              <View key={item}>
+                <Tag tag={item}></Tag>
+              </View>
+            );
+          })}
+        </View>
+        <Text
+          style={{
+            ...textStyles.basic,
+            marginVertical: gap / 2,
+            textAlign: "left",
+          }}
+        >
+          {props.summary}
+        </Text>
+      </View>
+
+      <View style={styles.scrollViewContainer}>
+      {[...Array(5).keys()].map((item) => (
+        <AnimalCardSkeleton key={item} />
+      ))}
     </View>
+    </ScrollView>
   );
 }
 
@@ -85,11 +96,17 @@ const styles = StyleSheet.create({
   commonName: {
     flex: 3,
   },
+  top: {
+    width: "100%",
+    aspectRatio: 1
+  },
   onImage: {
-    height: 320,
+    height: "100%",
+    width: "100%",
     justifyContent: "space-between",
     flexDirection: "column",
     zIndex: 5,
+    position: "absolute",
     padding: Offsets.DefaultMargin,
   },
   onImageBottom: {
@@ -98,9 +115,10 @@ const styles = StyleSheet.create({
     alignItems: "flex-end",
   },
   image: {
-    height: 320,
     width: "100%",
+    height: "100%",
     justifyContent: "center",
+    zIndex: 1,
   },
   scrollView: {
     marginVertical: 5,
@@ -108,12 +126,6 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     flex: 1,
     paddingVertical: gap / -2,
-  },
-  container: {
-    flexDirection: "column",
-    position: "absolute",
-    width: "100%",
-    height: "100%",
   },
   buttonSet: {
     width: 50,
@@ -127,6 +139,10 @@ const styles = StyleSheet.create({
     color: Colors.AccentIcon,
     opacity: 0.8,
     alignSelf: "flex-start",
+  },
+  scrollViewContainer: {
+    paddingHorizontal: Offsets.DefaultMargin,
+    backgroundColor: Colors.Secondary
   },
 });
 

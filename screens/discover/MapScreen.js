@@ -80,7 +80,7 @@ function MapScreen({ navigation, route }) {
 
       {/* Top bar */}
       <View style={[styles.onMapTop, styles.shadow]}>
-        <TopBarContainer backgroundColor={Colors.AccentSecondary}>
+        <TopBarContainer>
           <View style={styles.row}>
             <TouchableOpacity onPress={() => navigation.navigate("List")}>
               <Ionicons
@@ -185,7 +185,7 @@ const styles = StyleSheet.create({
   buttonConfirm: {
     padding: Offsets.DefaultMargin,
     width: "100%",
-    backgroundColor: Colors.AccentSecondary,
+    backgroundColor: Colors.AccentPrimary,
     margin: Offsets.DefaultMargin,
     alignItems: "center",
     justifyContent: "center",
