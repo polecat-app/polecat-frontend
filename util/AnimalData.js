@@ -16,6 +16,7 @@ particularly foul-smelling liquid to mark its territory.`,
     tags: ["mammal", "endangered", "rare", "common", "uncommon"],
     liked: true,
     seen: false,
+    rangeImage: "https://indiabiodiversity.org/files-api/api/get/raw/img//Buteo%20buteo/6f.png"
   },
   {
     key: 1,
@@ -29,6 +30,7 @@ This sparrow-sized bird has the typical short-tailed, large-headed kingfisher pr
     tags: ["bird", "rare"],
     liked: true,
     seen: true,
+    rangeImage: "https://indiabiodiversity.org/files-api/api/get/raw/img//Buteo%20buteo/6f.png"
   },
   {
     key: 2,
@@ -44,6 +46,7 @@ to purr, and their tendency to form strong bonds with their owners.`,
     tags: ["mammal", "common"],
     liked: true,
     seen: true,
+    rangeImage: "https://indiabiodiversity.org/files-api/api/get/raw/img//Buteo%20buteo/6f.png"
   },
   {
     key: 3,
@@ -55,6 +58,7 @@ to purr, and their tendency to form strong bonds with their owners.`,
     tags: ["mammal", "endangered"],
     liked: false,
     seen: true,
+    rangeImage: "https://indiabiodiversity.org/files-api/api/get/raw/img//Buteo%20buteo/6f.png"
   },
   {
     key: 10,
@@ -73,6 +77,7 @@ particularly foul-smelling liquid to mark its territory.`,
     tags: ["mammal", "endangered"],
     liked: true,
     seen: false,
+    rangeImage: "https://indiabiodiversity.org/files-api/api/get/raw/img//Buteo%20buteo/6f.png"
   },
   {
     key: 11,
@@ -86,6 +91,7 @@ This sparrow-sized bird has the typical short-tailed, large-headed kingfisher pr
     tags: ["bird", "rare"],
     liked: true,
     seen: true,
+    rangeImage: "https://indiabiodiversity.org/files-api/api/get/raw/img//Buteo%20buteo/6f.png"
   },
   {
     key: 12,
@@ -101,6 +107,7 @@ to purr, and their tendency to form strong bonds with their owners.`,
     tags: ["mammal", "common"],
     liked: true,
     seen: true,
+    rangeImage: "https://indiabiodiversity.org/files-api/api/get/raw/img//Buteo%20buteo/6f.png"
   },
   {
     key: 13,
@@ -112,6 +119,7 @@ to purr, and their tendency to form strong bonds with their owners.`,
     tags: ["mammal", "endangered"],
     liked: false,
     seen: true,
+    rangeImage: "https://indiabiodiversity.org/files-api/api/get/raw/img//Buteo%20buteo/6f.png"
   },],[
   {
     key: 4,
@@ -123,6 +131,7 @@ to purr, and their tendency to form strong bonds with their owners.`,
     tags: ["mammal", "common"],
     liked: false,
     seen: true,
+    rangeImage: "https://indiabiodiversity.org/files-api/api/get/raw/img//Buteo%20buteo/6f.png"
   },
   {
     key: 5,
@@ -134,6 +143,7 @@ to purr, and their tendency to form strong bonds with their owners.`,
     tags: ["mammal", "endangered"],
     liked: true,
     seen: false,
+    rangeImage: "https://indiabiodiversity.org/files-api/api/get/raw/img//Buteo%20buteo/6f.png"
   },
   {
     key: 6,
@@ -145,6 +155,7 @@ to purr, and their tendency to form strong bonds with their owners.`,
     tags: ["bird", "common"],
     liked: false,
     seen: true,
+    rangeImage: "https://indiabiodiversity.org/files-api/api/get/raw/img//Buteo%20buteo/6f.png"
   },
   {
     key: 7,
@@ -156,6 +167,7 @@ to purr, and their tendency to form strong bonds with their owners.`,
     tags: ["mammal", "endangered"],
     liked: false,
     seen: true,
+    rangeImage: "https://indiabiodiversity.org/files-api/api/get/raw/img//Buteo%20buteo/6f.png"
   },
   {
     key: 14,
@@ -167,6 +179,7 @@ to purr, and their tendency to form strong bonds with their owners.`,
     tags: ["mammal", "common"],
     liked: false,
     seen: true,
+    rangeImage: "https://indiabiodiversity.org/files-api/api/get/raw/img//Buteo%20buteo/6f.png"
   },
   {
     key: 15,
@@ -178,6 +191,7 @@ to purr, and their tendency to form strong bonds with their owners.`,
     tags: ["mammal", "endangered"],
     liked: true,
     seen: false,
+    rangeImage: "https://indiabiodiversity.org/files-api/api/get/raw/img//Buteo%20buteo/6f.png"
   },
   {
     key: 16,
@@ -189,6 +203,7 @@ to purr, and their tendency to form strong bonds with their owners.`,
     tags: ["bird", "common"],
     liked: false,
     seen: true,
+    rangeImage: "https://indiabiodiversity.org/files-api/api/get/raw/img//Buteo%20buteo/6f.png"
   },
   {
     key: 17,
@@ -200,6 +215,7 @@ to purr, and their tendency to form strong bonds with their owners.`,
     tags: ["mammal", "endangered"],
     liked: false,
     seen: true,
+    rangeImage: "https://indiabiodiversity.org/files-api/api/get/raw/img//Buteo%20buteo/6f.png"
   },],[
   {
     key: 8,
@@ -211,6 +227,7 @@ to purr, and their tendency to form strong bonds with their owners.`,
     tags: ["mammal", "rare"],
     liked: false,
     Seen: false,
+    rangeImage: "https://indiabiodiversity.org/files-api/api/get/raw/img//Buteo%20buteo/6f.png"
   },]
 ];
 

@@ -5,6 +5,7 @@ import {
   View,
   ImageBackground,
   ScrollView,
+  Image
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import Tag from "../components/Tag";
@@ -71,6 +72,10 @@ function AnimalScreen({ navigation, route }) {
         >
           {props.summary}
         </Text>
+        <Text style={styles.header}>Range</Text>
+
+        <Image resizeMode={"contain"} style={styles.rangeImage} source={{ uri: props.rangeImage }} />
+
       <Text style={styles.header}>Similar animals</Text>
       </View>
 
@@ -118,6 +123,12 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     zIndex: 1,
     backgroundColor: '#e6e6e6'
+  },
+  rangeImage: {
+    width: "100%",
+    height: 200,
+    justifyContent: "center",
+    backgroundColor: Colors.Primary
   },
   description: {
     marginVertical: 5,

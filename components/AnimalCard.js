@@ -15,6 +15,9 @@ function AnimalCard(props) {
         navigation.navigate("Animal", props);
       }}
     >
+      <View style={styles.imageContainer}>
+        <Image style={styles.image} source={{ uri: props.image }} />
+      </View>
       <View style={styles.textContainer}>
         <Text style={textStyles.basicBold} numberOfLines={1}>
           {props.commonName}
@@ -38,9 +41,6 @@ function AnimalCard(props) {
           })}
         </View>
       </View>
-      <View style={styles.imageContainer}>
-        <Image style={styles.image} source={{ uri: props.image }} />
-      </View>
     </TouchableOpacity>
   );
 }
@@ -48,6 +48,11 @@ function AnimalCard(props) {
 function AnimalCardSkeleton(props) {
   return (
     <TouchableOpacity style={styles.cardContainer}>
+      <View style={styles.imageContainer}>
+        <View style={styles.image}>
+          <Skeleton />
+        </View>
+      </View>
       <View style={styles.textContainer}>
         <View
           style={[
@@ -89,11 +94,6 @@ function AnimalCardSkeleton(props) {
           <Skeleton />
         </View>
       </View>
-      <View style={styles.imageContainer}>
-        <View style={styles.image}>
-          <Skeleton />
-        </View>
-      </View>
     </TouchableOpacity>
   );
 }
@@ -123,7 +123,8 @@ const styles = StyleSheet.create({
   textContainer: {
     flexDirection: "column",
     justifyContent: "space-around",
-    marginHorizontal: 5,
+    marginLeft: 20,
+    marginRight: 5,
     height: 80,
     flex: 3,
   },
