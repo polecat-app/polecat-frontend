@@ -16,7 +16,6 @@ import { Colors } from "../styles/Colors";
 import { Offsets } from "../styles/Offsets";
 import { AnimalCardSkeleton } from "../components/AnimalCard";
 import { useEffect, useRef, useState } from "react";
-import TopBarContainer from "../components/TopBarContainer";
 
 function AnimalScreen({ navigation, route }) {
   const props = route.params;
@@ -27,10 +26,9 @@ function AnimalScreen({ navigation, route }) {
   useEffect(() => {
     Animated.timing(translation, {
       toValue: headerShown ? 0 : -100,
-      duration: 250,
+      duration: 350,
       useNativeDriver: true,
     }).start();
-    console.log(headerShown)
   }, [headerShown]);
 
 
@@ -43,8 +41,8 @@ function AnimalScreen({ navigation, route }) {
           top: 0,
           left: 0,
           right: 0,
-          padding:Offsets.LargeMargin,
-          paddingBottom:Offsets.DefaultMargin,
+          paddingTop: 25,
+          padding:Offsets.DefaultMargin,
           backgroundColor: Colors.AccentPrimary,
           transform: [
             { translateY: translation },
@@ -52,15 +50,8 @@ function AnimalScreen({ navigation, route }) {
         }}
       >
         <View style={styles.row}>
-        <Pressable onPress={() => navigation.navigate("List")}>
-            <Ionicons
-              name={"arrow-back-outline"}
-              size={32}
-              style={styles.close}
-            />
-          </Pressable>
           <Text
-              style={textStyles.overlayBold}
+              style={textStyles.basicAccentBold}
               numberOfLines={1}
             >
               {props.commonName}
@@ -87,7 +78,7 @@ function AnimalScreen({ navigation, route }) {
             <Ionicons
               name={"arrow-back-outline"}
               size={32}
-              style={styles.closeFade}
+              style={styles.close}
             />
           </Pressable>
           <View style={styles.onImageBottom}>
@@ -154,7 +145,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     width: "100%",
     alignItems: "center",
-    justifyContent: "flex-start",
+    justifyContent: "center",
   },
   background: {
     backgroundColor: Colors.Primary,
