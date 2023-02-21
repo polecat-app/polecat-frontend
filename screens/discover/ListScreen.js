@@ -6,7 +6,7 @@ import FilterBar from "../../components/FilterBar";
 import SearchBar from "../../components/SearchBar";
 import getAddressFromCoordinates from "../../util/GetAddress";
 import TopBarContainer from "../../components/TopBarContainer";
-import AnimalList from "../../components/AnimalList";
+import AnimalFlatList from "../../components/AnimalFlatList";
 
 function ListScreen({ navigation, route }) {
   
@@ -91,7 +91,7 @@ function ListScreen({ navigation, route }) {
           />
         )}
       </TopBarContainer>
-      <AnimalList filterProps={filterProps} timeOutValue={1500}></AnimalList>
+      <AnimalFlatList filterProps={filterProps} timeOutValue={1500}></AnimalFlatList>
     </View>
   );
 }
