@@ -5,7 +5,9 @@ import {
   View,
   ImageBackground,
   ScrollView,
-  Image
+  Image,
+  Animated,
+  Dimensions
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import Tag from "../components/Tag";
@@ -13,13 +15,68 @@ import textStyles from "../styles/TextStyles";
 import { Colors } from "../styles/Colors";
 import { Offsets } from "../styles/Offsets";
 import { AnimalCardSkeleton } from "../components/AnimalCard";
+import { useEffect, useRef, useState } from "react";
+import TopBarContainer from "../components/TopBarContainer";
 
 function AnimalScreen({ navigation, route }) {
   const props = route.params;
+  const [headerShown, setHeaderShown] = useState(false);
+  const translation = useRef(new Animated.Value(-100)).current;
+  const windowWidth = Dimensions.get('window').width;
+
+  useEffect(() => {
+    Animated.timing(translation, {
+      toValue: headerShown ? 0 : -100,
+      duration: 250,
+      useNativeDriver: true,
+    }).start();
+    console.log(headerShown)
+  }, [headerShown]);
+
 
   return (
-    <ScrollView style={styles.background}>
-
+    <View style={{width: "100%", height: "100%"}}>
+      <Animated.View
+        style={{
+          position: 'absolute',
+          zIndex: 10,
+          top: 0,
+          left: 0,
+          right: 0,
+          padding:Offsets.LargeMargin,
+          paddingBottom:Offsets.DefaultMargin,
+          backgroundColor: Colors.AccentPrimary,
+          transform: [
+            { translateY: translation },
+          ],
+        }}
+      >
+        <View style={styles.row}>
+        <Pressable onPress={() => navigation.navigate("List")}>
+            <Ionicons
+              name={"arrow-back-outline"}
+              size={32}
+              style={styles.close}
+            />
+          </Pressable>
+          <Text
+              style={textStyles.overlayBold}
+              numberOfLines={1}
+            >
+              {props.commonName}
+            </Text>
+          </View>
+      </Animated.View>
+      <ScrollView style={styles.background} scrollEventThrottle={16} onScroll={(event) => {
+          const scrolling = event.nativeEvent.contentOffset.y;
+          
+          if (scrolling > Math.min(500, windowWidth) - 50) {
+            setHeaderShown(true);
+          } else {
+            setHeaderShown(false);
+          }
+        }}>
+        
       {/* Top Image */}
       <View style={styles.top}>
         <ImageBackground style={styles.image} source={{ uri: props.image }} />
@@ -30,7 +87,7 @@ function AnimalScreen({ navigation, route }) {
             <Ionicons
               name={"arrow-back-outline"}
               size={32}
-              style={styles.close}
+              style={styles.closeFade}
             />
           </Pressable>
           <View style={styles.onImageBottom}>
@@ -85,12 +142,20 @@ function AnimalScreen({ navigation, route }) {
       ))}
     </View>
     </ScrollView>
+    </View>
+    
   );
 }
 
 const gap = 25;
 
 const styles = StyleSheet.create({
+  row: {
+    flexDirection: "row",
+    width: "100%",
+    alignItems: "center",
+    justifyContent: "flex-start",
+  },
   background: {
     backgroundColor: Colors.Primary,
     flex: 1,
@@ -101,7 +166,8 @@ const styles = StyleSheet.create({
   },
   top: {
     width: "100%",
-    aspectRatio: 1
+    aspectRatio: 1,
+    maxHeight: 500,
   },
   onImage: {
     height: "100%",
@@ -155,6 +221,9 @@ const styles = StyleSheet.create({
     color: Colors.AccentIcon,
     opacity: 0.8,
     alignSelf: "flex-start",
+  },
+  closeFade: {
+    color: Colors.Primary,
   },
   scrollViewContainer: {
     paddingHorizontal: Offsets.DefaultMargin,
