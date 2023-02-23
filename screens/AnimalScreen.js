@@ -19,17 +19,8 @@ import AnimalList from "../components/AnimalList";
 
 function AnimalScreen({ navigation, route }) {
   const props = route.params;
-  const [headerShown, setHeaderShown] = useState(false);
-  const opacity = useRef(new Animated.Value(0)).current;
+  const offset = useRef(new Animated.Value(0)).current;
   const windowWidth = Dimensions.get("window").width;
-
-  useEffect(() => {
-    Animated.timing(opacity, {
-      toValue: headerShown ? 1 : 0,
-      duration: 350,
-      useNativeDriver: true,
-    }).start();
-  }, [headerShown]);
 
   const [filterProps, setFilterProps] = useState({
     commonName: null,
@@ -49,6 +40,12 @@ function AnimalScreen({ navigation, route }) {
     });
   }, []);
 
+  const headerHeight = offset.interpolate({
+    inputRange: [windowWidth - 120, windowWidth - 80],
+    outputRange: [0, 1],
+    extrapolate: 'clamp'
+  });
+
   return (
     <View style={{ width: "100%", height: "100%" }}>
 
@@ -63,7 +60,7 @@ function AnimalScreen({ navigation, route }) {
           paddingTop: 25,
           padding: Offsets.DefaultMargin,
           backgroundColor: Colors.AccentPrimary,
-          opacity: opacity,
+          opacity: headerHeight,
         }}
       >
         <View style={{ height: 28 }}></View>
@@ -79,10 +76,10 @@ function AnimalScreen({ navigation, route }) {
           />
         </Pressable>
         <View style={{ flexDirection: "row" }}>
-          <Pressable onPress={() => navigation.navigate("List")}>
+          <Pressable onPress={() => {}}>
             <Ionicons name={"heart-outline"} size={28} style={styles.heart} />
           </Pressable>
-          <Pressable onPress={() => navigation.navigate("List")}>
+          <Pressable onPress={() => {}}>
             <Ionicons
               name={"checkmark-outline"}
               size={28}
@@ -96,15 +93,10 @@ function AnimalScreen({ navigation, route }) {
       <ScrollView
         style={styles.background}
         scrollEventThrottle={16}
-        onScroll={(event) => {
-          const scrolling = event.nativeEvent.contentOffset.y;
-
-          if (scrolling > Math.min(500, windowWidth) - 50) {
-            setHeaderShown(true);
-          } else {
-            setHeaderShown(false);
-          }
-        }}
+        onScroll={Animated.event(
+          [{ nativeEvent: { contentOffset: { y: offset } } }],
+          { useNativeDriver: false }
+        )}
       >
         {/* Top Image and name*/}
         <View style={styles.top}>
@@ -210,11 +202,13 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.Primary,
   },
   description: {
-    marginVertical: 5,
+    paddingTop: 5,
+    paddingBottom: Offsets.LargeMargin,
     padding: 20,
     flexDirection: "column",
     flex: 1,
     paddingVertical: gap / -2,
+    backgroundColor: Colors.Primary
   },
   descriptionItem: {
     marginTop: Offsets.DefaultMargin,
