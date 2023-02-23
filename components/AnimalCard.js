@@ -1,4 +1,4 @@
-import { useNavigation } from "@react-navigation/native";
+import { CommonActions, useNavigation } from "@react-navigation/native";
 import { TouchableOpacity, View, Text, Image, StyleSheet } from "react-native";
 import { Offsets } from "../styles/Offsets";
 import textStyles from "../styles/TextStyles";
@@ -12,7 +12,16 @@ function AnimalCard(props) {
     <TouchableOpacity
       style={styles.cardContainer}
       onPress={() => {
-        navigation.navigate("Animal", props);
+        navigation.dispatch(state => {
+          const topScreen = state.routes[0];
+          const animalScreen = {name: "Animal", params: props};
+          const routes = [topScreen, animalScreen];
+          return CommonActions.reset({
+            ...state,
+            index: routes.length - 1,
+            routes,
+          });
+        });
       }}
     >
       <View style={styles.imageContainer}>

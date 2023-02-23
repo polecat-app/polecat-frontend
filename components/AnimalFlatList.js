@@ -100,6 +100,7 @@ export default AnimalFlatList;
 
 const styles = StyleSheet.create({
   scrollViewContainer: {
-    marginHorizontal: Offsets.DefaultMargin,
+    paddingHorizontal: Offsets.DefaultMargin,
+    paddingBottom: Offsets.DefaultMargin
   },
 });

@@ -14,9 +14,7 @@ import Tag from "../components/Tag";
 import textStyles from "../styles/TextStyles";
 import { Colors } from "../styles/Colors";
 import { Offsets } from "../styles/Offsets";
-import { AnimalCardSkeleton } from "../components/AnimalCard";
 import { useEffect, useRef, useState } from "react";
-import AnimalFlatList from "../components/AnimalFlatList";
 import AnimalList from "../components/AnimalList";
 
 function AnimalScreen({ navigation, route }) {
@@ -49,10 +47,12 @@ function AnimalScreen({ navigation, route }) {
       seen: null,
       location: null,
     });
-  }, [])
+  }, []);
 
   return (
     <View style={{ width: "100%", height: "100%" }}>
+
+      {/* Animated top bar */}
       <Animated.View
         style={{
           position: "absolute",
@@ -63,36 +63,36 @@ function AnimalScreen({ navigation, route }) {
           paddingTop: 25,
           padding: Offsets.DefaultMargin,
           backgroundColor: Colors.AccentPrimary,
-          opacity: opacity
+          opacity: opacity,
         }}
       >
-        <View style={{height: 28}}></View>
+        <View style={{ height: 28 }}></View>
       </Animated.View>
+
+      {/* Top bar content */}
       <View style={styles.row}>
         <Pressable onPress={() => navigation.navigate("List")}>
-              <Ionicons
-                name={"arrow-back-outline"}
-                size={28}
-                style={styles.close}
-              />
-            </Pressable>
-        <View style={{flexDirection: "row"}}>
-        <Pressable onPress={() => navigation.navigate("List")}>
-              <Ionicons
-                name={"heart-outline"}
-                size={28}
-                style={styles.heart}
-              />
-            </Pressable>
-        <Pressable onPress={() => navigation.navigate("List")}>
-              <Ionicons
-                name={"checkmark-outline"}
-                size={28}
-                style={styles.check}
-              />
-            </Pressable>
+          <Ionicons
+            name={"arrow-back-outline"}
+            size={28}
+            style={styles.close}
+          />
+        </Pressable>
+        <View style={{ flexDirection: "row" }}>
+          <Pressable onPress={() => navigation.navigate("List")}>
+            <Ionicons name={"heart-outline"} size={28} style={styles.heart} />
+          </Pressable>
+          <Pressable onPress={() => navigation.navigate("List")}>
+            <Ionicons
+              name={"checkmark-outline"}
+              size={28}
+              style={styles.check}
+            />
+          </Pressable>
         </View>
-        </View>
+      </View>
+
+      {/* Animal content */}
       <ScrollView
         style={styles.background}
         scrollEventThrottle={16}
@@ -106,20 +106,16 @@ function AnimalScreen({ navigation, route }) {
           }
         }}
       >
-        {/* Top Image */}
+        {/* Top Image and name*/}
         <View style={styles.top}>
           <ImageBackground style={styles.image} source={{ uri: props.image }} />
-
-          {/* Elements on Image */}
           <View style={styles.onImage}>
-            <View style={styles.onImageBottom}>
               <Text
                 style={[styles.commonName, textStyles.overlayBold]}
                 numberOfLines={3}
               >
                 {props.commonName}
               </Text>
-            </View>
           </View>
         </View>
 
@@ -159,7 +155,11 @@ function AnimalScreen({ navigation, route }) {
 
           <Text style={styles.header}>Similar animals</Text>
         </View>
-        <AnimalList filterProps={filterProps} timeOutValue={2000} listLength={5}></AnimalList>
+        <AnimalList
+          filterProps={filterProps}
+          timeOutValue={2000}
+          listLength={5}
+        ></AnimalList>
       </ScrollView>
     </View>
   );
@@ -179,12 +179,8 @@ const styles = StyleSheet.create({
     paddingBottom: Offsets.DefaultMargin,
   },
   background: {
-    backgroundColor: Colors.Primary,
     flex: 1,
     width: "100%",
-  },
-  commonName: {
-    flex: 3,
   },
   top: {
     width: "100%",
@@ -199,11 +195,6 @@ const styles = StyleSheet.create({
     zIndex: 5,
     position: "absolute",
     padding: Offsets.DefaultMargin,
-  },
-  onImageBottom: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "flex-end",
   },
   image: {
     width: "100%",
