@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { View } from "react-native";
 import SavedBar from "../../components/SavedBar";
 import TopBarContainer from "../../components/TopBarContainer";
-import AnimalList from "../../components/AnimalList";
+import AnimalFlatList from "../../components/AnimalFlatList";
 
 function ListScreen({ navigation, route }) {
   // Filter states
@@ -33,7 +33,7 @@ function ListScreen({ navigation, route }) {
       <TopBarContainer>
         <SavedBar setSavedFilterState={setSavedFilterState}></SavedBar>
       </TopBarContainer>
-      <AnimalList filterProps={filterProps} timeOutValue={500}></AnimalList>
+      <AnimalFlatList filterProps={filterProps} timeOutValue={500}></AnimalFlatList>
     </View>
   );
 }

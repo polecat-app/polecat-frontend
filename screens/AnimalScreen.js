@@ -5,71 +5,154 @@ import {
   View,
   ImageBackground,
   ScrollView,
+  Image,
+  Animated,
+  Dimensions,
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import Tag from "../components/Tag";
 import textStyles from "../styles/TextStyles";
 import { Colors } from "../styles/Colors";
 import { Offsets } from "../styles/Offsets";
+import { useEffect, useRef, useState } from "react";
+import AnimalList from "../components/AnimalList";
 
 function AnimalScreen({ navigation, route }) {
   const props = route.params;
+  const offset = useRef(new Animated.Value(0)).current;
+  const windowWidth = Dimensions.get("window").width;
+
+  const [filterProps, setFilterProps] = useState({
+    commonName: null,
+    tags: null,
+    liked: null,
+    seen: null,
+    location: null,
+  });
+
+  useEffect(() => {
+    setFilterProps({
+      commonName: null,
+      tags: [props.tags[0]],
+      liked: null,
+      seen: null,
+      location: null,
+    });
+  }, []);
+
+  const headerHeight = offset.interpolate({
+    inputRange: [windowWidth - 120, windowWidth - 80],
+    outputRange: [0, 1],
+    extrapolate: 'clamp'
+  });
 
   return (
-    <View style={styles.background}>
-      {/* Background Image */}
-      <ImageBackground style={styles.image} source={{ uri: props.image }} />
+    <View style={{ width: "100%", height: "100%" }}>
 
-      <View style={styles.container}>
-        {/* Elements on Image */}
-        <View style={styles.onImage}>
-          <Pressable onPress={() => navigation.navigate("List")}>
+      {/* Animated top bar */}
+      <Animated.View
+        style={{
+          position: "absolute",
+          zIndex: 5,
+          top: 0,
+          left: 0,
+          right: 0,
+          paddingTop: 25,
+          padding: Offsets.DefaultMargin,
+          backgroundColor: Colors.AccentPrimary,
+          opacity: headerHeight,
+        }}
+      >
+        <View style={{ height: 28 }}></View>
+      </Animated.View>
+
+      {/* Top bar content */}
+      <View style={styles.row}>
+        <Pressable onPress={() => navigation.navigate("List")}>
+          <Ionicons
+            name={"arrow-back-outline"}
+            size={28}
+            style={styles.close}
+          />
+        </Pressable>
+        <View style={{ flexDirection: "row" }}>
+          <Pressable onPress={() => {}}>
+            <Ionicons name={"heart-outline"} size={28} style={styles.heart} />
+          </Pressable>
+          <Pressable onPress={() => {}}>
             <Ionicons
-              name={"arrow-back-outline"}
-              size={32}
-              style={styles.close}
+              name={"checkmark-outline"}
+              size={28}
+              style={styles.check}
             />
           </Pressable>
+        </View>
+      </View>
 
-          <View style={styles.onImageBottom}>
-            <Text
-              style={[styles.commonName, textStyles.overlayBold]}
-              numberOfLines={3}
-            >
-              {props.commonName}
-            </Text>
+      {/* Animal content */}
+      <ScrollView
+        style={styles.background}
+        scrollEventThrottle={16}
+        onScroll={Animated.event(
+          [{ nativeEvent: { contentOffset: { y: offset } } }],
+          { useNativeDriver: false }
+        )}
+      >
+        {/* Top Image and name*/}
+        <View style={styles.top}>
+          <ImageBackground style={styles.image} source={{ uri: props.image }} />
+          <View style={styles.onImage}>
+              <Text
+                style={[styles.commonName, textStyles.overlayBold]}
+                numberOfLines={3}
+              >
+                {props.commonName}
+              </Text>
           </View>
         </View>
 
         {/* Description Text */}
-        <ScrollView>
-          <View style={styles.scrollView}>
-            <Text
-              style={{ ...textStyles.basicItalic, marginVertical: gap / 2 }}
-              numberOfLines={3}
-            >
-              {props.binomial}
-            </Text>
-            <ScrollView
-              style={{ flexDirection: "row", paddingHorizontal: gap / -2 }}
-              horizontal={true}
-            >
-              {props.tags.map((tag) => (
-                <Tag key={tag} tag={tag} />
-              ))}
-            </ScrollView>
-            <Text
-              style={{
-                ...textStyles.basic,
-                marginVertical: gap / 2,
-                textAlign: "left",
-              }}
-            >
-              {props.summary}
-            </Text>
+        <View style={styles.description}>
+          <Text
+            style={[textStyles.basicItalic, styles.descriptionItem]}
+            numberOfLines={3}
+          >
+            {props.binomial}
+          </Text>
+          <View
+            style={{
+              flexDirection: "row",
+              flexWrap: "wrap",
+            }}
+          >
+            {props.tags?.map((item, index) => {
+              return (
+                <View style={styles.descriptionItem} key={item}>
+                  <Tag tag={item}></Tag>
+                </View>
+              );
+            })}
           </View>
-        </ScrollView>
-      </View>
+          <Text style={styles.header}>Summary</Text>
+          <Text style={[textStyles.basic, styles.descriptionItem]}>
+            {props.summary}
+          </Text>
+          <Text style={styles.header}>Range</Text>
+
+          <Image
+            resizeMode={"contain"}
+            style={styles.rangeImage}
+            source={{ uri: props.rangeImage }}
+          />
+
+          <Text style={styles.header}>Similar animals</Text>
+        </View>
+        <AnimalList
+          filterProps={filterProps}
+          timeOutValue={2000}
+          listLength={5}
+        ></AnimalList>
+      </ScrollView>
     </View>
   );
 }
@@ -77,43 +160,62 @@ function AnimalScreen({ navigation, route }) {
 const gap = 25;
 
 const styles = StyleSheet.create({
+  row: {
+    flexDirection: "row",
+    width: "100%",
+    alignItems: "center",
+    justifyContent: "space-between",
+    position: "absolute",
+    zIndex: 8,
+    paddingTop: 25,
+    paddingBottom: Offsets.DefaultMargin,
+  },
   background: {
-    backgroundColor: Colors.Primary,
     flex: 1,
     width: "100%",
   },
-  commonName: {
-    flex: 3,
+  top: {
+    width: "100%",
+    aspectRatio: 1,
+    maxHeight: 500,
   },
   onImage: {
-    height: 320,
-    justifyContent: "space-between",
+    height: "100%",
+    width: "100%",
+    justifyContent: "flex-end",
     flexDirection: "column",
     zIndex: 5,
+    position: "absolute",
     padding: Offsets.DefaultMargin,
   },
-  onImageBottom: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "flex-end",
-  },
   image: {
-    height: 320,
     width: "100%",
+    height: "100%",
     justifyContent: "center",
+    zIndex: 1,
+    backgroundColor: "#e6e6e6",
   },
-  scrollView: {
-    marginVertical: 5,
+  rangeImage: {
+    width: "100%",
+    height: 200,
+    justifyContent: "center",
+    backgroundColor: Colors.Primary,
+  },
+  description: {
+    paddingTop: 5,
+    paddingBottom: Offsets.LargeMargin,
     padding: 20,
     flexDirection: "column",
     flex: 1,
     paddingVertical: gap / -2,
+    backgroundColor: Colors.Primary
   },
-  container: {
-    flexDirection: "column",
-    position: "absolute",
-    width: "100%",
-    height: "100%",
+  descriptionItem: {
+    marginTop: Offsets.DefaultMargin,
+  },
+  header: {
+    ...textStyles.header,
+    marginTop: Offsets.LargeMargin,
   },
   buttonSet: {
     width: 50,
@@ -122,11 +224,24 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   close: {
-    marginRight: Offsets.DefaultMargin,
-    marginTop: Offsets.DefaultMargin,
+    marginLeft: Offsets.DefaultMargin,
     color: Colors.AccentIcon,
-    opacity: 0.8,
-    alignSelf: "flex-start",
+  },
+  heart: {
+    marginRight: Offsets.DefaultMargin,
+    color: Colors.AccentIcon,
+  },
+  check: {
+    marginRight: Offsets.DefaultMargin,
+    color: Colors.AccentIcon,
+  },
+  closeFade: {
+    color: Colors.Primary,
+  },
+  scrollViewContainer: {
+    paddingHorizontal: Offsets.DefaultMargin,
+    paddingBottom: Offsets.DefaultMargin,
+    backgroundColor: Colors.Secondary,
   },
 });
 

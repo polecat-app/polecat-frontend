@@ -1,8 +1,9 @@
-import { useNavigation } from "@react-navigation/native";
+import { CommonActions, useNavigation } from "@react-navigation/native";
 import { TouchableOpacity, View, Text, Image, StyleSheet } from "react-native";
 import { Offsets } from "../styles/Offsets";
 import textStyles from "../styles/TextStyles";
 import Skeleton from "./Skeleton";
+import Tag from "./Tag";
 
 function AnimalCard(props) {
   const navigation = useNavigation();
@@ -11,9 +12,21 @@ function AnimalCard(props) {
     <TouchableOpacity
       style={styles.cardContainer}
       onPress={() => {
-        navigation.navigate("Animal", props);
+        navigation.dispatch(state => {
+          const topScreen = state.routes[0];
+          const animalScreen = {name: "Animal", params: props};
+          const routes = [topScreen, animalScreen];
+          return CommonActions.reset({
+            ...state,
+            index: routes.length - 1,
+            routes,
+          });
+        });
       }}
     >
+      <View style={styles.imageContainer}>
+        <Image style={styles.image} source={{ uri: props.image }} />
+      </View>
       <View style={styles.textContainer}>
         <Text style={textStyles.basicBold} numberOfLines={1}>
           {props.commonName}
@@ -21,12 +34,21 @@ function AnimalCard(props) {
         <Text style={textStyles.basicItalic} numberOfLines={1}>
           {props.binomial}
         </Text>
-        <Text style={textStyles.basic} numberOfLines={2}>
-          {props.summary}
-        </Text>
-      </View>
-      <View style={styles.imageContainer}>
-        <Image style={styles.image} source={{ uri: props.image }} />
+
+        <View
+          style={{
+            flexDirection: "row",
+            flexWrap: "wrap",
+          }}
+        >
+          {props.tags?.map((item, index) => {
+            return (
+              <View key={item}>
+                <Tag tag={item} onlyIcon={true}></Tag>
+              </View>
+            );
+          })}
+        </View>
       </View>
     </TouchableOpacity>
   );
@@ -35,6 +57,11 @@ function AnimalCard(props) {
 function AnimalCardSkeleton(props) {
   return (
     <TouchableOpacity style={styles.cardContainer}>
+      <View style={styles.imageContainer}>
+        <View style={styles.image}>
+          <Skeleton />
+        </View>
+      </View>
       <View style={styles.textContainer}>
         <View
           style={[
@@ -42,7 +69,7 @@ function AnimalCardSkeleton(props) {
             {
               borderRadius: 5,
               overflow: "hidden",
-              width: "50%",
+              width: "75%",
               height: textStyles.basicBold.lineHeight,
             },
           ]}
@@ -55,7 +82,7 @@ function AnimalCardSkeleton(props) {
             {
               borderRadius: 5,
               overflow: "hidden",
-              width: "85%",
+              width: "50%",
               height: textStyles.basicItalic.lineHeight,
             },
           ]}
@@ -68,16 +95,11 @@ function AnimalCardSkeleton(props) {
             {
               borderRadius: 5,
               overflow: "hidden",
-              width: "85%",
+              width: "50%",
               height: textStyles.basic.lineHeight,
             },
           ]}
         >
-          <Skeleton />
-        </View>
-      </View>
-      <View style={styles.imageContainer}>
-        <View style={styles.image}>
           <Skeleton />
         </View>
       </View>
@@ -109,11 +131,12 @@ const styles = StyleSheet.create({
   },
   textContainer: {
     flexDirection: "column",
-    justifyContent: "space-between",
-    marginLeft: 3,
+    justifyContent: "space-around",
+    marginLeft: 20,
+    marginRight: 5,
     height: 80,
     flex: 3,
   },
 });
 
-export {AnimalCard, AnimalCardSkeleton};
+export { AnimalCard, AnimalCardSkeleton };
