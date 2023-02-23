@@ -22,12 +22,12 @@ import AnimalList from "../components/AnimalList";
 function AnimalScreen({ navigation, route }) {
   const props = route.params;
   const [headerShown, setHeaderShown] = useState(false);
-  const translation = useRef(new Animated.Value(-100)).current;
+  const opacity = useRef(new Animated.Value(0)).current;
   const windowWidth = Dimensions.get("window").width;
 
   useEffect(() => {
-    Animated.timing(translation, {
-      toValue: headerShown ? 0 : -100,
+    Animated.timing(opacity, {
+      toValue: headerShown ? 1 : 0,
       duration: 350,
       useNativeDriver: true,
     }).start();
@@ -56,22 +56,43 @@ function AnimalScreen({ navigation, route }) {
       <Animated.View
         style={{
           position: "absolute",
-          zIndex: 10,
+          zIndex: 5,
           top: 0,
           left: 0,
           right: 0,
           paddingTop: 25,
           padding: Offsets.DefaultMargin,
           backgroundColor: Colors.AccentPrimary,
-          transform: [{ translateY: translation }],
+          opacity: opacity
         }}
       >
-        <View style={styles.row}>
-          <Text style={textStyles.basicAccentBold} numberOfLines={1}>
-            {props.commonName}
-          </Text>
-        </View>
+        <View style={{height: 28}}></View>
       </Animated.View>
+      <View style={styles.row}>
+        <Pressable onPress={() => navigation.navigate("List")}>
+              <Ionicons
+                name={"arrow-back-outline"}
+                size={28}
+                style={styles.close}
+              />
+            </Pressable>
+        <View style={{flexDirection: "row"}}>
+        <Pressable onPress={() => navigation.navigate("List")}>
+              <Ionicons
+                name={"heart-outline"}
+                size={28}
+                style={styles.heart}
+              />
+            </Pressable>
+        <Pressable onPress={() => navigation.navigate("List")}>
+              <Ionicons
+                name={"checkmark-outline"}
+                size={28}
+                style={styles.check}
+              />
+            </Pressable>
+        </View>
+        </View>
       <ScrollView
         style={styles.background}
         scrollEventThrottle={16}
@@ -91,13 +112,6 @@ function AnimalScreen({ navigation, route }) {
 
           {/* Elements on Image */}
           <View style={styles.onImage}>
-            <Pressable onPress={() => navigation.navigate("List")}>
-              <Ionicons
-                name={"arrow-back-outline"}
-                size={32}
-                style={styles.close}
-              />
-            </Pressable>
             <View style={styles.onImageBottom}>
               <Text
                 style={[styles.commonName, textStyles.overlayBold]}
@@ -158,7 +172,11 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     width: "100%",
     alignItems: "center",
-    justifyContent: "center",
+    justifyContent: "space-between",
+    position: "absolute",
+    zIndex: 8,
+    paddingTop: 25,
+    paddingBottom: Offsets.DefaultMargin,
   },
   background: {
     backgroundColor: Colors.Primary,
@@ -176,7 +194,7 @@ const styles = StyleSheet.create({
   onImage: {
     height: "100%",
     width: "100%",
-    justifyContent: "space-between",
+    justifyContent: "flex-end",
     flexDirection: "column",
     zIndex: 5,
     position: "absolute",
@@ -221,11 +239,16 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   close: {
-    marginRight: Offsets.DefaultMargin,
-    marginTop: Offsets.DefaultMargin,
+    marginLeft: Offsets.DefaultMargin,
     color: Colors.AccentIcon,
-    opacity: 0.8,
-    alignSelf: "flex-start",
+  },
+  heart: {
+    marginRight: Offsets.DefaultMargin,
+    color: Colors.AccentIcon,
+  },
+  check: {
+    marginRight: Offsets.DefaultMargin,
+    color: Colors.AccentIcon,
   },
   closeFade: {
     color: Colors.Primary,

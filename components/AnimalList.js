@@ -26,7 +26,6 @@ function AnimalList({ filterProps, timeOutValue, listLength }) {
   }, [filterProps]);
 
   useEffect(() => {
-    console.log(filterProps)
     if (!filtersUpdating) {
       fetchData();
     }
