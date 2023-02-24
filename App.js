@@ -2,15 +2,33 @@ import * as React from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import DiscoverScreen from "./screens/DiscoverScreen";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { createStackNavigator } from '@react-navigation/stack';
 import { Ionicons } from "@expo/vector-icons";
 import { Colors } from "./styles/Colors";
 import SavedScreen from "./screens/SavedScreen";
+import { StatusBar } from "expo-status-bar";
+import LoginScreen from "./screens/LoginScreen";
+import SignupScreen from "./screens/SignupScreen";
 
 const Tab = createBottomTabNavigator();
+const Stack = createStackNavigator();
 
-export default function App() {
+function AuthStack() {
   return (
-    <NavigationContainer>
+    <Stack.Navigator
+      screenOptions={{
+        headerStyle: { backgroundColor: Colors.primary500 },
+        headerTintColor: 'white',
+      }}
+    >
+      <Stack.Screen name="Login" component={LoginScreen} />
+      <Stack.Screen name="Signup" component={SignupScreen} />
+    </Stack.Navigator>
+  );
+}
+
+function AuthenticatedStack() {
+  return (
       <Tab.Navigator
         screenOptions={({ route }) => ({
           tabBarIcon: ({ focused, color, size }) => {
@@ -35,6 +53,23 @@ export default function App() {
         <Tab.Screen name="Discover" component={DiscoverScreen} />
         <Tab.Screen name="Saved" component={SavedScreen} />
       </Tab.Navigator>
+  );
+}
+
+function Navigation() {
+  return (
+    <NavigationContainer>
+      <AuthStack />
     </NavigationContainer>
   );
 }
+
+export default function App() {
+  return (
+    <>
+      <StatusBar style="light" />
+
+      <Navigation />
+    </>
+  );
+  }
