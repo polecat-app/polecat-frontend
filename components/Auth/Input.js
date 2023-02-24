@@ -1,5 +1,6 @@
 import { View, Text, TextInput, StyleSheet } from 'react-native';
 import { Colors } from '../../styles/Colors';
+import { Offsets } from '../../styles/Offsets';
 
 
 function Input({
@@ -16,7 +17,7 @@ function Input({
         {label}
       </Text>
       <TextInput
-        style={[styles.input, isInvalid && styles.inputInvalid]}
+        style={[styles.inputfield, isInvalid && styles.inputInvalid]}
         autoCapitalize={false}
         autoCapitalize="none"
         keyboardType={keyboardType}
@@ -33,6 +34,7 @@ export default Input;
 const styles = StyleSheet.create({
   inputContainer: {
     marginVertical: 8,
+    width: "100%"
   },
   label: {
     color: 'white',
@@ -41,12 +43,13 @@ const styles = StyleSheet.create({
   labelInvalid: {
     color: Colors.AccentTertiary,
   },
-  input: {
-    paddingVertical: 8,
-    paddingHorizontal: 6,
+  inputfield: {
+    width: "100%",
+    borderRadius: Offsets.BorderRadius,
     backgroundColor: Colors.AccentSecondary,
-    borderRadius: 4,
-    fontSize: 16,
+    flexDirection: "row",
+    alignItems: "center",
+    padding: Offsets.DefaultMargin,
   },
   inputInvalid: {
     backgroundColor: Colors.AccentTertiary,

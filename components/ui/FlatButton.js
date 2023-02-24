@@ -1,5 +1,6 @@
 import { Pressable, StyleSheet, Text, View } from 'react-native';
 import { Colors } from '../../styles/Colors';
+import textStyles from '../../styles/TextStyles';
 
 function FlatButton({ children, onPress }) {
   return (
@@ -8,7 +9,7 @@ function FlatButton({ children, onPress }) {
       onPress={onPress}
     >
       <View>
-        <Text style={styles.buttonText}>{children}</Text>
+        <Text style={[styles.buttonText, textStyles.basicAccentBold]}>{children}</Text>
       </View>
     </Pressable>
   );
@@ -26,6 +27,5 @@ const styles = StyleSheet.create({
   },
   buttonText: {
     textAlign: 'center',
-    color: Colors.AccentPrimary,
   },
 });

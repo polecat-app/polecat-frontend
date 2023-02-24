@@ -1,4 +1,4 @@
-import { useNavigation } from '@react-navigation/native';
+import { CommonActions, useNavigation } from '@react-navigation/native';
 import { useState } from 'react';
 import { Alert, StyleSheet, View } from 'react-native';
 import { Colors } from '../../styles/Colors';
@@ -18,9 +18,19 @@ function AuthContent({ isLogin, onAuthenticate }) {
 
   function switchAuthModeHandler() {
     if (isLogin) {
-      navigation.navigate("Signup") // TODO: Should be replaced instead
+      navigation.dispatch(
+        CommonActions.reset({
+          index: 0,
+          routes: [{name: "Signup"}],
+        })
+      )
     } else {
-      navigation.navigate("Login")
+      navigation.dispatch(
+        CommonActions.reset({
+          index: 0,
+          routes: [{name: "Login"}],
+        })
+      )
     }
   }
 
@@ -72,16 +82,13 @@ export default AuthContent;
 
 const styles = StyleSheet.create({
   authContent: {
-    marginTop: 64,
-    marginHorizontal: 32,
+    width: "100%",
+    height: "100%",
     padding: 16,
-    borderRadius: 8,
-    backgroundColor: Colors.Primary,
-    elevation: 2,
+    backgroundColor: Colors.AccentPrimary,
     shadowColor: 'black',
-    shadowOffset: { width: 1, height: 1 },
-    shadowOpacity: 0.35,
-    shadowRadius: 4,
+    justifyContent: "center",
+    alignItems: "center"
   },
   buttons: {
     marginTop: 8,
