@@ -1,5 +1,6 @@
 import { Pressable, StyleSheet, Text, View } from 'react-native';
 import { Colors } from '../../styles/Colors';
+import { Offsets } from '../../styles/Offsets';
 
 
 function Button({ children, onPress }) {
@@ -19,10 +20,10 @@ export default Button;
 
 const styles = StyleSheet.create({
   button: {
-    borderRadius: 6,
-    paddingVertical: 6,
+    borderRadius: Offsets.BorderRadius,
+    paddingVertical: Offsets.DefaultMargin,
     paddingHorizontal: 12,
-    backgroundColor: Colors.AccentPrimary,
+    backgroundColor: Colors.AccentSecondary,
     elevation: 2,
     shadowColor: 'black',
     shadowOffset: { width: 1, height: 1 },
