@@ -9,7 +9,8 @@ import SavedScreen from "./screens/SavedScreen";
 import { StatusBar } from "expo-status-bar";
 import LoginScreen from "./screens/LoginScreen";
 import SignupScreen from "./screens/SignupScreen";
-import { AuthContextProvider } from "./store/auth-context";
+import { AuthContext, AuthContextProvider } from "./store/auth-context";
+import { useContext } from "react";
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -74,12 +75,13 @@ function AuthenticatedStack() {
 }
 
 function Navigation() {
+  const authCtx = useContext(AuthContext);
+
   return (
-    <AuthContextProvider>
-      <NavigationContainer>
-        <AuthStack />
-      </NavigationContainer>
-    </AuthContextProvider>
+    <NavigationContainer>
+      {!authCtx.isAuthenticated && <AuthStack />}
+      {authCtx.isAuthenticated && <AuthenticatedStack />}
+    </NavigationContainer>
   );
 }
 
@@ -87,8 +89,9 @@ export default function App() {
   return (
     <>
       <StatusBar style="light" />
-
-      <Navigation />
+      <AuthContextProvider>
+        <Navigation />
+      </AuthContextProvider>
     </>
   );
 }
