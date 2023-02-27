@@ -11,6 +11,7 @@ import LoginScreen from "./screens/LoginScreen";
 import SignupScreen from "./screens/SignupScreen";
 import { AuthContext, AuthContextProvider } from "./store/auth-context";
 import { useContext } from "react";
+import AccountScreen from "./screens/AccountScreen";
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -56,6 +57,8 @@ function AuthenticatedStack() {
             iconName = focused ? "compass" : "compass-outline";
           } else if (route.name === "Saved") {
             iconName = focused ? "ios-bookmark" : "ios-bookmark-outline";
+          } else if (route.name === "Account") {
+            iconName = focused ? "person-circle" : "person-circle-outline";
           }
           return <Ionicons name={iconName} size={size} color={color} />;
         },
@@ -70,6 +73,7 @@ function AuthenticatedStack() {
     >
       <Tab.Screen name="Discover" component={DiscoverScreen} />
       <Tab.Screen name="Saved" component={SavedScreen} />
+      <Tab.Screen name="Account" component={AccountScreen} />
     </Tab.Navigator>
   );
 }
