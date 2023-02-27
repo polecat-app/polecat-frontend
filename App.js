@@ -10,8 +10,10 @@ import { StatusBar } from "expo-status-bar";
 import LoginScreen from "./screens/LoginScreen";
 import SignupScreen from "./screens/SignupScreen";
 import { AuthContext, AuthContextProvider } from "./store/auth-context";
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import AccountScreen from "./screens/AccountScreen";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import AppLoading from "expo-app-loading";
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -89,12 +91,37 @@ function Navigation() {
   );
 }
 
+function Root() {
+  const [isTryingToLogin, setIsTryingToLogin] = useState(true)
+  const authCtx = useContext(AuthContext);
+
+  // Auto login if token in storage
+  useEffect(() => {
+    async function fetchToken() {
+      const storedToken = await AsyncStorage.getItem('token')
+      if (storedToken) {
+        authCtx.authenticate(storedToken)
+      }
+      setIsTryingToLogin(false)
+    }
+    fetchToken()
+  }, [])
+
+  if (isTryingToLogin) {
+    return <AppLoading/>
+  }
+
+  return (
+    <Navigation />
+  )
+}
+
 export default function App() {
   return (
     <>
       <StatusBar style="light" />
       <AuthContextProvider>
-        <Navigation />
+        <Root/>
       </AuthContextProvider>
     </>
   );
