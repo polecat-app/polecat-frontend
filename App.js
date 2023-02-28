@@ -99,8 +99,9 @@ function Root() {
   useEffect(() => {
     async function fetchToken() {
       const storedToken = await AsyncStorage.getItem('token')
-      if (storedToken) {
-        authCtx.authenticate(storedToken)
+      const storedRefreshToken = await AsyncStorage.getItem('refreshToken')
+      if (storedToken && storedRefreshToken) {
+        authCtx.authenticate(storedToken, storedRefreshToken)
       }
       setIsTryingToLogin(false)
     }

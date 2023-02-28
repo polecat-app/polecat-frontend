@@ -14,7 +14,22 @@ async function authenticate(mode, email, password) {
     }
   )
   const token = response.data.idToken
-  return token
+  const refreshToken = response.data.refreshToken
+  return [token, refreshToken]
+}
+
+async function refreshAuthentication(refreshToken) {
+  const url = `https://securetoken.googleapis.com/v1/token?key=${GOOGLE_API_KEY}`
+  const response = await axios.post(
+    url,
+    {
+      grant_type: "refresh_token",
+      refresh_token: refreshToken,
+    }
+  )
+  const token = response.data.id_token
+  const newRefreshToken = response.data.refresh_token
+  return [token, newRefreshToken]
 }
 
 async function createUser(email, password) {
@@ -25,4 +40,4 @@ async function loginUser(email, password) {
   return authenticate("signInWithPassword", email, password)
 }
 
-export {createUser, loginUser}
+export {createUser, loginUser, refreshAuthentication}
