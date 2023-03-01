@@ -10,10 +10,14 @@ import { StatusBar } from "expo-status-bar";
 import LoginScreen from "./screens/LoginScreen";
 import SignupScreen from "./screens/SignupScreen";
 import { AuthContext, AuthContextProvider } from "./store/auth-context";
-import { useContext, useEffect, useState } from "react";
+import { useCallback, useContext, useEffect, useState } from "react";
 import AccountScreen from "./screens/AccountScreen";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import AppLoading from "expo-app-loading";
+import * as SplashScreen from "expo-splash-screen";
+import { View } from "react-native";
+
+// Keep the splash screen visible while we fetch resources
+SplashScreen.preventAutoHideAsync();
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -92,29 +96,49 @@ function Navigation() {
 }
 
 function Root() {
-  const [isTryingToLogin, setIsTryingToLogin] = useState(true)
+  const [appLoading, setAppLoading] = useState(true);
   const authCtx = useContext(AuthContext);
 
   // Auto login if token in storage
   useEffect(() => {
     async function fetchToken() {
-      const storedToken = await AsyncStorage.getItem('token')
-      const storedRefreshToken = await AsyncStorage.getItem('refreshToken')
-      if (storedToken && storedRefreshToken) {
-        authCtx.authenticate(storedToken, storedRefreshToken)
+      try {
+        await new Promise((resolve) => setTimeout(resolve, 1000)); // Wait second on startup
+        const storedToken = await AsyncStorage.getItem("token");
+        const storedRefreshToken = await AsyncStorage.getItem("refreshToken");
+        if (storedToken && storedRefreshToken) {
+          authCtx.authenticate(storedToken, storedRefreshToken);
+        }
+      } catch (e) {
+        console.warn(e);
+      } finally {
+        // Tell the application to render
+        setAppLoading(false);
       }
-      setIsTryingToLogin(false)
     }
-    fetchToken()
-  }, [])
+    fetchToken();
+  }, []);
 
-  if (isTryingToLogin) {
-    return <AppLoading/>
+  const onLayoutRootView = useCallback(async () => {
+    if (!appLoading) {
+      // This tells the splash screen to hide immediately! If we call this after
+      // `setAppIsReady`, then we may see a blank screen while the app is
+      // loading its initial state and rendering its first pixels. So instead,
+      // we hide the splash screen once we know the root view has already
+      // performed layout.
+      await SplashScreen.hideAsync();
+    }
+  }, [appLoading]);
+
+  if (appLoading) {
+    return null;
   }
 
   return (
-    <Navigation />
-  )
+    <View onLayout={onLayoutRootView} style={{ width: "100%", height: "100%" }}>
+      <Navigation></Navigation>
+    </View>
+  );
 }
 
 export default function App() {
@@ -122,7 +146,7 @@ export default function App() {
     <>
       <StatusBar style="light" />
       <AuthContextProvider>
-        <Root/>
+        <Root />
       </AuthContextProvider>
     </>
   );
