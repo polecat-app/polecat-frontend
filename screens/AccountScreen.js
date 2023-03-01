@@ -1,4 +1,5 @@
-import { useContext } from "react";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useContext, useEffect, useState } from "react";
 import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
 import TopBarContainer from "../components/TopBarContainer";
 import { AuthContext } from "../store/auth-context";
@@ -9,6 +10,7 @@ import { refreshAuthentication } from "../util/auth";
 
 function AccountScreen() {
   const authCtx = useContext(AuthContext);
+  const [email, setEmail] = useState("")
 
   // THIS WILL HAVE TO HAPPEN ON 401 RESPONSES
   async function refresh() {
@@ -18,12 +20,22 @@ function AccountScreen() {
     authCtx.authenticate(token, refreshToken);
   }
 
+  async function getEmail() {
+    const storedEmail = await AsyncStorage.getItem('email')
+    setEmail(storedEmail)
+  }
+  
+  useEffect(() => {
+    getEmail()
+  }, [])
+
   return (
     <View style={styles.container}>
       <TopBarContainer>
         <Text style={[styles.row, textStyles.overlayBold]}>Account</Text>
       </TopBarContainer>
       <View style={styles.content}>
+        <Text style={textStyles.basic}>{email}</Text>
         <TouchableOpacity onPress={authCtx.logout} style={styles.button}>
           <Text style={textStyles.basicAccentBold}>Logout</Text>
         </TouchableOpacity>

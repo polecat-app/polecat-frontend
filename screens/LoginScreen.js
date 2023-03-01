@@ -1,3 +1,4 @@
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useContext, useState } from 'react';
 import { Alert } from 'react-native';
 import AuthContent from '../components/Auth/AuthContent';
@@ -16,6 +17,7 @@ function LoginScreen() {
     try {
       const [token, refreshToken] = await loginUser(email, password)
       authCtx.authenticate(token, refreshToken)
+      AsyncStorage.setItem('email', email)
     } catch (error) {
       Alert.alert("Authentication failed!", "Please check your credentials or try again later.")
       setIsAuthenticating(false)
