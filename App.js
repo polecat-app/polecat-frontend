@@ -15,6 +15,7 @@ import AccountScreen from "./screens/AccountScreen";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import * as SplashScreen from "expo-splash-screen";
 import { View } from "react-native";
+import { refreshAuthentication } from "./util/auth";
 
 // Keep the splash screen visible while we fetch resources
 SplashScreen.preventAutoHideAsync();
@@ -104,10 +105,10 @@ function Root() {
     async function fetchToken() {
       try {
         await new Promise((resolve) => setTimeout(resolve, 1000)); // Wait second on startup
-        const storedToken = await AsyncStorage.getItem("token");
         const storedRefreshToken = await AsyncStorage.getItem("refreshToken");
-        if (storedToken && storedRefreshToken) {
-          authCtx.authenticate(storedToken, storedRefreshToken);
+        const [token, refreshToken] = await refreshAuthentication(storedRefreshToken)
+        if (token && refreshToken) {
+          authCtx.authenticate(token, refreshToken);
         }
       } catch (e) {
         console.warn(e);
