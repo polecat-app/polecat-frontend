@@ -10,7 +10,7 @@ import { refreshAuthentication } from "../util/auth";
 
 function AccountScreen() {
   const authCtx = useContext(AuthContext);
-  const [email, setEmail] = useState("")
+  const [email, setEmail] = useState("");
 
   // THIS WILL HAVE TO HAPPEN ON 401 RESPONSES
   async function refresh() {
@@ -21,13 +21,13 @@ function AccountScreen() {
   }
 
   async function getEmail() {
-    const storedEmail = await AsyncStorage.getItem('email')
-    setEmail(storedEmail)
+    const storedEmail = await AsyncStorage.getItem("email");
+    setEmail(storedEmail);
   }
-  
+
   useEffect(() => {
-    getEmail()
-  }, [])
+    getEmail();
+  }, []);
 
   return (
     <View style={styles.container}>
