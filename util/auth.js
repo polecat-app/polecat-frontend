@@ -1,3 +1,4 @@
+import AsyncStorage from '@react-native-async-storage/async-storage'
 import axios from 'axios'
 import { GOOGLE_API_KEY } from 'react-native-dotenv'
 
@@ -18,7 +19,8 @@ async function authenticate(mode, email, password) {
   return [token, refreshToken]
 }
 
-async function refreshAuthentication(refreshToken) {
+async function refreshAuthentication() {
+  const refreshToken = await AsyncStorage.getItem('refreshToken')
   const url = `https://securetoken.googleapis.com/v1/token?key=${GOOGLE_API_KEY}`
   const response = await axios.post(
     url,
