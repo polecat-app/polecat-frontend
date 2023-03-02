@@ -14,9 +14,7 @@ function AccountScreen() {
 
   // THIS WILL HAVE TO HAPPEN ON 401 RESPONSES
   async function refresh() {
-    const [token, refreshToken] = await refreshAuthentication(
-      authCtx.refreshToken
-    );
+    const [token, refreshToken] = await refreshAuthentication();
     authCtx.authenticate(token, refreshToken);
   }
 

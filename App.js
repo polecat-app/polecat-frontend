@@ -105,13 +105,13 @@ function Root() {
     async function fetchToken() {
       try {
         await new Promise((resolve) => setTimeout(resolve, 1000)); // Wait second on startup
-        const storedRefreshToken = await AsyncStorage.getItem("refreshToken");
-        const [token, refreshToken] = await refreshAuthentication(storedRefreshToken)
+        const [token, refreshToken] = await refreshAuthentication();
         if (token && refreshToken) {
           authCtx.authenticate(token, refreshToken);
         }
       } catch (e) {
         console.warn(e);
+        authCtx.logout();
       } finally {
         // Tell the application to render
         setAppLoading(false);
