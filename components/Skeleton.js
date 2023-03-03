@@ -1,5 +1,6 @@
 import React, { useRef, useEffect } from 'react';
 import { Animated, View } from 'react-native';
+import { Colors } from '../styles/Colors';
 
 const Skeleton = () => {
   const opacity = useRef(new Animated.Value(0)).current;
@@ -31,7 +32,7 @@ const Skeleton = () => {
       style={{
         width: "100%",
         height: "100%",
-        backgroundColor: '#e6e6e6',
+        backgroundColor: Colors.Tertiary,
         overflow: 'hidden',
       }}
     >

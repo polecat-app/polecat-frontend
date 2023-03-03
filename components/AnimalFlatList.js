@@ -20,6 +20,7 @@ function AnimalFlatList({ filterProps, timeOutValue }) {
 
   // Update results on change filterProps, after timeout
   useEffect(() => {
+    console.log(filterProps)
     !filtersUpdating && setFiltersUpdating(true);
     const delayDebounceFn = setTimeout(() => {
       setPage(0);

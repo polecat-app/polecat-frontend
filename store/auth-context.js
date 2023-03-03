@@ -15,7 +15,6 @@ function AuthContextProvider({ children }) {
   const [intervalRef, setIntervalRef] = useState();
 
   async function refreshAuth() {
-    console.log("refreshing", authToken);
     const response = await refreshAuthentication();
     const [newToken, newRefreshToken] = response;
     authenticate(newToken, newRefreshToken);
@@ -43,7 +42,7 @@ function AuthContextProvider({ children }) {
   useEffect(() => {
     clearInterval(intervalRef);
     if (authToken) {
-      const interval = setInterval(refreshAuth, 20000);
+      const interval = setInterval(refreshAuth, 120000);
       setIntervalRef(interval);
     }
   }, [authToken]);

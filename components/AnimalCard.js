@@ -1,5 +1,6 @@
 import { CommonActions, useNavigation } from "@react-navigation/native";
 import { TouchableOpacity, View, Text, Image, StyleSheet } from "react-native";
+import { Colors } from "../styles/Colors";
 import { Offsets } from "../styles/Offsets";
 import textStyles from "../styles/TextStyles";
 import Skeleton from "./Skeleton";
@@ -118,6 +119,7 @@ const styles = StyleSheet.create({
     width: 80,
     borderRadius: 40,
     overflow: "hidden",
+    backgroundColor: Colors.Tertiary
   },
   cardContainer: {
     flexDirection: "row",

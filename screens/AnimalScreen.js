@@ -193,7 +193,7 @@ const styles = StyleSheet.create({
     height: "100%",
     justifyContent: "center",
     zIndex: 1,
-    backgroundColor: "#e6e6e6",
+    backgroundColor: Colors.Tertiary,
   },
   rangeImage: {
     width: "100%",

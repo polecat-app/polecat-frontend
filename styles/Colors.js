@@ -11,6 +11,7 @@ const Colors = {
   // Basic
   Primary: "white",
   Secondary: "whitesmoke",
+  Tertiary: "#e6e6e6",
 
   // On basic
   Inactive: "gray",

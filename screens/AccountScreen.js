@@ -12,12 +12,6 @@ function AccountScreen() {
   const authCtx = useContext(AuthContext);
   const [email, setEmail] = useState("");
 
-  // THIS WILL HAVE TO HAPPEN ON 401 RESPONSES
-  async function refresh() {
-    const [token, refreshToken] = await refreshAuthentication();
-    authCtx.authenticate(token, refreshToken);
-  }
-
   async function getEmail() {
     const storedEmail = await AsyncStorage.getItem("email");
     setEmail(storedEmail);
@@ -33,12 +27,17 @@ function AccountScreen() {
         <Text style={[styles.row, textStyles.overlayBold]}>Account</Text>
       </TopBarContainer>
       <View style={styles.content}>
-        <Text style={textStyles.basic}>{email}</Text>
+        <View style={styles.title}>
+          <Text style={textStyles.basicBold}>Email</Text>
+        </View>
+        <View style={styles.value}>
+          <Text style={textStyles.basic}>{email}</Text>
+        </View>
+        <View style={styles.title}>
+          <Text style={textStyles.basicBold}>Actions</Text>
+        </View>
         <TouchableOpacity onPress={authCtx.logout} style={styles.button}>
           <Text style={textStyles.basicAccentBold}>Logout</Text>
-        </TouchableOpacity>
-        <TouchableOpacity onPress={refresh} style={styles.button}>
-          <Text style={textStyles.basicAccentBold}>Refresh token</Text>
         </TouchableOpacity>
       </View>
     </View>
@@ -61,6 +60,16 @@ const styles = StyleSheet.create({
     width: "100%",
     alignItems: "center",
     justifyContent: "space-between",
+  },
+  title: {
+    marginHorizontal: Offsets.DefaultMargin,
+    marginTop: Offsets.DefaultMargin * 2,
+    borderBottomColor: Colors.Secondary,
+    borderBottomWidth: 2,
+  },
+  value: {
+    marginHorizontal: Offsets.DefaultMargin * 2,
+    marginTop: Offsets.DefaultMargin,
   },
   logoutButton: {
     width: "80%",
