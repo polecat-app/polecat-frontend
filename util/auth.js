@@ -1,45 +1,36 @@
-import AsyncStorage from '@react-native-async-storage/async-storage'
-import axios from 'axios'
-import { GOOGLE_API_KEY } from 'react-native-dotenv'
-
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import axios from "axios";
 
 async function authenticate(mode, email, password) {
-
-  const url = `https://identitytoolkit.googleapis.com/v1/accounts:${mode}?key=${GOOGLE_API_KEY}`
-  const response = await axios.post(
-    url,
-    {
-      email: email,
-      password: password,
-      returnSecureToken: true
-    }
-  )
-  const token = response.data.idToken
-  const refreshToken = response.data.refreshToken
-  return [token, refreshToken]
+  const url = `https://api.polecat.app/auth/${mode}`;
+  const response = await axios.post(url, {
+    email: email,
+    password: password,
+  });
+  const token = response.data.access_token;
+  const refreshToken = response.data.refresh_token;
+  return [token, refreshToken];
 }
 
 async function refreshAuthentication() {
-  const refreshToken = await AsyncStorage.getItem('refreshToken')
-  const url = `https://securetoken.googleapis.com/v1/token?key=${GOOGLE_API_KEY}`
-  const response = await axios.post(
-    url,
-    {
-      grant_type: "refresh_token",
-      refresh_token: refreshToken,
-    }
-  )
-  const token = response.data.id_token
-  const newRefreshToken = response.data.refresh_token
-  return [token, newRefreshToken]
+  const refreshToken = await AsyncStorage.getItem("refreshToken");
+  const url = `https://api.polecat.app/auth/refresh`;
+  const response = await axios.get(url, {
+    headers: {
+      Authorization: `Bearer ${refreshToken}`,
+    },
+  });
+  const token = response.data.access_token;
+  const newRefreshToken = "v1";
+  return [token, newRefreshToken];
 }
 
 async function createUser(email, password) {
-  return authenticate("signUp", email, password)
+  return authenticate("signup", email, password);
 }
 
 async function loginUser(email, password) {
-  return authenticate("signInWithPassword", email, password)
+  return authenticate("login", email, password);
 }
 
-export {createUser, loginUser, refreshAuthentication}
+export { createUser, loginUser, refreshAuthentication };
