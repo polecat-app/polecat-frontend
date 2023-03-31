@@ -21,7 +21,7 @@ async function refreshAuthentication() {
     },
   });
   const token = response.data.access_token;
-  const newRefreshToken = "v1";
+  const newRefreshToken = response.data.refresh_token;
   return [token, newRefreshToken];
 }
 
