@@ -16,11 +16,15 @@ import { Colors } from "../styles/Colors";
 import { Offsets } from "../styles/Offsets";
 import { useEffect, useRef, useState } from "react";
 import AnimalList from "../components/AnimalList";
+import { like, unLike, see, unSee } from "../util/Saving";
 
 function AnimalScreen({ navigation, route }) {
   const props = route.params;
   const offset = useRef(new Animated.Value(0)).current;
   const windowWidth = Dimensions.get("window").width;
+
+  const [liked, setLiked] = useState(false);
+  const [seen, setSeen] = useState(false);
 
   const [filterProps, setFilterProps] = useState({
     commonName: null,
@@ -40,15 +44,24 @@ function AnimalScreen({ navigation, route }) {
     });
   }, []);
 
+  function onPressLike() {
+    liked ? unLike(props.tags.key) : like(props.tags.key);
+    setLiked(!liked);
+  }
+
+  function onPressSeen() {
+    seen ? unSee(props.tags.key) : see(props.tags.key);
+    setSeen(!seen);
+  }
+
   const headerHeight = offset.interpolate({
     inputRange: [windowWidth - 120, windowWidth - 80],
     outputRange: [0, 1],
-    extrapolate: 'clamp'
+    extrapolate: "clamp",
   });
 
   return (
     <View style={{ width: "100%", height: "100%" }}>
-
       {/* Animated top bar */}
       <Animated.View
         style={{
@@ -76,14 +89,18 @@ function AnimalScreen({ navigation, route }) {
           />
         </Pressable>
         <View style={{ flexDirection: "row" }}>
-          <Pressable onPress={() => {}}>
-            <Ionicons name={"heart-outline"} size={28} style={styles.heart} />
-          </Pressable>
-          <Pressable onPress={() => {}}>
+          <Pressable onPress={onPressLike}>
             <Ionicons
-              name={"checkmark-outline"}
+              name={liked ? "heart-circle" : "heart-outline"}
               size={28}
-              style={styles.check}
+              style={liked ? styles.like : styles.unLike}
+            />
+          </Pressable>
+          <Pressable onPress={onPressSeen}>
+            <Ionicons
+              name={seen ? "checkmark-circle" : "checkmark-outline"}
+              size={28}
+              style={seen ? styles.seen : styles.unSeen}
             />
           </Pressable>
         </View>
@@ -102,12 +119,12 @@ function AnimalScreen({ navigation, route }) {
         <View style={styles.top}>
           <ImageBackground style={styles.image} source={{ uri: props.image }} />
           <View style={styles.onImage}>
-              <Text
-                style={[styles.commonName, textStyles.overlayBold]}
-                numberOfLines={3}
-              >
-                {props.commonName}
-              </Text>
+            <Text
+              style={[styles.commonName, textStyles.overlayBold]}
+              numberOfLines={3}
+            >
+              {props.commonName}
+            </Text>
           </View>
         </View>
 
@@ -208,7 +225,7 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     flex: 1,
     paddingVertical: gap / -2,
-    backgroundColor: Colors.Primary
+    backgroundColor: Colors.Primary,
   },
   descriptionItem: {
     marginTop: Offsets.DefaultMargin,
@@ -227,11 +244,19 @@ const styles = StyleSheet.create({
     marginLeft: Offsets.DefaultMargin,
     color: Colors.AccentIcon,
   },
-  heart: {
+  like: {
+    marginRight: Offsets.DefaultMargin,
+    color: Colors.AccentTertiary,
+  },
+  unLike: {
     marginRight: Offsets.DefaultMargin,
     color: Colors.AccentIcon,
   },
-  check: {
+  seen: {
+    marginRight: Offsets.DefaultMargin,
+    color: Colors.AccentSecondary,
+  },
+  unSeen: {
     marginRight: Offsets.DefaultMargin,
     color: Colors.AccentIcon,
   },
