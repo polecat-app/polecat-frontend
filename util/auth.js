@@ -1,9 +1,9 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import axios from "axios";
+import api from "./PolecatAPI";
 
 async function authenticate(mode, email, password) {
-  const url = `https://api.polecat.app/auth/${mode}`;
-  const response = await axios.post(url, {
+  const url = `/auth/${mode}`;
+  const response = await api.post(url, {
     email: email,
     password: password,
   });
@@ -14,8 +14,8 @@ async function authenticate(mode, email, password) {
 
 async function refreshAuthentication() {
   const refreshToken = await AsyncStorage.getItem("refreshToken");
-  const url = `https://api.polecat.app/auth/refresh`;
-  const response = await axios.get(url, {
+  const url = `/auth/refresh`;
+  const response = await api.get(url, {
     headers: {
       Authorization: `Bearer ${refreshToken}`,
     },
