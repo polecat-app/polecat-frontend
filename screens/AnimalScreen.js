@@ -14,14 +14,17 @@ import Tag from "../components/Tag";
 import textStyles from "../styles/TextStyles";
 import { Colors } from "../styles/Colors";
 import { Offsets } from "../styles/Offsets";
-import { useEffect, useRef, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import AnimalList from "../components/AnimalList";
 import { like, unLike, see, unSee } from "../util/Saving";
+import { AuthContext } from "../store/auth-context";
 
 function AnimalScreen({ navigation, route }) {
   const props = route.params;
   const offset = useRef(new Animated.Value(0)).current;
   const windowWidth = Dimensions.get("window").width;
+
+  const authCtx = useContext(AuthContext);
 
   const [liked, setLiked] = useState(false);
   const [seen, setSeen] = useState(false);
@@ -45,12 +48,20 @@ function AnimalScreen({ navigation, route }) {
   }, []);
 
   function onPressLike() {
-    liked ? unLike(props.tags.key) : like(props.tags.key);
+    if (liked) {
+      unLike(authCtx.token, props.id);
+    } else {
+      like(authCtx.token, props.id);
+    } 
     setLiked(!liked);
   }
 
   function onPressSeen() {
-    seen ? unSee(props.tags.key) : see(props.tags.key);
+    if (seen) {
+      unSee(authCtx.token, props.id);
+    } else {
+      see(authCtx.token, props.id);
+    } 
     setSeen(!seen);
   }
 

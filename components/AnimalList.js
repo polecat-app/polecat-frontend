@@ -49,7 +49,7 @@ function AnimalList({ filterProps, timeOutValue, listLength }) {
     </ScrollView>
   ) : (
     <ScrollView style={styles.scrollViewContainer}>
-      {data.map(item => <AnimalCard key={item.key} {...item} />)}
+      {data.map(item => <AnimalCard key={item.id} {...item} />)}
     </ScrollView>
   );
 }

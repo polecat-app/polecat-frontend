@@ -1,6 +1,6 @@
 const animals = [[
   {
-    key: 0,
+    id: 0,
     binomial: "Mustela Putorius",
     commonName: "European Polecat",
     summary: `The European polecat (Mustela putorius), also known as the common polecat, 
@@ -19,7 +19,7 @@ particularly foul-smelling liquid to mark its territory.`,
     rangeImage: "https://indiabiodiversity.org/files-api/api/get/raw/img//Buteo%20buteo/6f.png"
   },
   {
-    key: 1,
+    id: 1,
     binomial: "Alcedo atthis",
     commonName: "Common Kingfisher",
     summary: `The common kingfisher (Alcedo atthis), also known as the Eurasian kingfisher and river kingfisher, 
@@ -33,7 +33,7 @@ This sparrow-sized bird has the typical short-tailed, large-headed kingfisher pr
     rangeImage: "https://indiabiodiversity.org/files-api/api/get/raw/img//Buteo%20buteo/6f.png"
   },
   {
-    key: 2,
+    id: 2,
     binomial: "Felis catus",
     commonName: "Domestic Cat",
     summary: `The domestic cat (Felis catus) is a small carnivorous species of feline, bred and kept as a pet, 
@@ -49,7 +49,7 @@ to purr, and their tendency to form strong bonds with their owners.`,
     rangeImage: "https://indiabiodiversity.org/files-api/api/get/raw/img//Buteo%20buteo/6f.png"
   },
   {
-    key: 3,
+    id: 3,
     binomial: "Panthera tigris",
     commonName: "Tiger",
     summary: `The tiger (Panthera tigris) is the largest living cat species and a member of the genus Panthera. It is most recognisable for its dark vertical stripes on orange fur with a white underside. An apex predator, it primarily preys on ungulates, such as deer and wild boar. It is territorial and generally a solitary but social predator, requiring large contiguous areas of habitat to support its requirements for prey and rearing of its offspring. Tiger cubs stay with their mother for about two years and then become independent, leaving their mother's home range to establish their own.`,
@@ -61,7 +61,7 @@ to purr, and their tendency to form strong bonds with their owners.`,
     rangeImage: "https://indiabiodiversity.org/files-api/api/get/raw/img//Buteo%20buteo/6f.png"
   },
   {
-    key: 10,
+    id: 10,
     binomial: "Mustela Putorius",
     commonName: "European Polecat",
     summary: `The European polecat (Mustela putorius), also known as the common polecat, 
@@ -80,7 +80,7 @@ particularly foul-smelling liquid to mark its territory.`,
     rangeImage: "https://indiabiodiversity.org/files-api/api/get/raw/img//Buteo%20buteo/6f.png"
   },
   {
-    key: 11,
+    id: 11,
     binomial: "Alcedo atthis",
     commonName: "Common Kingfisher",
     summary: `The common kingfisher (Alcedo atthis), also known as the Eurasian kingfisher and river kingfisher, 
@@ -94,7 +94,7 @@ This sparrow-sized bird has the typical short-tailed, large-headed kingfisher pr
     rangeImage: "https://indiabiodiversity.org/files-api/api/get/raw/img//Buteo%20buteo/6f.png"
   },
   {
-    key: 12,
+    id: 12,
     binomial: "Felis catus",
     commonName: "Domestic Cat",
     summary: `The domestic cat (Felis catus) is a small carnivorous species of feline, bred and kept as a pet, 
@@ -110,7 +110,7 @@ to purr, and their tendency to form strong bonds with their owners.`,
     rangeImage: "https://indiabiodiversity.org/files-api/api/get/raw/img//Buteo%20buteo/6f.png"
   },
   {
-    key: 13,
+    id: 13,
     binomial: "Panthera tigris",
     commonName: "Tiger",
     summary: `The tiger (Panthera tigris) is the largest living cat species and a member of the genus Panthera. It is most recognisable for its dark vertical stripes on orange fur with a white underside. An apex predator, it primarily preys on ungulates, such as deer and wild boar. It is territorial and generally a solitary but social predator, requiring large contiguous areas of habitat to support its requirements for prey and rearing of its offspring. Tiger cubs stay with their mother for about two years and then become independent, leaving their mother's home range to establish their own.`,
@@ -122,7 +122,7 @@ to purr, and their tendency to form strong bonds with their owners.`,
     rangeImage: "https://indiabiodiversity.org/files-api/api/get/raw/img//Buteo%20buteo/6f.png"
   },],[
   {
-    key: 4,
+    id: 4,
     binomial: "Lepus europaeus",
     commonName: "European Hare",
     summary: `The European hare.`,
@@ -134,7 +134,7 @@ to purr, and their tendency to form strong bonds with their owners.`,
     rangeImage: "https://indiabiodiversity.org/files-api/api/get/raw/img//Buteo%20buteo/6f.png"
   },
   {
-    key: 5,
+    id: 5,
     binomial: "Ailurus fulgens",
     commonName: "Red Panda",
     summary: `The red panda is a mammal native to the eastern Himalayas and southwestern China. It is listed as Endangered on the IUCN Red List because the wild population is estimated at fewer than 10,000 mature individuals.`,
@@ -146,7 +146,7 @@ to purr, and their tendency to form strong bonds with their owners.`,
     rangeImage: "https://indiabiodiversity.org/files-api/api/get/raw/img//Buteo%20buteo/6f.png"
   },
   {
-    key: 6,
+    id: 6,
     binomial: "Cygnus olor",
     commonName: "Mute Swan",
     summary: `The mute swan is a species of swan and a member of the waterfowl family Anatidae. It is native to much of Eurasia, and it has been introduced to North America, Australia, and New Zealand.`,
@@ -158,7 +158,7 @@ to purr, and their tendency to form strong bonds with their owners.`,
     rangeImage: "https://indiabiodiversity.org/files-api/api/get/raw/img//Buteo%20buteo/6f.png"
   },
   {
-    key: 7,
+    id: 7,
     binomial: "Panthera onca",
     commonName: "Jaguar",
     summary: `The jaguar is a large felid species and the only extant member of the genus Panthera native to the Americas. The jaguar's present range extends from the Southwestern United States and Mexico in North America, across much of Central America, and south to Paraguay and northern Argentina in South America.`,
@@ -170,7 +170,7 @@ to purr, and their tendency to form strong bonds with their owners.`,
     rangeImage: "https://indiabiodiversity.org/files-api/api/get/raw/img//Buteo%20buteo/6f.png"
   },
   {
-    key: 14,
+    id: 14,
     binomial: "Lepus europaeus",
     commonName: "European Hare",
     summary: `The European hare.`,
@@ -182,7 +182,7 @@ to purr, and their tendency to form strong bonds with their owners.`,
     rangeImage: "https://indiabiodiversity.org/files-api/api/get/raw/img//Buteo%20buteo/6f.png"
   },
   {
-    key: 15,
+    id: 15,
     binomial: "Ailurus fulgens",
     commonName: "Red Panda",
     summary: `The red panda is a mammal native to the eastern Himalayas and southwestern China. It is listed as Endangered on the IUCN Red List because the wild population is estimated at fewer than 10,000 mature individuals.`,
@@ -194,7 +194,7 @@ to purr, and their tendency to form strong bonds with their owners.`,
     rangeImage: "https://indiabiodiversity.org/files-api/api/get/raw/img//Buteo%20buteo/6f.png"
   },
   {
-    key: 16,
+    id: 16,
     binomial: "Cygnus olor",
     commonName: "Mute Swan",
     summary: `The mute swan is a species of swan and a member of the waterfowl family Anatidae. It is native to much of Eurasia, and it has been introduced to North America, Australia, and New Zealand.`,
@@ -206,7 +206,7 @@ to purr, and their tendency to form strong bonds with their owners.`,
     rangeImage: "https://indiabiodiversity.org/files-api/api/get/raw/img//Buteo%20buteo/6f.png"
   },
   {
-    key: 17,
+    id: 17,
     binomial: "Panthera onca",
     commonName: "Jaguar",
     summary: `The jaguar is a large felid species and the only extant member of the genus Panthera native to the Americas. The jaguar's present range extends from the Southwestern United States and Mexico in North America, across much of Central America, and south to Paraguay and northern Argentina in South America.`,
@@ -218,7 +218,7 @@ to purr, and their tendency to form strong bonds with their owners.`,
     rangeImage: "https://indiabiodiversity.org/files-api/api/get/raw/img//Buteo%20buteo/6f.png"
   },],[
   {
-    key: 8,
+    id: 8,
     binomial: "Phascolarctos cinereus",
     commonName: "Koala",
     summary: `The koala is an arboreal herbivorous marsupial native to Australia. It is the only extant representative of the family Phascolarctidae and its closest living relatives are the wombats.`,

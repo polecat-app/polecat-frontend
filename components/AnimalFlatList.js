@@ -83,9 +83,9 @@ function AnimalFlatList({ filterProps, timeOutValue }) {
   ) : (
     <FlatList
       data={data}
-      keyExtractor={(item) => item.key.toString()}
+      keyExtractor={(item) => item.id.toString()}
       contentContainerStyle={styles.scrollViewContainer}
-      renderItem={({ item }) => <AnimalCard key={item.key} {...item} />}
+      renderItem={({ item }) => <AnimalCard key={item.id} {...item} />}
       refreshControl={
         <RefreshControl refreshing={isRefreshing} onRefresh={onRefresh} />
       }

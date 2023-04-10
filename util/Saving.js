@@ -1,23 +1,52 @@
 import api from "./PolecatAPI";
 
-async function like(animalID) {
-  const url = `/save/${animalID}`;
-  const response = await api.post(url);
+async function like(token, animalID) {
+  const url = '/save/';
+  const response = await api.post(url, {
+    animal_id: animalID,
+    method: "like",
+  }, 
+  {headers: {
+    Authorization: `Bearer ${token}`,
+  }}
+  );
 }
 
-async function unLike(animalID) {
-  const url = `/save/${animalID}`;
-  const response = await api.delete(url);
+async function see(token, animalID) {
+  const url = '/save/';
+  const response = await api.post(url, {
+    animal_id: animalID,
+    method: "see",
+  }, 
+  {headers: {
+    Authorization: `Bearer ${token}`
+  }}
+  );
 }
 
-async function see(animalID) {
-  const url = `/seen/${animalID}`;
-  const response = await api.post(url);
+async function unLike(token, animalID) {
+  const url = '/save/';
+  const response = await api.delete(url, { data:{
+    animal_id: animalID,
+    method: "like",
+  },
+  headers: {
+    Authorization: `Bearer ${token}`
+  }
+});
 }
 
-async function unSee(animalID) {
-  const url = `/seen/${animalID}`;
-  const response = await api.delete(url);
+async function unSee(token, animalID) {
+  const url = '/save/';
+  const response = await api.delete(url, { data:{
+    animal_id: animalID,
+    method: "see",
+  },
+  headers: {
+    Authorization: `Bearer ${token}`
+  }
+});
 }
+
 
 export { like, unLike, see, unSee };
