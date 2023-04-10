@@ -18,22 +18,28 @@ const OccuranceTags = {
   endangered: ["lightcoral", "exclamation-thick"],
 };
 
-const Tags = { ...SpeciesTags, ...OccuranceTags };
+const SavedTags = {
+  liked: [Colors.AccentTertiary, "heart"],
+  seen: [Colors.AccentSecondary, "check"],
+};
 
-function Tag({tag, onlyIcon=false}) {
+const Tags = { ...SpeciesTags, ...OccuranceTags, ...SavedTags };
+
+function Tag({ tag, onlyIcon = false }) {
   const [color, icon] = Tags[tag];
 
   return (
     <View style={[styles.container, { backgroundColor: color }]}>
-      {!onlyIcon &&
-      <Text
-        style={[
-          textStyles.basicAccentBold,
-          { marginHorizontal: 7, marginVertical: 2 },
-        ]}
-      >
-        {tag}
-      </Text>}
+      {!onlyIcon && (
+        <Text
+          style={[
+            textStyles.basicAccentBold,
+            { marginHorizontal: 7, marginVertical: 2 },
+          ]}
+        >
+          {tag}
+        </Text>
+      )}
       <MaterialCommunityIcons
         name={icon}
         size={12}

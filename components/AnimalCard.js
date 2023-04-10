@@ -13,9 +13,9 @@ function AnimalCard(props) {
     <TouchableOpacity
       style={styles.cardContainer}
       onPress={() => {
-        navigation.dispatch(state => {
+        navigation.dispatch((state) => {
           const topScreen = state.routes[0];
-          const animalScreen = {name: "Animal", params: props};
+          const animalScreen = { name: "Animal", params: props };
           const routes = [topScreen, animalScreen];
           return CommonActions.reset({
             ...state,
@@ -42,7 +42,11 @@ function AnimalCard(props) {
             flexWrap: "wrap",
           }}
         >
-          {props.tags?.map((item, index) => {
+          {[
+            ...(props.liked ? ["liked"] : []),
+            ...(props.seen ? ["seen"] : []),
+            ...props.tags,
+          ]?.map((item, index) => {
             return (
               <View key={item}>
                 <Tag tag={item} onlyIcon={true}></Tag>
@@ -119,7 +123,7 @@ const styles = StyleSheet.create({
     width: 80,
     borderRadius: 40,
     overflow: "hidden",
-    backgroundColor: Colors.Tertiary
+    backgroundColor: Colors.Tertiary,
   },
   cardContainer: {
     flexDirection: "row",
