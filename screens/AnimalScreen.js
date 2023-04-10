@@ -26,8 +26,8 @@ function AnimalScreen({ navigation, route }) {
 
   const authCtx = useContext(AuthContext);
 
-  const [liked, setLiked] = useState(false);
-  const [seen, setSeen] = useState(false);
+  const [liked, setLiked] = useState(props.liked);
+  const [seen, setSeen] = useState(props.seen);
 
   const [filterProps, setFilterProps] = useState({
     commonName: null,
@@ -40,7 +40,7 @@ function AnimalScreen({ navigation, route }) {
   useEffect(() => {
     setFilterProps({
       commonName: null,
-      tags: [props.tags[0]],
+      tags: [props.tags[0]], // Set filterprops to find similar animals
       liked: null,
       seen: null,
       location: null,

@@ -28,8 +28,8 @@ This sparrow-sized bird has the typical short-tailed, large-headed kingfisher pr
     image:
       "https://upload.wikimedia.org/wikipedia/commons/9/92/%E2%99%82_Common_Kingfisher_%28Alcedo_atthis%29_Photograph_By_Shantanu_Kuveskar%2C_Mangaon%2C_Maharashtra%2C_India.jpg",
     tags: ["bird", "rare"],
-    liked: true,
-    seen: true,
+    liked: false,
+    seen: false,
     rangeImage: "https://indiabiodiversity.org/files-api/api/get/raw/img//Buteo%20buteo/6f.png"
   },
   {
